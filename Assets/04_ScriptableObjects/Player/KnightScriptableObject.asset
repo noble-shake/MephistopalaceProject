@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d506a06a57729479f6628c44f693de, type: 3}
+  m_Name: KnightScriptableObject
+  m_EditorClassIdentifier: 
+  Name: Knight
+  Description: "\uBCBD\uB3C4 \uBD80\uC220\uB9CC\uD55C \uAC15\uD55C \uD798\uC744 \uAC00\uC84C\uC9C0\uB9CC,
+    \uB358\uC804\uC5D0 \uAC07\uD614\uB2E4."
+  Portrait: {fileID: 21300000, guid: c20b889acda661449a5c49cef052ddc4, type: 3}
+  CharacterPrefab: {fileID: 7979453247902764093, guid: fda63ca9d57569749b1516d8916d1b24, type: 3}
+  CharacterDescription: {fileID: 0}
+  HP: 125
+  AP: 0
+  ATK: 5
+  SPD: 0
+  DEF: 0
+  CRT: 0
+  CharacterAbility: {fileID: 0}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d506a06a57729479f6628c44f693de, type: 3}
+  m_Name: MagicianScritableObject
+  m_EditorClassIdentifier: 
+  Name: Magician
+  Description: "\uBA40\uB9AC \uC788\uB294 \uC7A5\uCE58\uAE4C\uC9C0 \uAC74\uB4DC\uB9B4
+    \uC218 \uC788\uB294 \uB9C8\uBC95\uC0AC. \uD154\uB808\uD3EC\uD2B8\uB97C \uC4F0\uBA74
+    \uD0C8\uCD9C\uD560 \uC218 \uC788\uC9C0 \uC54A\uC558\uC744\uAE4C?"
+  Portrait: {fileID: 0}
+  CharacterPrefab: {fileID: 0}
