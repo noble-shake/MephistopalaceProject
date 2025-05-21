@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: EnemyPrefabGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: EnemyPrefabGroup
+  m_GUID: 885c685f3085af142ad3ae61caa08c50
+  m_SerializeEntries:
+  - m_GUID: fdfbb67e008d702449af6e0392543ac0
+    m_Address: Assets/01_Prefab/Enemies/Fire_Gazer_A.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Enemy
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7278f8ef662e3ff439d151db5e31ee71, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 5377d9562d5c9e4489695f8243c85e6b, type: 2}
+    - {fileID: 11400000, guid: 3127941aefe22f243819cd78bd4ba74d, type: 2}

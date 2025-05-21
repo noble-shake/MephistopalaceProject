@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: WeaponPrefabGroup
+  m_EditorClassIdentifier: 
+  m_GroupName: WeaponPrefabGroup
+  m_GUID: d8195bd7561d2544686f91682f61a5d3
+  m_SerializeEntries:
+  - m_GUID: 3ccb045cc395be44f82f621a95d8dba1
+    m_Address: Assets/01_Prefab/Playable/Weapon/PlayerSword.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Weapon
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 7278f8ef662e3ff439d151db5e31ee71, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f9252c39eb4e41b4296bb7a296687728, type: 2}
+    - {fileID: 11400000, guid: bee62a44b7ce66042b99e4b0b9de0c47, type: 2}
