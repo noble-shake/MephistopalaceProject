@@ -6,10 +6,11 @@ public class PlayerPhase : BattlePhase
 {
 
     [SerializeField] public bool isTurn;
-    [SerializeField] private PlayerManager playerManager;
+    [SerializeField] public PlayerManager playerManager;
     [SerializeField] private KriptoFX_Teleportation teleportation;
     [SerializeField] private BattleCommand AllocatedPanel;
 
+    [HideInInspector] public int CurrentTargetIndex;
     private void Start()
     {
         playerManager = GetComponent<PlayerManager>();
@@ -101,19 +102,39 @@ public class PlayerPhase : BattlePhase
                 CommandUpdate();
                 break;
             case PhaseType.Activate:
+                ActivateUpdate();
                 break;
             case PhaseType.Execute:
                 break;
             case PhaseType.Done:
                 break;
             case PhaseType.Wait:
+
                 break;
+            case PhaseType.Targetting:
+                ParryDurationUpdate();
+                ParryActionUpdate();
+                break;
+        }
+    }
+
+    public void ActivatedOff()
+    {
+        foreach (Transform t in BattleSystemManager.Instance.AllocatedPoints)
+        {
+            if (t.GetComponent<AllocatedTransform>().circleObject.gameObject.activeSelf)
+            {
+                t.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+            }
         }
     }
 
     // this phase transition is executed in Engage Stage.
     public override void PhaseCommand()
     {
+        ActivatedOff();
+
+        CurrentTargetIndex = 0;
         // Display Pannel
         if (AllocatedPanel != null && AllocatedPanel != AllocatedPoint.GetComponentInChildren<CommandMainPanel>()) AllocatedPanel.Display(false);
         CurrentPhase = PhaseType.Command;
@@ -127,6 +148,7 @@ public class PlayerPhase : BattlePhase
 
     public override void AttackCommand()
     {
+        CurrentTargetIndex = 0;
         // Display Pannel
         if (AllocatedPanel != null && AllocatedPanel != AllocatedPoint.GetComponentInChildren<AttackCommand>()) AllocatedPanel.Display(false);
         CurrentPhase = PhaseType.Attack;
@@ -145,6 +167,7 @@ public class PlayerPhase : BattlePhase
 
     public override void SupportCommand()
     {
+        CurrentTargetIndex = 0;
         // Display Pannel
         if (AllocatedPanel != null && AllocatedPanel != AllocatedPoint.GetComponentInChildren<SupportCommand>()) AllocatedPanel.Display(false);
         CurrentPhase = PhaseType.Support;
@@ -215,12 +238,19 @@ public class PlayerPhase : BattlePhase
             curDelay = 0.3f;
             BackInput = false;
             AllocatedPanel.CommandBack();
+            ActivatedOff();
         }
 
     }
 
     private void ActivateUpdate()
     {
+        if (BattleSystemManager.Instance.TempActivateTargets == null)
+        {
+            Debug.Log("Activate is null");
+            return;
+        }
+
         curDelay -= Time.deltaTime;
         if (curDelay < 0f) curDelay = 0f;
         if (curDelay > 0f) return;
@@ -228,26 +258,59 @@ public class PlayerPhase : BattlePhase
         bool ExecuteInput = InputManager.Instance.AttackInput;
         bool BackInput = InputManager.Instance.CrouchInput;
 
-        if (MoveInput.x != 0)
+        if (BattleSystemManager.Instance.TempActivateTargets.Count != 1 && playerManager.battler.CurrentActivateTarget == ActivateTarget.TargettingEnemy || playerManager.battler.CurrentActivateTarget == ActivateTarget.TargettingAlly)
         {
-            curDelay = 0.3f;
-            if (MoveInput.x < 0)
+            if (MoveInput.x != 0)
             {
-                // AllocatedPanel.PreviousPage();
-            }
-            else
-            {
-                // AllocatedPanel.NextPage();
+                curDelay = 0.3f;
+                ActivatedOff();
+
+
+                if (MoveInput.x < 0)
+                {
+                    // playerManager.battler.CurrentTargets
+                    CurrentTargetIndex--;
+                    if (CurrentTargetIndex < 0)
+                    {
+                        CurrentTargetIndex = BattleSystemManager.Instance.TempActivateTargets.Count - 1;
+                    }
+                    BattleSystemManager.Instance.TempActivateTargets[CurrentTargetIndex].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+                    transform.rotation = Quaternion.Euler(BattleSystemManager.Instance.TempActivateTargets[CurrentTargetIndex].transform.position - transform.position);
+                }
+                else
+                {
+                    CurrentTargetIndex++;
+                    if (CurrentTargetIndex > BattleSystemManager.Instance.TempActivateTargets.Count - 1)
+                    {
+                        CurrentTargetIndex = 0;
+                    }
+                    BattleSystemManager.Instance.TempActivateTargets[CurrentTargetIndex].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+                    transform.rotation = Quaternion.Euler(BattleSystemManager.Instance.TempActivateTargets[CurrentTargetIndex].transform.position - transform.position);
+                }
             }
         }
+
 
         if (ExecuteInput)
         {
             curDelay = 0.3f;
             ExecuteInput = false;
-            // AllocatedPanel.CommandExecute();
-
+            ActivatedOff();
             // skill execute and Player will move.
+            if (playerManager.battler.CurrentActivateTarget == ActivateTarget.TargettingEnemy || playerManager.battler.CurrentActivateTarget == ActivateTarget.TargettingAlly)
+            {
+                playerManager.battler.CurrentTargets = BattleSystemManager.Instance.TempActivateTargets.GetRange(CurrentTargetIndex, 1);
+                playerManager.battler.CurrentTargetSkill.Execute();
+                CurrentPhase = PhaseType.Execute;
+
+            }
+            else
+            {
+                playerManager.battler.CurrentTargets = BattleSystemManager.Instance.TempActivateTargets;
+                playerManager.battler.CurrentTargetSkill.Execute();
+                CurrentPhase = PhaseType.Execute;
+            }
+
         }
 
         if (BackInput)
@@ -260,6 +323,97 @@ public class PlayerPhase : BattlePhase
             // AllocatedPanel.CommandBack();
 
             // back.. skill execute and Player will move.
+            ActivatedOff();
         }
     }
+
+    public override void OnQTEDone()
+    {
+        playerManager.animator.animator.SetTrigger("QTETrigger");
+    }
+
+    [SerializeField] private float ParryCooltime;
+    [SerializeField] private float EvadeCooltime;
+    [SerializeField] private float CurrentCooltime;
+    [SerializeField] public bool isParrying;
+    [SerializeField] public bool isEvading;
+    [SerializeField] private float QTEduration;
+    public void ParryDurationUpdate()
+    {
+        if (!isParrying && !isEvading) return;
+
+        QTEduration -= Time.deltaTime;
+        if (QTEduration < 0f)
+        {
+            QTEduration = 0f;
+            isParrying = false;
+            isEvading = false;
+        } 
+
+    }
+
+
+    public void ParryActionUpdate()
+    {
+        bool ExecuteInput = InputManager.Instance.AttackInput;
+        bool BackInput = InputManager.Instance.CrouchInput;
+
+        CurrentCooltime -= Time.deltaTime;
+        if (CurrentCooltime < 0f)
+        {
+            CurrentCooltime = 0f;
+        }
+
+        if (CurrentCooltime > 0f) return;
+
+        if (ExecuteInput)
+        {
+            ExecuteInput = false;
+            CurrentCooltime = ParryCooltime;
+            isParrying = true;
+            playerManager.animator.animator.Play("BattleParry");
+            QTEduration = 0.6f;
+        }
+
+        if (BackInput)
+        {
+            BackInput = false;
+            CurrentCooltime = EvadeCooltime;
+            isEvading = true;
+            playerManager.animator.animator.Play("BattleEvade");
+            QTEduration = 0.6f;
+        }
+
+    }
+
+    public void ParrySuccess(bool isOn)
+    {
+        Debug.Log("PARRY SUCCESS !!");
+        if (isOn)
+        {
+            playerManager.animator.animator.Play("BattleParrySuccess");
+            CurrentCooltime = 0.002f;
+            GameManager.Instance.GamePause();
+        }
+        else
+        {
+            CurrentCooltime = ParryCooltime;
+        }
+    }
+
+    public void EvadeSuccess(bool isOn)
+    {
+        Debug.Log("PARRY SUCCESS !!");
+        if (isOn)
+        {
+            playerManager.status.GainAP(1);
+            CurrentCooltime = 0.002f;
+            GameManager.Instance.GamePause();
+        }
+        else
+        {
+            CurrentCooltime = EvadeCooltime;
+        }
+    }
+
 }

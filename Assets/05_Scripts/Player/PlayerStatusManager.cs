@@ -4,11 +4,11 @@ using UnityEngine;
 public class PlayerStatusManager : CharacterStatusManger
 {
     private PlayerManager playerManager;
+    public PlayerStatUI playerStatUI;
 
 
     [SerializeField] public int EXP;
     [SerializeField] public int RequireEXP;
-    [SerializeField] public bool isDead;
 
     [Space]
     [Header("Equipments")]
@@ -20,6 +20,23 @@ public class PlayerStatusManager : CharacterStatusManger
         playerManager = GetComponent<PlayerManager>();
         Equips = new Dictionary<ItemType, ItemScriptableObject>();
         AdjustInGameStat();
+
+        if(playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
+        RequireEXP = 30;
+    }
+
+    public override void HPChange(int _value)
+    {
+        HP += _value;
+
+        if (HP >= MaxHP) HP = aMaxHP;
+        if (HP <= 0)
+        {
+            HP = 0;
+            Debug.Log("Dead");
+        }
+
+        if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
     }
 
 
@@ -28,8 +45,11 @@ public class PlayerStatusManager : CharacterStatusManger
     {
         EXP += _value;
         if (EXP > RequireEXP)
-        { 
+        {
             // LevelUp
+            EXP = EXP + _value - RequireEXP;
+            Level++;
+            playerStatUI.SetLevel(Level + 1);
         }
     }
 
@@ -77,6 +97,8 @@ public class PlayerStatusManager : CharacterStatusManger
             aDefenceWeight += sc.DEF;
             aCriticalWeight += sc.CRT;
         }
+
+        if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
     }
 
     public void GrowUp()
@@ -92,5 +114,20 @@ public class PlayerStatusManager : CharacterStatusManger
         RequireEXP += (int)(RequireEXP * 0.1f);
         AdjustInGameStat();
 
+    }
+
+    public override bool UseAP(int _value)
+    {
+        if (AP < _value) return false;
+        AP -= _value;
+        playerStatUI.SetAPValue(AP);
+        return true;
+    }
+
+    public override void GainAP(int _value)
+    {
+        AP += _value;
+        if (AP >= MaxAP) AP = MaxAP;
+        playerStatUI.SetAPValue(AP);
     }
 }

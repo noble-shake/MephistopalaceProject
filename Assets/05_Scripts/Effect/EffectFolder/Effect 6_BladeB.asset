@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee104113f7f907843bd41db0f35125ec, type: 3}
+  m_Name: Effect 6_BladeB
+  m_EditorClassIdentifier: 
+  vfxType: 0
+  Name: 5
+  LifeTime: 0
+  VFXPrefab: {fileID: 3054901163473534677, guid: 2896d3662d923f546bc6a803fae0eebd, type: 3}

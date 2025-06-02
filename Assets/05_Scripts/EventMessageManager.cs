@@ -89,6 +89,8 @@ public class EventMessageManager : MonoBehaviour
     IEnumerator delayBattleQueue(EventContainer data)
     {
         yield return new WaitForSeconds(1f);
+        battleMessageUI.message.text = data.Context;
+        battleMessageUI.Appear();
     }
 
     public void CharacterMessageEvent()

@@ -16,5 +16,14 @@ MonoBehaviour:
   Description: "\uBA40\uB9AC \uC788\uB294 \uC7A5\uCE58\uAE4C\uC9C0 \uAC74\uB4DC\uB9B4
     \uC218 \uC788\uB294 \uB9C8\uBC95\uC0AC. \uD154\uB808\uD3EC\uD2B8\uB97C \uC4F0\uBA74
     \uD0C8\uCD9C\uD560 \uC218 \uC788\uC9C0 \uC54A\uC558\uC744\uAE4C?"
-  Portrait: {fileID: 0}
+  Portrait: {fileID: 21300000, guid: 83599183ab4f6084889d377ea45fbded, type: 3}
   CharacterPrefab: {fileID: 0}
+  CharacterDescription: {fileID: 0}
+  HP: 0
+  AP: 0
+  MinATK: 0
+  MaxATK: 0
+  SPD: 0
+  DEF: 0
+  CRT: 0
+  CharacterAbility: {fileID: 0}

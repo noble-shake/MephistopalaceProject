@@ -22,7 +22,7 @@ public class ItemScriptableObject : ScriptableObject
     [SerializeField] public bool isUnique;
     [SerializeField] public bool isEquip;
     [SerializeField] public bool isConsume;
-    [SerializeField] public string Name;
+    [SerializeField] public ItemNames Name;
     [SerializeField] public string Description;
     [SerializeField] public ItemType itemType;
     [SerializeField] public Sprite itemImage;

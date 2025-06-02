@@ -36,6 +36,11 @@ public class GameManager : MonoBehaviour
         StartCoroutine(TimeFlow(_time));
     }
 
+    public void GamePause(float _time = 1f)
+    {
+        StartCoroutine(TimePause(_time));
+    }
+
     IEnumerator TimeStop(float _time = 0f)
     {
         isGamePause = true;
@@ -67,5 +72,22 @@ public class GameManager : MonoBehaviour
 
         Time.timeScale = 1f;
         isGamePause = false;
+    }
+
+    IEnumerator TimePause(float _time = 0.5f)
+    {
+        Time.timeScale = 0f;
+        float curTime = 0f;
+        float scale;
+        while (curTime <= 1f)
+        {
+            curTime += Time.unscaledDeltaTime / _time;
+            scale = curTime;
+            if (scale >= 1f) scale = 1f;
+            Time.timeScale = scale;
+            yield return null;
+        }
+
+        Time.timeScale = 1f;
     }
 }

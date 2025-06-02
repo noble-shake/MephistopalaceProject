@@ -4,6 +4,8 @@ public class CharacterStatusManger : MonoBehaviour
 {
     [Header("Ingame Status")]
     [SerializeField] public int HP;
+    [SerializeField] public int AP;
+    [SerializeField] public int Level;
     [SerializeField] public int aMaxHP;
     [SerializeField] public int aMinATK;
     [SerializeField] public int aMaxATK;
@@ -15,8 +17,6 @@ public class CharacterStatusManger : MonoBehaviour
     [SerializeField] public bool isDead;
 
     [Header("Origin Status")]
-    [SerializeField] public int Level { get; private set; }
-    [SerializeField, Range(0, 6)] public int AP { get; private set; }
     [SerializeField] public int MaxAP { get; private set; }
     [SerializeField] public int MaxHP { get; private set; }
     [SerializeField] public int MinATK { get; private set; }
@@ -35,7 +35,7 @@ public class CharacterStatusManger : MonoBehaviour
 
     public List<SkillScriptableObject> OwnSkillSet;
 
-    public void HPChange(int _value)
+    public virtual void HPChange(int _value)
     {
         HP += _value;
 
@@ -46,14 +46,14 @@ public class CharacterStatusManger : MonoBehaviour
             Debug.Log("Dead");
         }
     }
-    public bool UseAP(int _value)
+    public virtual bool UseAP(int _value)
     {
         if (AP < _value) return false;
         AP -= _value;
         return true;
     }
 
-    public void GainAP(int _value)
+    public virtual void GainAP(int _value)
     {
         AP += _value;
         if (AP >= MaxAP) AP = MaxAP;
@@ -62,6 +62,7 @@ public class CharacterStatusManger : MonoBehaviour
     public void StatInitialize(StatContainer _data)
     { 
         MaxHP = _data.HP;
+        MaxAP = 6;
         HP = _data.HP;
 
         AP = _data.AP;

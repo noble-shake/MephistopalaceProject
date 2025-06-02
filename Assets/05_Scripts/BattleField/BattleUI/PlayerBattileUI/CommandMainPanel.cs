@@ -13,6 +13,11 @@ public class CommandMainPanel: BattleCommand
 
     public override void SetCommand(PlayerManager player, List<SkillScriptableObject> Skills)
     {
+        foreach (CommandFrame frame in DisplayedList)
+        {
+            frame.OnHighlight(false);
+        }
+
         CurrentCommand = DisplayedList[0];
         playerManager = player;
         TotalSkills = 3;
@@ -50,7 +55,7 @@ public class CommandMainPanel: BattleCommand
                 CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
                 CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
                 CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
-
+                Display(false);
 
                 break;
         }

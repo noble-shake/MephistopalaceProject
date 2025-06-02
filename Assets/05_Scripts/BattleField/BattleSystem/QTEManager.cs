@@ -26,6 +26,16 @@ public class QTEManager : MonoBehaviour
         QueQTE = new Queue<BattleQTE>();
     }
 
+    public int GetSuccessCount()
+    { 
+        return SuccessCount;
+    }
+
+    public int GetQTECount()
+    {
+        return QTECount;
+    }
+
     public void SpawnQTE(int numb = 1)
     {
         for (int idx = 0; idx < numb; idx++)
@@ -114,11 +124,12 @@ public class QTEManager : MonoBehaviour
         }
     }
 
-    public float Clear()
+    public KeyValuePair<int, int> Clear()
     {
         JudgeDelegate = null;
         PlayerAttacking = false;
-        float result = (float)SuccessCount / (float)QTECount;
+        KeyValuePair<int, int> result = new(SuccessCount, QTECount);
+
         SuccessCount = 0;
         QTECount = 0;
         return result;

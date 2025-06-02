@@ -18,9 +18,10 @@ MonoBehaviour:
   Portrait: {fileID: 21300000, guid: c20b889acda661449a5c49cef052ddc4, type: 3}
   CharacterPrefab: {fileID: 7979453247902764093, guid: fda63ca9d57569749b1516d8916d1b24, type: 3}
   CharacterDescription: {fileID: 0}
-  HP: 125
+  HP: 60
   AP: 0
-  ATK: 5
+  MinATK: 5
+  MaxATK: 7
   SPD: 0
   DEF: 0
   CRT: 0

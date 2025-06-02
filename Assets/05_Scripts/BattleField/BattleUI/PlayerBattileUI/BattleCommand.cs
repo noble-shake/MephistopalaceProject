@@ -24,6 +24,11 @@ public class BattleCommand : MonoBehaviour
 
     public virtual void SetCommand(PlayerManager player, List<SkillScriptableObject> Skills)
     {
+        foreach (CommandFrame frame in DisplayedList)
+        {
+            frame.OnHighlight(false);
+        }
+
         CurrentCommand = DisplayedList[0];
         playerManager = player;
         TotalSkills = OwnScritableObject.Count;
@@ -38,14 +43,25 @@ public class BattleCommand : MonoBehaviour
         }
         else
         {
-            TotalIndex = TotalSkills - 1;
-            TotalPage = 1;
-            AllocatedScritableObject = OwnScritableObject.GetRange(0, TotalSkills);
+            if (TotalSkills != 0)
+            {
+                TotalIndex = TotalSkills - 1;
+                TotalPage = 1;
+                AllocatedScritableObject = OwnScritableObject.GetRange(0, TotalSkills);
+            }
+            else
+            {
+                TotalIndex = 0;
+                TotalPage = 1;
+            }
+
         }
     }
 
     public void Next()
     {
+        if (TotalIndex == 0) return;
+
         CurrentCommand.OnHighlight(false);
         CurrentIndex++;
         if (CurrentIndex > TotalIndex) CurrentIndex = 0;
@@ -55,6 +71,8 @@ public class BattleCommand : MonoBehaviour
 
     public void Previous()
     {
+        if (TotalIndex == 0) return;
+
         CurrentCommand.OnHighlight(false);
         CurrentIndex--;
         if (CurrentIndex < 0) CurrentIndex = TotalIndex;
@@ -74,6 +92,21 @@ public class BattleCommand : MonoBehaviour
         else
         {
             AllocatedScritableObject = OwnScritableObject.GetRange(CurrentPage * 3, TotalSkills % 3);
+
+            int count = 0;
+            for (int idx = 0; idx < AllocatedScritableObject.Count; idx++)
+            {
+                DisplayedList[idx].Name = AllocatedScritableObject[idx].Name;
+                DisplayedList[idx].Description = AllocatedScritableObject[idx].Description;
+                count++;
+            }
+
+            for (int idx = count; idx < 3; idx++)
+            {
+                DisplayedList[idx].Name = "";
+                DisplayedList[idx].Description = "";
+            }
+
         }
 
     }
@@ -90,6 +123,21 @@ public class BattleCommand : MonoBehaviour
         else
         {
             AllocatedScritableObject = OwnScritableObject.GetRange(CurrentPage * 3, TotalSkills % 3);
+
+            int count = 0;
+            for (int idx = 0; idx < AllocatedScritableObject.Count; idx++)
+            {
+                DisplayedList[idx].Name = AllocatedScritableObject[idx].Name;
+                DisplayedList[idx].Description = AllocatedScritableObject[idx].Description;
+                count++;
+            }
+
+            for (int idx = count; idx < 3; idx++)
+            {
+                DisplayedList[idx].Name = "";
+                DisplayedList[idx].Description = "";
+            }
+
         }
     }
 

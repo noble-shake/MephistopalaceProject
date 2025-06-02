@@ -17,7 +17,7 @@ public class BattleQTE : MonoBehaviour
     {
         if (!currentAction) return;
 
-        curTime += Time.deltaTime;
+        curTime += Time.deltaTime * 1.5f;
         if (curTime > 1f)
         {
             curTime = 1f;
@@ -25,7 +25,7 @@ public class BattleQTE : MonoBehaviour
         } 
 
         //Indicator
-        Indicator.Rotate(new Vector3(0f, 0f, -360f * Time.deltaTime));
+        Indicator.Rotate(new Vector3(0f, 0f, -360f * Time.deltaTime * 1.5f));
     }
 
     public bool Judge()

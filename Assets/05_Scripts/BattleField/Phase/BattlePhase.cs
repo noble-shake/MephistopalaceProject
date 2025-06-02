@@ -1,6 +1,6 @@
 using UnityEngine;
 [System.Serializable]
-public enum PhaseType { Engage, Command, Attack, Support, Activate, Execute, Wait, Done }
+public enum PhaseType { Engage, Command, Attack, Support, Activate, Execute, Wait, Targetting, Done }
 
 
 public class BattlePhase : MonoBehaviour
@@ -49,5 +49,14 @@ public class BattlePhase : MonoBehaviour
     public virtual void PhaseDone()
     { 
         
+    }
+
+    public virtual void OnQTEDone() { }
+
+    public virtual void OnVFXTrigger(int vfxType)
+    {
+        VFXName vfx = (VFXName)vfxType;
+        GameObject vfxObject = ResourceManager.Instance.VFXResources[vfx].GetVFXInstance();
+        vfxObject.transform.position = GetComponentInChildren<WeaponTag>().GetTransform().position;
     }
 }

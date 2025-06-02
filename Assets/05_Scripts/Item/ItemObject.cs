@@ -25,4 +25,13 @@ public class ItemObject : InteractObject
         PlayerCharacterManager.Instance.CurrentPlayer.animator.ItemEarnAnimation(this.transform, actionType);
     }
 
+    public void GetItemInfo(ItemScriptableObject item, EarnActionType actionType)
+    {
+        ItemInfo = item;
+        ItemNumb = item.NumbOfItem;
+        ItemID = item.NumbOfItem;
+        ItemName = item.Name.ToString();
+        this.actionType = actionType;
+    }
+
 }

@@ -6,6 +6,7 @@ public class EnemyManager : CharacterManager
     [HideInInspector] public EnemyAnimationManager animator;
     [HideInInspector] public EnemyEncounterManager encounter;
     [HideInInspector] public EnemyLocomotionManager locomotor;
+    [HideInInspector] public EnemyBattleManager battler;
 
     [SerializeField] public Vector3 OriginPos;
 
@@ -16,6 +17,7 @@ public class EnemyManager : CharacterManager
         animator = GetComponent<EnemyAnimationManager>();
         encounter = GetComponent<EnemyEncounterManager>();
         locomotor = GetComponent<EnemyLocomotionManager>();
+        battler = GetComponent<EnemyBattleManager>();
     }
 
     private void Start()

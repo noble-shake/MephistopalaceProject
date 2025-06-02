@@ -7,5 +7,6 @@ public class ActivateCircle : MonoBehaviour
     private void Start()
     {
         circleObject = GetComponent<ParticleSystem>();
+        gameObject.SetActive(false);
     }
 }

@@ -24,7 +24,7 @@ public class BattleMessageUI : MonoBehaviour
         canvas.alpha = 0f;
         while (canvas.alpha < 1f)
         {
-            canvas.alpha += Time.deltaTime * 2f;
+            canvas.alpha += Time.deltaTime * 4f;
 
             yield return null;
         }
@@ -34,11 +34,11 @@ public class BattleMessageUI : MonoBehaviour
 
     IEnumerator DisapeearMessage()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
         canvas.alpha = 1f;
         while (canvas.alpha > 0f)
         {
-            canvas.alpha -= Time.deltaTime * 2f;
+            canvas.alpha -= Time.deltaTime * 4f;
 
             yield return null;
         }

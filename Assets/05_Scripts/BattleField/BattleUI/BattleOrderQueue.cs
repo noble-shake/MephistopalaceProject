@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class BattleOrderQueue : MonoBehaviour
 {
+    [SerializeField] public BattlePhase battler;
     [SerializeField] private CanvasGroup canvas;
     [SerializeField] private Image CharacterBackground;
     [SerializeField] private TMP_Text CharName;

@@ -47,6 +47,27 @@ public class SkillScriptableObject : ScriptableObject
             default:
             case SkillActions.TurnOver:
                 return new TurnOver(playerManager);
+            case SkillActions.DoubleSlash:
+                return new DoubleSlash(playerManager);
+            case SkillActions.ChargingAttack:
+                return new ChargingAttack(playerManager);
+        }
+
+    }
+
+    public ISkill GetSkillInstance(EnemyManager enemyManager)
+    {
+        switch (ActionScript)
+        {
+            default:
+            case SkillActions.TurnOver:
+                return new TurnOver(enemyManager);
+            case SkillActions.DoubleSlash:
+                return new DoubleSlash(enemyManager);
+            case SkillActions.SlimbCombo01:
+                return new SlimbCombo01(enemyManager);
+            case SkillActions.SlimbCombo02:
+                return new SlimbCombo02(enemyManager);
         }
 
     }

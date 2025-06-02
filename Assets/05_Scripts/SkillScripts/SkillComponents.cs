@@ -18,8 +18,20 @@ public enum CommandGroup
 }
 
 [System.Serializable]
+public enum ProcessType
+{ 
+    Enable,
+    Disable,
+    OnlyParry,
+    OnlyEvade,
+}
+
+[System.Serializable]
 public enum SkillActions
 { 
     TurnOver,
-    
+    DoubleSlash,
+    SlimbCombo01,
+    SlimbCombo02,
+    ChargingAttack,
 }

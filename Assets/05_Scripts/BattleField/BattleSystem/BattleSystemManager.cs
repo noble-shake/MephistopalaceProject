@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections;
 using TeleportFX;
 using Unity.Cinemachine;
+using System;
+using System.Linq;
 
 [System.Serializable]
 public enum BattleSystemPhase
@@ -56,6 +58,8 @@ public class BattleSystemManager : MonoBehaviour
     [Header("QTE Action")]
     public bool TestQTE;
     public bool WaitQteAction;
+    public int SuccessQTE;
+    public int TotalQTE;
 
     private void Awake()
     {
@@ -178,7 +182,7 @@ public class BattleSystemManager : MonoBehaviour
         }
         // 상대할 적을 선택한다.
         // TODO: Random Pool 내에서 인원 수에 따라, 최대 3마리까지 선택한다.
-        List<EnemyManager> EnemyEntries = ResourceManager.Instance.GetEnemies(referenceEnemey, PlayerCount > 1 ? Random.Range(1, 3) : Random.Range(0, 2));
+        List<EnemyManager> EnemyEntries = ResourceManager.Instance.GetEnemies(referenceEnemey, PlayerCount > 1 ? UnityEngine.Random.Range(1, 3) : UnityEngine.Random.Range(0, 2));
         if (EnemyEntries.Count == 1)
         {
 
@@ -230,6 +234,8 @@ public class BattleSystemManager : MonoBehaviour
             CurrentBattlerOrderQueue = BattlerOrderObjects.Dequeue();
         }
 
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
+
         foreach (BattlePhase b in BattlerEntries)
         {
             b.PhaseEngage();
@@ -276,6 +282,7 @@ public class BattleSystemManager : MonoBehaviour
         }
     }
 
+    // 전투가 완전히 처음 시작 했을 때,
     IEnumerator EngageToCommand()
     {
         yield return new WaitForSeconds(1.25f);
@@ -292,6 +299,65 @@ public class BattleSystemManager : MonoBehaviour
         
     }
 
+    #region After Execute Skill Process
+
+    // 현재 배틀러 행동에 대한 처리가 끝난 후,
+    // 스위칭하면서, 상태 이상 및 스탯 변화를 체크한다.
+    // CheckTargetState가 먼저 동작한다.
+    public void UpdateEntry()
+    {
+        CheckTargetState(CurrentBattler.GetComponent<CharacterBattleManager>().CurrentTargets);
+        CheckStateChange();
+        SwitchingQueue();
+    }
+
+    // 스킬의 대상이 된 타겟들에 대하여 처리를 한다.
+    // 기본적으로 체력을 체크, 버프나 상태이상이 구현된다면.. 여기서 처리해도 될 듯하다.
+    public void CheckTargetState(List<BattlePhase> Targets)
+    {
+        List<BattlePhase> bodies = new List<BattlePhase>();
+        for (int idx = 0; idx < Targets.Count; idx++)
+        {
+            if (Targets[idx].GetComponent<CharacterStatusManger>().isDead)
+            {
+                bodies.Add(Targets[idx]);
+                continue;
+            }
+
+            // 상태이상 체크, 버프/디버프 체크
+        }
+
+        List<BattlePhase> tempQueue = QueueEntries.ToList();
+        foreach (BattlePhase b in bodies)
+        {
+            tempQueue.Remove(b);
+        }
+        
+    }
+
+    // buff effect Process
+    public void CheckStateChange()
+    {
+
+        //CurrentBattler = QueueEntries.Dequeue();
+        //CurrentBattlerOrderQueue = BattlerOrderObjects.Dequeue();
+    }
+
+    public void SwitchingQueue()
+    {
+        QueueEntries.Enqueue(CurrentBattler);
+        CurrentBattler = QueueEntries.Dequeue();
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
+        CurrentBattler.PhaseCommand();
+    }
+
+    public void CoroutineRunner(IEnumerator _enumerator)
+    {
+        StartCoroutine(_enumerator);
+    }
+
+    #endregion
+
     #region Select Target
 
     /*
@@ -304,6 +370,8 @@ public class BattleSystemManager : MonoBehaviour
     ALLAlly,
     None, // Only Used In TurnOver.
      */
+
+    public int SelectIndex;
 
     public void SelectTarget(ActivateTarget targetType)
     {
@@ -325,14 +393,16 @@ public class BattleSystemManager : MonoBehaviour
             case ActivateTarget.TargettingAlly:
                 TargetAlly();
                 break;
-
         }
+
+        SelectIndex = 0;
     }
 
     public void TargetSelf()
     {
         TempActivateTargets = new List<BattlePhase>();
         TempActivateTargets.Add(CurrentBattler);
+        CurrentBattler.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
     }
 
     public void TargetALL()
@@ -342,6 +412,7 @@ public class BattleSystemManager : MonoBehaviour
         {
             if (phaser.GetComponent<CharacterStatusManger>().isDead) continue;
             TempActivateTargets.Add(phaser);
+            phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
         }
     }
 
@@ -356,6 +427,7 @@ public class BattleSystemManager : MonoBehaviour
                 TempActivateTargets.Add(phaser);
             }
         }
+        TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
     }
 
     public void TargetAlly()
@@ -367,6 +439,7 @@ public class BattleSystemManager : MonoBehaviour
             if (phaser.GetComponent<PlayerPhase>() != null)
             {
                 TempActivateTargets.Add(phaser);
+                phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
             }
         }
     }
@@ -393,7 +466,20 @@ public class BattleSystemManager : MonoBehaviour
         yield return new WaitUntil(() => WaitQteAction);
         WaitQteAction = false;
         Debug.Log("QTE Done");
-        qteManager.Clear();
+        var result = qteManager.Clear();
+        SuccessQTE = result.Key;
+        TotalQTE = result.Value;
+        CurrentBattler.OnQTEDone();
+    }
+
+    private IEnumerator WaitingQTE(Action<KeyValuePair<int, int>> result, int numb = 1)
+    {
+        qteManager.SpawnQTE(numb);
+        qteManager.PlayerAttacking = true;
+        yield return new WaitUntil(() => WaitQteAction);
+        WaitQteAction = false;
+        Debug.Log("QTE Done");
+        result?.Invoke(qteManager.Clear());
     }
     #endregion
 }

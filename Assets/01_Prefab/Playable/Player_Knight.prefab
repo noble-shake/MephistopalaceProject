@@ -8717,6 +8717,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 125
+  AP: 0
+  Level: 0
   aMaxHP: 0
   aMinATK: 0
   aMaxATK: 0
@@ -8724,7 +8726,9 @@ MonoBehaviour:
   aSpeedWeight: 0
   aDefenceWeight: 0
   aEvadeWeight: 0
+  isDead: 0
   OwnSkillSet: []
+  playerStatUI: {fileID: 0}
   EXP: 0
   RequireEXP: 0
 --- !u!208 &4910366914884369296
@@ -8755,11 +8759,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7a53de071a7f249a3aacdac6a42137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManager: {fileID: 0}
   OwnSkills:
   - {fileID: 11400000, guid: a087c9e2867a8fe46b02d171b6a9e396, type: 2}
+  - {fileID: 11400000, guid: 04342dcc782ab314bbfa5cc5bf2c5e0f, type: 2}
+  - {fileID: 11400000, guid: 4ba7872583dad41498fd7006758d02f7, type: 2}
   ActivatedSkills:
   - {fileID: 11400000, guid: a087c9e2867a8fe46b02d171b6a9e396, type: 2}
+  - {fileID: 11400000, guid: 04342dcc782ab314bbfa5cc5bf2c5e0f, type: 2}
+  - {fileID: 11400000, guid: 4ba7872583dad41498fd7006758d02f7, type: 2}
+  CurrentActivateTarget: 0
+  CurrentTargets: []
+  playerManager: {fileID: 0}
 --- !u!114 &1772886969545120036
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8781,7 +8791,15 @@ MonoBehaviour:
   isTurn: 0
   playerManager: {fileID: 0}
   teleportation: {fileID: 0}
+  AllocatedPanel: {fileID: 0}
+  CurrentTargetIndex: 0
   EngageTest: 0
+  ParryCooltime: 0.8
+  EvadeCooltime: 0.8
+  CurrentCooltime: 0
+  isParrying: 0
+  isEvading: 0
+  QTEduration: 0.25
 --- !u!1 &8009935506802756972
 GameObject:
   m_ObjectHideFlags: 0
@@ -10006,7 +10024,7 @@ Transform:
   m_GameObject: {fileID: 9106491310408920489}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

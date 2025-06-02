@@ -14,6 +14,7 @@ public class PlayerCharacterManager : MonoBehaviour
 {
     public static PlayerCharacterManager Instance;
     public PlayerManager CurrentPlayer;
+    [SerializeField] private List<PlayerStatUI> statUI;
     
     // 소유하고 있는 캐릭터를 나타낸다.
     public Dictionary<CharacterType, PlayerManager> Playables;
@@ -44,7 +45,17 @@ public class PlayerCharacterManager : MonoBehaviour
     IEnumerator StatAdjust(PlayerManager player, StatContainer _container)
     {
         yield return null;
+        foreach (var sUI in statUI)
+        {
+            if (!sUI.gameObject.activeSelf)
+            {
+                sUI.gameObject.SetActive(true);
+                player.status.playerStatUI = sUI;
+                break;
+            }
+        }
         player.status.StatInitialize(_container);
+
     }
 
     public void Switching(SwitchingDirection _direction)

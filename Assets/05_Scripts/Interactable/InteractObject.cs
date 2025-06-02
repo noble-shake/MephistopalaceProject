@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using UnityEngine.Playables;
+using UnityEngine.Timeline;
 
 
 public class InteractObject: MonoBehaviour
@@ -19,16 +21,22 @@ public class InteractObject: MonoBehaviour
     [SerializeField] protected List<EventContainer> ActivateEventContainers;
     [SerializeField] protected EventSubscribe SubscribeInstance;
 
+    [Header("State")]
     [HideInInspector] protected Vector3 originPosition;
     [HideInInspector] protected Quaternion originRotation;
     [HideInInspector] protected float shake_decay;
     [HideInInspector] protected float shake_intensity;
 
+    [Header("Timeline")]
+    [SerializeField] private PlayableDirector timelinePlayer;
+    [SerializeField] private TimelineAsset timelineAsset;
+    [SerializeField] private bool timelinePlaying;
 
     protected virtual void Start()
     {
         ShakeInit();
         TryGetComponent<EventSubscribe>(out SubscribeInstance);
+        TryGetComponent<PlayableDirector>(out timelinePlayer);
         if (SubscribeInstance != null) isSubscribeEventValid = true;
         if (TriggerEventContainers.Count > 0) isTriggerEventValid = true;
         if (InteractEventContainers.Count > 0) isInteractEventValid = true;
@@ -62,12 +70,24 @@ public class InteractObject: MonoBehaviour
     {
         InteractMessageQueue();
         EventSubscribedRun(SubscribeType.Interact);
+        if (timelinePlayer != null)
+        {
+            if (timelinePlaying) return;
+            timelinePlayer.Play();
+            timelinePlaying = true;
+        }
     }
 
     public virtual void ActivateEvent()
     {
         ActivateMessageQueue();
         EventSubscribedRun(SubscribeType.Activate);
+        if (timelinePlayer != null)
+        {
+            if (timelinePlaying) return;
+            timelinePlayer.Play();
+            timelinePlaying = true;
+        }
     }
 
     protected void TriggerMessageQueue()
@@ -126,5 +146,25 @@ public class InteractObject: MonoBehaviour
             yield return null;
         }
 
+    }
+
+    public void OnTimelinePlay()
+    {
+        if (timelinePlayer.state == PlayState.Playing) return;
+
+        timelinePlayer.playableAsset = timelineAsset;
+        timelinePlayer.Play();
+        timelinePlaying = true;
+    }
+
+    private void Update()
+    {
+        if (timelinePlaying)
+        {
+            if (timelinePlayer.state != PlayState.Playing)
+            {
+                timelinePlaying = false;
+            }
+        }
     }
 }

@@ -6,7 +6,9 @@ public class FragileObject : InteractObject
     [SerializeField] private int HP;
     [SerializeField] Material OriginMat;
     [SerializeField] private Material HighlightMat;
+    [SerializeField] private ItemScriptableObject hasItem;
     bool isActivate;
+    [SerializeField] private EarnActionType EarnAction;
 
     protected override void Start()
     {
@@ -37,10 +39,19 @@ public class FragileObject : InteractObject
         HP--;
         ShakeEvent();
 
+
+
         if (HP < 0f)
         {
+            if (hasItem != null)
+            {
+                ResourceManager.Instance.ItemDropObjectSpawn(transform, hasItem, EarnAction);
+            }
+
             Destroy(gameObject);
         }
+
+
     }
 
 
