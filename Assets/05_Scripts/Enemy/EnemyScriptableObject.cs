@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemyCharacterSO", menuName = "PalaceCharacter/EnemyScriptableObject", order = -1)]
@@ -25,11 +27,12 @@ public class EnemyScriptableObject : ScriptableObject
     [SerializeField] public int CRT;
 
     [Space]
-    [Header("Skills (TBD)")]
-    public Sprite CharacterAbility;
+    [Header("Rewards")]
+    public List<ItemScriptableObject> RewardList;
 
     public StatContainer GetEnemyStatChange()
     {
         return new StatContainer { HP = HP, AP = AP, minATK = MinATK, maxATK = MaxATK, CRT = CRT, SPD = SPD, DEF = DEF };
     }
+
 }

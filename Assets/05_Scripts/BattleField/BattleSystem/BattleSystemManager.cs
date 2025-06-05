@@ -282,6 +282,11 @@ public class BattleSystemManager : MonoBehaviour
         }
     }
 
+    public void DisEngageTransition()
+    {
+
+    }
+
     // 전투가 완전히 처음 시작 했을 때,
     IEnumerator EngageToCommand()
     {
@@ -327,24 +332,71 @@ public class BattleSystemManager : MonoBehaviour
             // 상태이상 체크, 버프/디버프 체크
         }
 
+        // 사망 체크
         List<BattlePhase> tempQueue = QueueEntries.ToList();
+
         foreach (BattlePhase b in bodies)
         {
             tempQueue.Remove(b);
         }
-        
+
+        QueueEntries = new Queue<BattlePhase>();
+        foreach (BattlePhase b in tempQueue) 
+        {
+            QueueEntries.Enqueue(b);
+        }
     }
 
     // buff effect Process
     public void CheckStateChange()
     {
 
-        //CurrentBattler = QueueEntries.Dequeue();
-        //CurrentBattlerOrderQueue = BattlerOrderObjects.Dequeue();
     }
 
     public void SwitchingQueue()
     {
+        int enemyCount = 0;
+        int playerCount = 0;
+
+        foreach (BattlePhase b in QueueEntries.ToList())
+        {
+            switch (b.identityType)
+            {
+                case Identifying.Player:
+                    playerCount++;
+                    break;
+                case Identifying.Enemy:
+                    enemyCount++;
+                    break;
+            }
+        }
+
+        if (CurrentBattler.GetComponent<CharacterStatusManger>().isDead == false)
+        {
+            if (CurrentBattler.identityType == Identifying.Player)
+            {
+                playerCount++;
+            }
+            else
+            {
+                enemyCount++;
+            }
+        }
+
+
+        if (playerCount == 0)
+        {
+            Debug.Log("GAME OVER !!");
+
+            return;
+        }
+        else if (enemyCount == 0)
+        {
+            Debug.Log("Enemy ALL SLAYS !!");
+            
+            return;
+        }
+
         QueueEntries.Enqueue(CurrentBattler);
         CurrentBattler = QueueEntries.Dequeue();
         EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });

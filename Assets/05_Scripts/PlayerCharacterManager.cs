@@ -34,6 +34,7 @@ public class PlayerCharacterManager : MonoBehaviour
     {
         var characterInfo = ResourceManager.Instance.PlayerResources[(int)CharacterType.Knight];
         PlayerManager player = Instantiate(characterInfo.CharacterPrefab).GetComponent<PlayerManager>();
+        player.phaser.identityType = Identifying.Player;
         var container = characterInfo.GetStatChange();
         player.transform.position = new Vector3(0, 0, -2f);
         CurrentPlayer = player;
@@ -55,7 +56,7 @@ public class PlayerCharacterManager : MonoBehaviour
             }
         }
         player.status.StatInitialize(_container);
-
+        player.status.playerStatUI.SetHPValue(player.status.HP, player.status.MaxHP);
     }
 
     public void Switching(SwitchingDirection _direction)

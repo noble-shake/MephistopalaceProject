@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ItemPotionSmallHP
   m_EditorClassIdentifier: 
   ItemID: 3
-  NumbOfItem: 0
+  NumbOfItem: 2
   isUnique: 0
   isEquip: 0
   isConsume: 1
-  Name: "\uC791\uC740 \uCCB4\uB825 \uD3EC\uC158"
+  Name: 2
   Description: "\uCCB4\uB825\uC744 20 \uD68C\uBCF5 \uC2DC\uCF1C\uC8FC\uB294 \uD3EC\uC158"
   itemType: 6
   itemImage: {fileID: 21300000, guid: 40591bfc896615d46b132f70304353ed, type: 3}

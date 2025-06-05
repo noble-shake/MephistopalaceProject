@@ -3,21 +3,22 @@ using UnityEngine;
 public class EnemyStatusManager : CharacterStatusManger
 {
     private EnemyManager enemyManager;
-    //[SerializeField, Range(0, 6)] public int AP { get; private set; }
-    //[SerializeField] public int MaxAP { get; private set; }
 
-    //public bool UseAP(int _value)
-    //{
-    //    if (AP < _value) return false;
-    //    AP -= _value;
-    //    return true;
-    //}
+    public override void HPChange(int _value)
+    {
+        HP += _value;
 
-    //public void GainAP(int _value)
-    //{
-    //    AP += _value;
-    //    if (AP >= MaxAP) AP = MaxAP;
-    //}
+        if (HP >= MaxHP) HP = MaxHP;
+        if (HP <= 0)
+        {
+            HP = 0;
+            enemyManager.animator.animator.SetBool("isDead", true);
+            EnemyPhase phaser = (EnemyPhase)enemyManager.phaser;
+            phaser.teleportation.TeleportationState = TeleportFX.KriptoFX_Teleportation.TeleportationStateEnum.Disappear;
+            phaser.teleportation.enabled = true;
+            enemyManager.status.isDead = true;
+        }
+    }
 
     private void Start()
     {

@@ -48,7 +48,7 @@ ModelImporter:
       name: zombie_alert_to_aggro_02
       takeName: zombie_alert_to_aggro_02
       internalID: 0
-      firstFrame: 10
+      firstFrame: 0
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0

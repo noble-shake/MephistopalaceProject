@@ -105,11 +105,8 @@ public class PlayerPhase : BattlePhase
                 ActivateUpdate();
                 break;
             case PhaseType.Execute:
-                break;
             case PhaseType.Done:
-                break;
             case PhaseType.Wait:
-
                 break;
             case PhaseType.Targetting:
                 ParryDurationUpdate();
@@ -414,6 +411,12 @@ public class PlayerPhase : BattlePhase
         {
             CurrentCooltime = EvadeCooltime;
         }
+    }
+
+
+    public void OnDisEngage()
+    { 
+        
     }
 
 }

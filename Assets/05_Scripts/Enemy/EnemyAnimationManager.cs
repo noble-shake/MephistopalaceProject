@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using TeleportFX;
 using UnityEngine;
 
 public class EnemyAnimationManager : MonoBehaviour

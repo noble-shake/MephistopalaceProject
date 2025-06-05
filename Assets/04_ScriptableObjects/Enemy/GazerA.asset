@@ -29,4 +29,7 @@ MonoBehaviour:
   SPD: 1
   DEF: 3
   CRT: 0
-  CharacterAbility: {fileID: 0}
+  RewardList:
+  - {fileID: 11400000, guid: 1442d37d3e1d26c47a37bd4493943938, type: 2}
+  - {fileID: 11400000, guid: 3fbff4b96d5a5d549b6dba0e006c0052, type: 2}
+  - {fileID: 11400000, guid: f4a78d13dfa6ad94f9bdecd28eda95db, type: 2}

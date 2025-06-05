@@ -17,7 +17,7 @@ MonoBehaviour:
   isUnique: 1
   isEquip: 0
   isConsume: 0
-  Name: "\uAC10\uC625 \uBC29 \uC5F4\uC1E0"
+  Name: 1
   Description: "\uAC10\uC625\uC5D0\uC11C \uB098\uAC08 \uC218 \uC788\uB294 \uC5F4\uC1E0"
   itemType: 0
   itemImage: {fileID: 21300000, guid: 9dedee4a728010d4486cde7bd6c6aa7d, type: 3}

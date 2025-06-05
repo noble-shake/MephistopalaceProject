@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ItemPotionSmallAP
   m_EditorClassIdentifier: 
   ItemID: 2
-  NumbOfItem: 0
+  NumbOfItem: 3
   isUnique: 0
   isEquip: 0
   isConsume: 1
-  Name: "\uC791\uC740 \uAE30\uB825 \uD3EC\uC158"
+  Name: 3
   Description: "\uAE30\uB825\uC744 1AP \uB9CC\uD07C \uD68C\uBCF5\uC2DC\uCF1C\uC8FC\uB294
     \uD3EC\uC158"
   itemType: 6

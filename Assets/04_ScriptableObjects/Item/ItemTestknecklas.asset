@@ -17,7 +17,7 @@ MonoBehaviour:
   isUnique: 1
   isEquip: 1
   isConsume: 0
-  Name: "\uC2DC\uD5D8\uC758 \uC99D\uD45C"
+  Name: 4
   Description: "\uC778\uBCA4\uD1A0\uB9AC \uC2DC\uC2A4\uD15C\uC774 \uC798 \uB3D9\uC791\uD558\uB294
     \uC9C0 \uD655\uC778\uD558\uAE30 \uC704\uD55C \uC7A5\uBE44 \uC544\uC774\uD15C"
   itemType: 4

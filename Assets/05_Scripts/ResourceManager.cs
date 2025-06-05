@@ -67,6 +67,7 @@ public class ResourceManager : MonoBehaviour
 
         var referEnemy = Instantiate(refer.CharacterPrefab).GetComponent<EnemyManager>();
         referEnemy.GetComponent<EnemyManager>().status.StatInitialize(refer.GetEnemyStatChange());
+        referEnemy.phaser.identityType = Identifying.Enemy;
         entries.Add(referEnemy);
 
         for (int idx = 0; idx < numbEnemies; idx++)

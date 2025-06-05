@@ -11,7 +11,7 @@ public class EnemyPhase : BattlePhase
 
     [SerializeField] public bool isTurn;
     [SerializeField] public EnemyManager enemyManager;
-    [SerializeField] private KriptoFX_Teleportation teleportation;
+    [SerializeField] public KriptoFX_Teleportation teleportation;
 
     private void Awake()
     {
@@ -83,8 +83,7 @@ public class EnemyPhase : BattlePhase
     private void PhaseJudgement()
     {
         // 공격 타입, 지원 타입, 턴 넘기기
-
-
+ 
 
         int isAttackSkillHas = 0;
         int isSupportSkillHas = 0;
