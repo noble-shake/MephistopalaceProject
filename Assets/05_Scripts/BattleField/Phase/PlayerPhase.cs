@@ -43,7 +43,7 @@ public class PlayerPhase : BattlePhase
 
         playerManager.animator.animator.SetBool("Engage", true);
         yield return null;
-
+        playerManager.encounter.Weapon.WeaponTrail.SetActive(true);
         CurrentPhase = PhaseType.Wait;
         
 
@@ -57,6 +57,7 @@ public class PlayerPhase : BattlePhase
 
     public void OnDisEngageActionDone()
     {
+        playerManager.encounter.Weapon.WeaponTrail.SetActive(false);
         playerManager.animator.animator.SetTrigger("DisEngage");
         isEngage = false;
     }

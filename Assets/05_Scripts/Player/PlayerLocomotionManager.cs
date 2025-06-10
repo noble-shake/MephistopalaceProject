@@ -66,6 +66,7 @@ public class PlayerLocomotionManager : MonoBehaviour
 
     public void CharacterMove()
     {
+        if (controller.enabled == false) return;
 
         Vector2 MoveVector = GetMoveVector();
         Vector3 adjustRotate = transform.TransformDirection(new Vector3(MoveVector.x, 0f, MoveVector.y));
@@ -77,10 +78,11 @@ public class PlayerLocomotionManager : MonoBehaviour
     public void CharacterLook()
     {
 
+
         Vector2 LookVector = GetLookVector();
         if (Mathf.Abs(LookVector.x) < RotationLimit) return;
 
-        Vector3 RotationTerm =  new Vector3(0f, LookVector.x * RotationSpeed * Time.deltaTime, 0f);
+        Vector3 RotationTerm =  new Vector3(0f, LookVector.x * RotationSpeed * GameManager.Instance.Sensivity * Time.deltaTime, 0f);
         this.transform.Rotate(RotationTerm);
 
     }

@@ -163,6 +163,7 @@ public class EnemyEncounterManager : MonoBehaviour
         enemyManager.animator.animator.Play("Hit");
         BattleSystemManager.Instance.SetReferenceEnemy(enemyManager, enemyInfo);
         BattleSystemManager.Instance.OnEngageSequence();
+        StartCoroutine(AfterHitProcess());
     }
 
     IEnumerator AfterHitProcess()

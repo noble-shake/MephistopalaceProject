@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Searcher.Searcher.AnalyticsEvent;
+
 
 public class AttackCommand : BattleCommand
 {
