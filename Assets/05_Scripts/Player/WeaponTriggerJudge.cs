@@ -5,7 +5,9 @@ public class WeaponTriggerJudge : MonoBehaviour
     [SerializeField] PlayerEncounterManager player;
     [SerializeField] public GameObject WeaponTrail;
     public Collider WeaponCollider;
-    [SerializeField] GameObject VFXPrefab;
+    [SerializeField] public GameObject VFXPrefab;
+    [SerializeField] public GameObject VFXLight;
+    [SerializeField] public Transform WeaponVFXTransform;
     float curTime;
 
     private void Start()
@@ -36,5 +38,11 @@ public class WeaponTriggerJudge : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
 
+    }
+
+    public void CreateWeaponVFX()
+    {
+        GameObject vfx = Instantiate(VFXPrefab);
+        vfx.transform.position = WeaponVFXTransform.position;
     }
 }

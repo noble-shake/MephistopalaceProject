@@ -55,6 +55,12 @@ public class PlayerPhase : BattlePhase
         isEngage = true;
     }
 
+    public void OnDisEngageActionDone()
+    {
+        playerManager.animator.animator.SetTrigger("DisEngage");
+        isEngage = false;
+    }
+
 
 
     public override void PhaseBuff()
@@ -141,6 +147,8 @@ public class PlayerPhase : BattlePhase
         // CameraWork
         CameraManager.Instance.OnLiveCamera(AllocatedPoint.GetComponentInChildren<CameraTag>().type);
         CameraManager.Instance.CommandPosChange(SkillGroup.None);
+
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = $"{DisplayName} ÀÇ Â÷·Ê" });
     }
 
     public override void AttackCommand()
@@ -398,6 +406,17 @@ public class PlayerPhase : BattlePhase
         }
     }
 
+    public void OnWeaponVFX()
+    { 
+        playerManager.encounter.Weapon.VFXLight.SetActive(true);
+        playerManager.encounter.Weapon.CreateWeaponVFX();
+    }
+
+    public void OffWeaponVFX()
+    {
+        playerManager.encounter.Weapon.VFXLight.SetActive(false);
+    }
+
     public void EvadeSuccess(bool isOn)
     {
         Debug.Log("PARRY SUCCESS !!");
@@ -411,12 +430,6 @@ public class PlayerPhase : BattlePhase
         {
             CurrentCooltime = EvadeCooltime;
         }
-    }
-
-
-    public void OnDisEngage()
-    { 
-        
     }
 
 }

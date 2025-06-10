@@ -295,6 +295,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HP: 35
+  AP: 0
+  Level: 0
   aMaxHP: 0
   aMinATK: 0
   aMaxATK: 0
@@ -378,6 +380,7 @@ MonoBehaviour:
   CurrentActivateTarget: 0
   CurrentTargets: []
   enemyManager: {fileID: 0}
+  CurrentRequireQTE: 0
 --- !u!1 &5074911655266286969
 GameObject:
   m_ObjectHideFlags: 0

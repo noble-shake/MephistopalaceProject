@@ -71,7 +71,8 @@ public class SlimbCombo02 : ISkill
 
         enemyManager.phaser.CurrentPhase = PhaseType.Done;
         yield return new WaitForSeconds(2f);
-        BattleSystemManager.Instance.UpdateEntry();
         enemyManager.phaser.CurrentPhase = PhaseType.Wait;
+        BattleSystemManager.Instance.UpdateEntry();
+
     }
 }

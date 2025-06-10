@@ -24,6 +24,7 @@ public class SkillScriptableObject : ScriptableObject
     public Sprite SkillIcon;
     public float DamageRatio;
     public SkillActions ActionScript;
+    public int RequiredAP;
 
     public SkillContainer GetSkillInfo()
     { 

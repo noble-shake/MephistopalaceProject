@@ -161,8 +161,18 @@ public class EnemyEncounterManager : MonoBehaviour
         enemyManager.locomotor.agent.isStopped = true;
         enemyManager.animator.animator.StopPlayback();
         enemyManager.animator.animator.Play("Hit");
-        BattleSystemManager.Instance.SetReferenceEnemy(enemyInfo);
+        BattleSystemManager.Instance.SetReferenceEnemy(enemyManager, enemyInfo);
         BattleSystemManager.Instance.OnEngageSequence();
+    }
+
+    IEnumerator AfterHitProcess()
+    {
+        yield return new WaitForSeconds(2f);
+        transform.position = enemyManager.locomotor.BornPos;
+        enemyManager.locomotor.isHit = false;
+        enemyManager.locomotor.agent.isStopped = false;
+        gameObject.SetActive(false);
+
     }
 
 

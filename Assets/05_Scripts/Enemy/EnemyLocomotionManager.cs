@@ -29,6 +29,7 @@ public class EnemyLocomotionManager : MonoBehaviour
     public CharacterController controller;
     public NavMeshAgent agent;
     public Rigidbody rigid;
+    public Vector3 BornPos;
 
     [Space]
     [Header("Patrol")]
@@ -54,6 +55,8 @@ public class EnemyLocomotionManager : MonoBehaviour
 
     private void Start()
     {
+        BornPos = transform.position;
+
         if (PatrolPaths == null) return;
         ListPaths = new List<Vector3>();
         foreach (Transform t in PatrolPaths)

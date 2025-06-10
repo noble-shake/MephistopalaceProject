@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 269189104824817032}
   - component: {fileID: 2673566919193342584}
   - component: {fileID: 332077235621882774}
-  - component: {fileID: 8468962997761041091}
+  - component: {fileID: 9144745868284662733}
   m_Layer: 13
   m_Name: PlayerSword
   m_TagString: Weapon
@@ -34,6 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5236968476012853393}
+  - {fileID: 248049201687470170}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: -180}
 --- !u!137 &269189104824817032
@@ -146,7 +147,10 @@ MonoBehaviour:
   player: {fileID: 0}
   WeaponTrail: {fileID: 5236968476012853392}
   WeaponCollider: {fileID: 0}
---- !u!54 &8468962997761041091
+  VFXPrefab: {fileID: 5648091668906429324, guid: 63c71c05f1f12d042bd91b7ef53e1549, type: 3}
+  VFXLight: {fileID: 5007785942455053815}
+  WeaponVFXTransform: {fileID: 248049201687470170}
+--- !u!54 &9144745868284662733
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,4 +271,95 @@ GameObject:
 Transform:
   m_CorrespondingSourceObject: {fileID: 7923176967729148682, guid: 9994ca6745430c24db90e62d2e515a51, type: 3}
   m_PrefabInstance: {fileID: 2691380629331200923}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4180913148531122815
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2616050800271458080}
+    m_Modifications:
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597967200987390077, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_Range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597967200987390077, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_Color.b
+      value: 0.42352945
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597967200987390077, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_Color.g
+      value: 0.27450982
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597967200987390077, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_Color.r
+      value: 0.11764707
+      objectReference: {fileID: 0}
+    - target: {fileID: 5597967200987390077, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185844138104278920, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_Name
+      value: KnightsLightEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185844138104278920, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+--- !u!4 &248049201687470170 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4140119998927700517, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+  m_PrefabInstance: {fileID: 4180913148531122815}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5007785942455053815 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9185844138104278920, guid: 898feacb45cb25944a474db2020cde14, type: 3}
+  m_PrefabInstance: {fileID: 4180913148531122815}
   m_PrefabAsset: {fileID: 0}

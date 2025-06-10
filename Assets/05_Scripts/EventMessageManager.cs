@@ -152,5 +152,6 @@ public class EventMessageManager : MonoBehaviour
         CharacterMessageEvent();
         GlobalMessageEvent();
         InformMessageEvent();
+        BattleMessageEvent();
     }
 }

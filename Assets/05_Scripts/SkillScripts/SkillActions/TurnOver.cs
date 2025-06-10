@@ -26,6 +26,7 @@ public class TurnOver : ISkill
 
     public void Execute()
     {
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "턴 넘기기를 사용합니다." });
         GameObject VFX = ResourceManager.Instance.VFXResources[VFXName.BuffEffectA].GetVFXInstance();
         if (isPlayer)
         {
@@ -39,6 +40,7 @@ public class TurnOver : ISkill
         {
             enemyManager.status.HPChange((int)(enemyManager.status.MaxHP * 0.1f));
             VFX.transform.position = enemyManager.transform.position + Vector3.up * 0.5f;
+            VFX.transform.localScale = Vector3.one * 3f;
 
             BattleSystemManager.Instance.CoroutineRunner(TurnOverEnemyEffect());
         }

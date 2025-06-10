@@ -62,7 +62,6 @@ public class EnemyPhase : BattlePhase
 
     public override void PhaseCommand()
     {
-        Debug.Log("EnemyTurn");
         CameraManager.Instance.OnLiveCamera(CameraType.BattleEnemy);
         CinemachineCamera cam = CameraManager.Instance.GetCamera();
         cam.Follow = this.transform;
@@ -83,7 +82,7 @@ public class EnemyPhase : BattlePhase
     private void PhaseJudgement()
     {
         // 공격 타입, 지원 타입, 턴 넘기기
- 
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = $"{DisplayName} 의 차례" });
 
         int isAttackSkillHas = 0;
         int isSupportSkillHas = 0;

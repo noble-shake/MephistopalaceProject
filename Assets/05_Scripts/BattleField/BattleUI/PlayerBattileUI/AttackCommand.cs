@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Searcher.Searcher.AnalyticsEvent;
 
 public class AttackCommand : BattleCommand
 {
@@ -64,12 +65,18 @@ public class AttackCommand : BattleCommand
     public override void CommandExecute()
     {
 
+        if (playerManager.status.AP < AllocatedScritableObject[CurrentIndex].RequiredAP)
+        {
+            EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "AP가 부족합니다!" });
+        }
 
         switch (CurrentIndex)
         {
             default:
                 break;
             case 0:
+
+
                 playerManager.battler.SetSkillExecution(AllocatedScritableObject[0].ActionScript);
                 playerManager.phaser.CurrentPhase = PhaseType.Activate;
                 BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[0].ActionScript].activateTarget);

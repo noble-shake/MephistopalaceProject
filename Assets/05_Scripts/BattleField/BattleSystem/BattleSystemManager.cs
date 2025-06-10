@@ -12,6 +12,7 @@ public enum BattleSystemPhase
     Engage,
     Command,
     Result,
+    DisEngage,
 }
 
 [System.Serializable]
@@ -30,12 +31,15 @@ public class BattleSystemManager : MonoBehaviour
     public static BattleSystemManager Instance;
     [SerializeField] public BattleSystemPhase CurrentPhase;
     [SerializeField] public BattleUI battleUI;
+    [SerializeField] public ResultCanvas resultUI;
+    
     [SerializeField] public QTEManager qteManager;
     [SerializeField] public BattlePhase CurrentBattler;
     [SerializeField] public BattleOrderQueue CurrentBattlerOrderQueue;
 
     [Header("Battle Reference")]
     [SerializeField] private EnemyScriptableObject referenceEnemey;
+    [SerializeField] private EnemyManager referenceEnemyObject; // 게임 오버 할 때, 처리를 해줘야 한다.
 
     [Header("Battler Ordering")]
     [SerializeField] public bool isAmbushed;
@@ -61,6 +65,8 @@ public class BattleSystemManager : MonoBehaviour
     public int SuccessQTE;
     public int TotalQTE;
 
+    public bool isGameClear;
+
     private void Awake()
     {
         if (Instance == null) { Instance = this; } else { Destroy(gameObject); }
@@ -78,8 +84,9 @@ public class BattleSystemManager : MonoBehaviour
         UpdateBattleSequence();
     }
 
-    public void SetReferenceEnemy(EnemyScriptableObject enemyRef)
+    public void SetReferenceEnemy(EnemyManager enemyObject, EnemyScriptableObject enemyRef)
     { 
+        referenceEnemyObject = enemyObject;
         referenceEnemey = enemyRef;
     }
 
@@ -133,6 +140,35 @@ public class BattleSystemManager : MonoBehaviour
         Instance.OnBattleSequence();
     }
 
+    IEnumerator BattleSequenceDisEngage()
+    {
+        float curTime = 0f;
+        CinemachineCamera currentCam = CameraManager.Instance.GetCamera();
+        while (curTime < 1f)
+        {
+            curTime += Time.unscaledDeltaTime * 1.5f;
+            if (curTime > 1f) curTime = 1f;
+            currentCam.Lens.FieldOfView = 60 - 20 * curTime;
+            yield return null;
+        }
+
+        CameraManager.Instance.fadeCanvas.FadeOut(1f);
+        yield return new WaitForSecondsRealtime(2f);
+        PlayerManager curPlayer = PlayerCharacterManager.Instance.CurrentPlayer;
+        curPlayer.locomotor.controller.enabled = false;
+        curPlayer.transform.position = EncounterPos;
+
+        Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time = 0f;
+        CameraManager.Instance.OnLiveCamera(CameraType.EncounterThird);
+
+        CameraManager.Instance.fadeCanvas.FadeIn(2f);
+        yield return new WaitForSecondsRealtime(1.5f);
+        curPlayer.locomotor.controller.enabled = true;
+        GameManager.Instance.GameContinue();
+        Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time = 1.5f;
+        
+    }
+
     public void OnEngageSequence()
     {
         
@@ -146,7 +182,7 @@ public class BattleSystemManager : MonoBehaviour
         PlayerCharacterManager playerCharManager = PlayerCharacterManager.Instance;
         playerCharManager.CurrentPlayer.animator.animator.speed = 1f;
         EncounterPos = playerCharManager.CurrentPlayer.transform.position;
-
+        playerCharManager.CurrentPlayer.isAttack = false;
         int PlayerCount = playerCharManager.Playables.Count;
         if (PlayerCount == 0)
         {
@@ -234,8 +270,6 @@ public class BattleSystemManager : MonoBehaviour
             CurrentBattlerOrderQueue = BattlerOrderObjects.Dequeue();
         }
 
-        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
-
         foreach (BattlePhase b in BattlerEntries)
         {
             b.PhaseEngage();
@@ -250,11 +284,28 @@ public class BattleSystemManager : MonoBehaviour
             case BattleSystemPhase.Engage:
                 EngageTransition();
                 break;
-            case BattleSystemPhase.Command:
+            case BattleSystemPhase.Command: // 실제 전투 로직이 돌아가는 상황
                 break;
             case BattleSystemPhase.Result:
+                DisEngageTransition(); // 살아남은 캐릭터가 모두 승리 포즈를 취하고 나면, 인카운터 갈 준비를 한다.
+                break;
+            case BattleSystemPhase.DisEngage:
+                OnEndSequenceCheck(); // 입력을 받으면, 인카운터 모드로 넘어간다.
                 break;
         }        
+    }
+
+    public void OnEndSequenceCheck()
+    {
+        bool EndInput = InputManager.Instance.AttackInput;
+
+        if (EndInput)
+        {
+            EndInput = false;
+            GameManager.Instance.CurrentState = GameModeState.Encounter;
+            CurrentPhase = BattleSystemPhase.DisEngage;
+
+        }
     }
 
     public void EngageTransition()
@@ -284,7 +335,35 @@ public class BattleSystemManager : MonoBehaviour
 
     public void DisEngageTransition()
     {
+        if (CurrentPhase != BattleSystemPhase.Result) return;
+        if (BattlerEntries.Count != 0 && CurrentBattler != null)
+        {
+            bool engageRunning = false;
+            foreach (BattlePhase b in BattlerEntries)
+            {
+                if (b.isEngage)
+                {
+                    engageRunning = true;
+                    break;
+                }
+            }
 
+            if (engageRunning)
+            {
+                return;
+            }
+
+            int cnt = referenceEnemey.RewardList.Count;
+            for (int idx = 0; idx < UnityEngine.Random.Range(2, 4); idx++)
+            {
+                int tossItem = UnityEngine.Random.Range(0, cnt);
+                InventoryManager.Instance.EarnItem(referenceEnemey.RewardList[tossItem]);
+            }
+
+            
+            CurrentPhase = BattleSystemPhase.DisEngage;
+            StartCoroutine(DisEngageCommand());
+        }
     }
 
     // 전투가 완전히 처음 시작 했을 때,
@@ -295,12 +374,19 @@ public class BattleSystemManager : MonoBehaviour
         CurrentBattler.PhaseCommand();
     }
 
+    IEnumerator DisEngageCommand()
+    {
+        yield return new WaitForSeconds(1.25f);
+        OffBattleSequence();
+
+    }
+
     // 전투 종료 후, 결과를 정산하고 Encounter로 돌아간다.
     public void OffBattleSequence()
     {
         GameManager.Instance.GameStop();
-        GameManager.Instance.CurrentState = GameModeState.Battle;
-
+        GameManager.Instance.CurrentState = GameModeState.Encounter;
+        StartCoroutine(BattleSequenceDisEngage());
         
     }
 
@@ -387,13 +473,50 @@ public class BattleSystemManager : MonoBehaviour
         if (playerCount == 0)
         {
             Debug.Log("GAME OVER !!");
+            resultUI.gameObject.SetActive(true);
+            resultUI.ResultText.text = "패배";
 
+            isGameClear = false;
+            CurrentPhase = BattleSystemPhase.Result;
             return;
         }
         else if (enemyCount == 0)
         {
             Debug.Log("Enemy ALL SLAYS !!");
-            
+
+            resultUI.gameObject.SetActive(true);
+            resultUI.ResultText.text = "승리";
+            for (int idx = BattlerEntries.Count -1; idx >= 0; idx--)
+            {
+                BattlePhase b = BattlerEntries[idx];
+                if (b.identityType == Identifying.Enemy)
+                {
+                    BattlerEntries.Remove(b);
+                    Destroy(b.gameObject);
+                    continue;
+                }
+
+                if (b.identityType == Identifying.Player)
+                {
+                    b.CurrentPhase = PhaseType.Engage;
+                    var bm = b.GetComponent<PlayerManager>();
+                    bm.status.GainEXP(referenceEnemey.EXP);
+                    if (bm.status.isDead)
+                    {
+                        bm.status.HPChange(10);
+                        bm.status.isDead = false;
+                        
+                        if(PlayerCharacterManager.Instance.CurrentPlayer != bm) bm.gameObject.SetActive(false);
+                        BattlerEntries.Remove(b);
+                        continue;
+                    }
+
+                    b.GetComponent<PlayerManager>().animator.animator.Play("BattleVictory"); // Activate OnDisEngageDone.
+                }
+            }
+
+            isGameClear = true;
+            CurrentPhase = BattleSystemPhase.Result;
             return;
         }
 
@@ -494,6 +617,7 @@ public class BattleSystemManager : MonoBehaviour
                 phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
             }
         }
+        TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
     }
 
     public void TargetDied()

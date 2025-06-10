@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerEncounterManager : MonoBehaviour
 {
     private PlayerManager playerManager;
-    [SerializeField] WeaponTriggerJudge Weapon;
+    [SerializeField] public WeaponTriggerJudge Weapon;
     [HideInInspector] public ItemObject temporaryItem;
 
     private void Start()

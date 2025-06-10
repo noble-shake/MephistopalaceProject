@@ -170,6 +170,12 @@ public class EnemyBattleManager : CharacterBattleManager
 
     public void OnSkillDone()
     {
+        StartCoroutine(SKillDoneDelay());
+    }
+
+    IEnumerator SKillDoneDelay()
+    {
+        yield return new WaitForSeconds(1f);
         CurrentTargetSkill.Done();
     }
 

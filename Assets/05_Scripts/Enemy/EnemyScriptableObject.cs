@@ -29,6 +29,7 @@ public class EnemyScriptableObject : ScriptableObject
     [Space]
     [Header("Rewards")]
     public List<ItemScriptableObject> RewardList;
+    public int EXP;
 
     public StatContainer GetEnemyStatChange()
     {

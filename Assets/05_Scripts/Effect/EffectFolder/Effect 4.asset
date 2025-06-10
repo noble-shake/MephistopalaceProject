@@ -15,4 +15,4 @@ MonoBehaviour:
   vfxType: 0
   Name: 3
   LifeTime: 0
-  VFXPrefab: {fileID: 3935880551592863339, guid: 713b050d59f059d4d89b143918cdb8ca, type: 3}
+  VFXPrefab: {fileID: 6912625733323707271, guid: 34757b5af7b4a0443b0eb3f44199df8d, type: 3}
