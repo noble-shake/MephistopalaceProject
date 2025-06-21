@@ -117,6 +117,9 @@ public class BattleSystemManager : MonoBehaviour
 
     IEnumerator BattleSequenceEngage()
     {
+        CurrentPhase = BattleSystemPhase.Engage;
+        BattlerEntries = new();
+
         GameManager.Instance.GameStop();
         float curTime = 0f;
         CinemachineCamera currentCam = CameraManager.Instance.GetCamera();

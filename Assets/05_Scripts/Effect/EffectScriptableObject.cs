@@ -15,8 +15,12 @@ public enum VFXName
     BuffEffectB,
     KnightSlash,
     EnemyAttackAlarmEffect,
+    EnemyEvadeAlarmEffect,
     KnightChargingBladeA,
     KnightChargingBladeB,
+    PlayerCounterAttack,
+    SlimbAttackEffect,
+    SkeletonAttackEffect,
 }
 
 [CreateAssetMenu(fileName ="Effect 1", menuName = "Palace/Effect")]

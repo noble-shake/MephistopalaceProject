@@ -392,6 +392,35 @@ public class PlayerPhase : BattlePhase
 
     }
 
+
+    public void OnCounterAttack(EnemyManager _Target)
+    {
+        CurrentPhase = PhaseType.Wait; // Block Additional Update.
+        playerManager.animator.animator.Play("BattleCounterAttack");
+        playerManager.battler.CurrentTargets = new();
+        playerManager.battler.CurrentTargets.Add(_Target.phaser);
+
+
+    }
+
+    public void OnCounterActionProcess()
+    {
+        foreach (BattlePhase e in playerManager.battler.CurrentTargets)
+        {
+            EnemyPhase enemy = (EnemyPhase)e;
+            EnemyManager _Target = enemy.enemyManager;
+
+            GameObject VFX = ResourceManager.Instance.VFXResources[VFXName.KnightSlash].GetVFXInstance();
+            VFX.transform.position = _Target.transform.forward + _Target.transform.position + Vector3.up;
+            int HitDamage = UnityEngine.Random.Range(playerManager.status.aMinATK, playerManager.status.aMaxATK + 1);
+            _Target.status.HPChange(-HitDamage);
+            _Target.animator.animator.Play("CounterHit");
+        }
+    }
+
+    
+
+
     public void ParrySuccess(bool isOn)
     {
         Debug.Log("PARRY SUCCESS !!");

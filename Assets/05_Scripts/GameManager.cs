@@ -12,6 +12,7 @@ public enum GameModeState
 {
     Encounter,
     Battle,
+    Cinematic,
 }
 
 public class GameManager : MonoBehaviour
@@ -36,11 +37,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        Sensivity = 10f;
+        Sensivity = 1f;
         GameVolume = 0f;
         MouseSensivitySlider.onValueChanged.AddListener(OnSensivityChanged);
         VolumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
+
+    public void OnStateChangeToCinematic()
+    {
+        CurrentState = GameModeState.Cinematic;
+    }
+
+    public void OnStateChangeToEncounter()
+    {
+        CurrentState = GameModeState.Encounter;
+    }
+
 
     #region Time Management
     public bool isGamePause { get; private set; }

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Effect 5_BladeA
   m_EditorClassIdentifier: 
   vfxType: 0
-  Name: 4
+  Name: 5
   LifeTime: 0
   VFXPrefab: {fileID: 80564509999709114, guid: 48d47704b5fd74d49974a5f5be411926, type: 3}

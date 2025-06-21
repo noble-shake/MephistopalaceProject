@@ -97,7 +97,7 @@ public class EnemyBattleManager : CharacterBattleManager
         yield return null;
         while (Vector3.Distance(TargetAroundPos, transform.position - new Vector3(0f, transform.position.y, 0f)) > 0.5f)
         {
-            enemyManager.locomotor.controller.Move((TargetAroundPos - PlayerPos).normalized * 10f * Time.deltaTime);
+            enemyManager.locomotor.controller.Move((TargetAroundPos - PlayerPos).normalized * 6f * Time.deltaTime);
             yield return null;
         }
 

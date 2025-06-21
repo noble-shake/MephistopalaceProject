@@ -34,4 +34,7 @@ public enum SkillActions
     SlimbCombo01,
     SlimbCombo02,
     ChargingAttack,
+    SkeletonCombo01,
+    SkeletonCombo02,
+    SkeletonCombo03,
 }

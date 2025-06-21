@@ -69,6 +69,12 @@ public class SkillScriptableObject : ScriptableObject
                 return new SlimbCombo01(enemyManager);
             case SkillActions.SlimbCombo02:
                 return new SlimbCombo02(enemyManager);
+            case SkillActions.SkeletonCombo01:
+                return new SkeletonCombo01(enemyManager);
+            case SkillActions.SkeletonCombo02:
+                return new SkeletonCombo02(enemyManager);
+            case SkillActions.SkeletonCombo03:
+                return new SkeletonCombo03(enemyManager);
         }
 
     }

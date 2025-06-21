@@ -108,7 +108,7 @@ public class ResourceManager : MonoBehaviour
     public void ItemDropObjectSpawn(Transform trs, ItemScriptableObject _item, EarnActionType actionType)
     {
         ItemObject itemObject = Instantiate(DropItemPrefab);
-        itemObject.transform.position = trs.position;
+        itemObject.transform.position = trs.position + Vector3.up;
         itemObject.GetItemInfo(_item, actionType);
         return;
     }

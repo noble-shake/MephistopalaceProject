@@ -92,9 +92,9 @@ public class PlayerBattleManager : CharacterBattleManager
 
         playerManager.animator.animator.Play("BackToPoint");
         yield return null;
-        while (Vector3.Distance(TargetAroundPos, transform.position) > 1f)
+        while (Vector3.Distance(TargetAroundPos, transform.position - new Vector3(0f, transform.position.y, 0f)) > 0.5f)
         {
-            playerManager.locomotor.controller.Move((TargetAroundPos - PlayerPos).normalized * 10f * Time.deltaTime);
+            playerManager.locomotor.controller.Move((TargetAroundPos - PlayerPos).normalized * 6f * Time.deltaTime);
             yield return null;
         }
 

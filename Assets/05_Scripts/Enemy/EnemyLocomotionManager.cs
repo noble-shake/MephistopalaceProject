@@ -83,7 +83,7 @@ public class EnemyLocomotionManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.CurrentState == GameModeState.Battle) return;
+        if (GameManager.Instance.CurrentState != GameModeState.Encounter) return;
         if (enemyManager != null) enemyManager.animator.MoveAnimation(agent.velocity.normalized.magnitude);
     }
 

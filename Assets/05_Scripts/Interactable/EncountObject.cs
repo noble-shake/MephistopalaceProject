@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EncountObject : InteractObject
 {
+    bool isActivated;
     protected override void Start()
     {
         base.Start();
@@ -14,10 +15,14 @@ public class EncountObject : InteractObject
 
     private void OnTriggerEnter(Collider other)
     {
+        if (isActivated) return;
+
         if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))
         {
             ActivateEvent();
-            Destroy(gameObject);
+            isActivated = true;
+
+
         }
 
     }

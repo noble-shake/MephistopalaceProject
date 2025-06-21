@@ -90,7 +90,7 @@ public class PlayerLocomotionManager : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.Instance.CurrentState.Equals(GameModeState.Battle)) return;
+        if (GameManager.Instance.CurrentState != GameModeState.Encounter) return;
 
         if (playerManager.isAttack) return;
         if (playerManager.isPause) return;
