@@ -207,16 +207,14 @@ public class BattleSystemManager : MonoBehaviour
         {
             for (int idx = 0; idx < PlayerCount; idx++)
             {
-                foreach (PlayerManager player in playerCharManager.Playables.Values)
-                {
-                    player.locomotor.controller.enabled = false;
-                    if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
-                    player.transform.position = SpawnPoints[idx].position;
-                    EntryRegistry(player);
-                    player.phaser.SpawnPoint = SpawnPoints[idx];
-                    player.phaser.AllocatedPoint = AllocatedPoints[idx];
-                    // player.phaser.PhaseEngage();
-                }
+                PlayerManager player = playerCharManager.Playables[(CharacterType)idx];
+                player.locomotor.controller.enabled = false;
+                if (!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+                player.transform.position = SpawnPoints[idx].position;
+                EntryRegistry(player);
+                player.phaser.SpawnPoint = SpawnPoints[idx];
+                player.phaser.AllocatedPoint = AllocatedPoints[idx];
+                player.phaser.PhaseEngage();
             }
         }
         // 상대할 적을 선택한다.

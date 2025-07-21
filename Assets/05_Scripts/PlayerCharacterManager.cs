@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using TeleportFX;
 
 [System.Serializable]
 public enum SwitchingDirection
@@ -59,12 +60,27 @@ public class PlayerCharacterManager : MonoBehaviour
         player.status.playerStatUI.SetHPValue(player.status.HP, player.status.MaxHP);
     }
 
-    public void Switching(SwitchingDirection _direction)
+    IEnumerator SpawnDelayActive(GameObject player)
+    {
+        yield return null;
+        player.SetActive(false);
+    }
+
+    public void CharacterSwitching(SwitchingDirection _direction)
     { 
         int ownCharacters = Playables.Count;
         if (ownCharacters == 1) return;
         int currentCharacter = (int)CurrentPlayer.characterType;
-        currentCharacter--;
+
+        if (_direction == SwitchingDirection.Previous)
+        {
+            currentCharacter--;
+        }
+        else
+        {
+            currentCharacter++;
+        }
+
         int allCharacters = System.Enum.GetNames(typeof(CharacterType)).Length;
 
 
@@ -83,9 +99,18 @@ public class PlayerCharacterManager : MonoBehaviour
         CurrentPlayer = Playables[(CharacterType)currentCharacter];
         CurrentPlayer.gameObject.SetActive(true);
         CurrentPlayer.transform.position = CurrentPosition;
+        CurrentPlayer.GetComponent<KriptoFX_Teleportation>().enabled = true;
+
+        // Camera Following
+        CameraManager.Instance.GetCamera().Follow = CurrentPlayer.transform;
 
         //Showcase Change.
+        CharacterShowcaseManager.Instance.ShowcaseOpen(currentCharacter);
+
         // Equip Change.
+        InventoryManager.Instance.EquipChange(CurrentPlayer.status.GetEquips);
+
+
     }
 
     public void SpawnNewCharacter(CharacterType _characterType)
@@ -93,8 +118,24 @@ public class PlayerCharacterManager : MonoBehaviour
         var characterInfo = ResourceManager.Instance.PlayerResources[(int)_characterType];
         PlayerManager player = Instantiate(characterInfo.CharacterPrefab).GetComponent<PlayerManager>();
         var container = characterInfo.GetStatChange();
-        Playables[CurrentPlayer.characterType] = player;
-        player.gameObject.SetActive(false);
+        Playables[_characterType] = player;
+        
         StartCoroutine(StatAdjust(player, container));
+        StartCoroutine(SpawnDelayActive(player.gameObject));
+    }
+
+    public void SpawnDualBlade()
+    {
+        SpawnNewCharacter(CharacterType.DualBlade);
+    }
+
+    public void SpawnMagician()
+    {
+        SpawnNewCharacter(CharacterType.Magician);
+    }
+
+    public void CharacterActive(bool isOn)
+    { 
+        CurrentPlayer.gameObject.SetActive(isOn);
     }
 }

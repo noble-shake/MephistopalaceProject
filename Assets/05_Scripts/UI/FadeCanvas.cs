@@ -13,17 +13,20 @@ public class FadeCanvas : MonoBehaviour
     // black => white
     public void FadeIn(float _time = 1f)
     {
+        if (!canvas.gameObject.activeSelf) return;
         StartCoroutine(FadeInEffect(_time));
     }
 
     // white => black
     public void FadeOut(float _time = 1f)
     {
+        if (!canvas.gameObject.activeSelf) return;
         StartCoroutine(FadeOutEffect(_time));
     }
 
     public void fadeInOut(float _time = 1f)
     {
+        if (!canvas.gameObject.activeSelf) return;
         StartCoroutine(FadeInOutEffect(_time));
     }
 
@@ -46,6 +49,7 @@ public class FadeCanvas : MonoBehaviour
         float a = 0f;
         while (canvas.alpha < 1f)
         {
+            if (!canvas.gameObject.activeSelf) break;
             a += Time.unscaledDeltaTime / _time;
             if (a > 1f) a = 1f;
             canvas.alpha = a;
@@ -59,6 +63,7 @@ public class FadeCanvas : MonoBehaviour
         float a = 0f;
         while (canvas.alpha < 1f)
         {
+            if (!canvas.gameObject.activeSelf) break;
             a += Time.unscaledDeltaTime / (_time/2);
             if (a > 1f) a = 1f;
             canvas.alpha = a;

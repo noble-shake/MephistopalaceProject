@@ -14,6 +14,7 @@ public class PlayerStatusManager : CharacterStatusManger
     [Header("Equipments")]
     [SerializeField] Dictionary<ItemType, ItemScriptableObject> Equips;
     
+    public Dictionary<ItemType, ItemScriptableObject> GetEquips { get { return Equips; } }
 
     private void Start()
     {

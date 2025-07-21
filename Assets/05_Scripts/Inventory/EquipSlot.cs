@@ -9,6 +9,8 @@ public class EquipSlot : SlotObject
     [SerializeField] public bool isLocked;
     [SerializeField] private ItemType equipType;
 
+    public ItemType GetEquipType { get { return equipType; } set { equipType = value; } }
+
     private void Start()
     {
         itemImage.raycastTarget = false;

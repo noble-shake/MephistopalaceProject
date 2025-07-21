@@ -4496,7 +4496,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc57e06d65d40d842be0328dc016b804, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapon: {fileID: 3349903823210254974}
+  LeftWeapon: {fileID: 3349903823210254974}
+  RightWeapon: {fileID: 0}
   temporaryItem: {fileID: 0}
 --- !u!114 &3887882467272871801
 MonoBehaviour:
@@ -5540,6 +5541,10 @@ PrefabInstance:
     - target: {fileID: 2616050800271458080, guid: 3ccb045cc395be44f82f621a95d8dba1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5236968476012853392, guid: 3ccb045cc395be44f82f621a95d8dba1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

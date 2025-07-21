@@ -17,42 +17,53 @@ public class Showcase : MonoBehaviour
         Effecter.IsTeleportationFinished += () => TeleportationEffect(isDisappear);
     }
 
+    private void OnEnable()
+    {
+        //TeleportationEffect(true);
+
+    }
+
     public void TeleportationEffect(bool value)
     {
         if (value)
         {
-            Disappear();
+            Effecter.enabled = true;
+        }
+        else
+        {
+            Effecter.enabled = false;
+            // Disappear();
         }
     }
 
     public void Disappear()
-    { 
-        
+    {
+        // gameObject.SetActive(false);  
     }
 
     public void OnHeadAnimation()
-    { 
-    
+    {
+        animator.Play("HeadEquip");
     }
 
     public void OnArmorAnimation()
     {
-
+        animator.Play("ArmorEquip");
     }
 
     public void OnWeaponAnimation()
     {
-
+        animator.Play("WeaponEquip");
     }
 
     public void OnAccessoryAnimation()
     {
-
+        animator.Play("AccessoryEquip");
     }
 
     public void OnBootsAnimation()
     {
-
+        animator.Play("BootsEquip");
     }
 
 }

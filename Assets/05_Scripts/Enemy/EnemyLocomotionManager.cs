@@ -122,9 +122,12 @@ public class EnemyLocomotionManager : MonoBehaviour
     {
         if (!isTrace)
         {
+            if (!enemyTraceZone.enabled) enemyTraceZone.enabled = true;
+            if (ListPaths.Count == 1) return INode.STATE.FAILED;
+
             agent.speed = CharacterSpeed;
             agent.destination = CurrentDestination;
-            if (!enemyTraceZone.enabled) enemyTraceZone.enabled = true;
+            
             return INode.STATE.FAILED;
         }
 
@@ -157,6 +160,8 @@ public class EnemyLocomotionManager : MonoBehaviour
     {
         //if (isTrace) return INode.STATE.FAILED;
         //if (isSleep || isStand) return INode.STATE.FAILED;
+        if(ListPaths.Count == 1 && isTrace == false) return INode.STATE.FAILED;
+
 
         agent.Move(Time.deltaTime * new Vector3(1f, 0f, 1f));
         var turnTowardNavSteeringTarget = agent.steeringTarget;
@@ -169,6 +174,7 @@ public class EnemyLocomotionManager : MonoBehaviour
 
     public INode.STATE EnemyDestinationCheckAction()
     {
+
 
         if (Vector3.Distance(transform.position, agent.destination) < 0.1f)
         {

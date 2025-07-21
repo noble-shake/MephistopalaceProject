@@ -17,7 +17,7 @@ MonoBehaviour:
     \uC218 \uC788\uB294 \uB9C8\uBC95\uC0AC. \uD154\uB808\uD3EC\uD2B8\uB97C \uC4F0\uBA74
     \uD0C8\uCD9C\uD560 \uC218 \uC788\uC9C0 \uC54A\uC558\uC744\uAE4C?"
   Portrait: {fileID: 21300000, guid: 83599183ab4f6084889d377ea45fbded, type: 3}
-  CharacterPrefab: {fileID: 0}
+  CharacterPrefab: {fileID: 7979453247902764093, guid: fda63ca9d57569749b1516d8916d1b24, type: 3}
   CharacterDescription: {fileID: 0}
   HP: 0
   AP: 0

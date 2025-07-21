@@ -212,6 +212,12 @@ public class CameraManager : MonoBehaviour
         StartCoroutine(AttackCameraEffect());
     }
 
+    public void EnemyAttackCameraAction()
+    {
+        StartCoroutine(EnemyAttackCameraEffect());
+    }
+
+    // Player가 공격할 때, 카메라 효과
     IEnumerator AttackCameraEffect()
     {
 
@@ -237,6 +243,42 @@ public class CameraManager : MonoBehaviour
             CurrentCamera.Lens.FieldOfView = 60f - 30f + curTime * 30f;
 
             LookAtVec.x = 1.5f - 1f + (curTime * 1f);
+
+            lookatCam.LookAtOffset = LookAtVec;
+            followCam.FollowOffset = ChangePoint;
+            yield return null;
+        }
+    }
+
+    // Enemy가 공격할 때, 카메라 효과
+    IEnumerator EnemyAttackCameraEffect()
+    {
+
+        float curTime = 0f;
+        Vector3 StartPoint = new Vector3(0f, 2f, 2f);
+        Vector3 ChangePoint = StartPoint;
+        CinemachineFollow followCam = CurrentCamera.GetComponent<CinemachineFollow>();
+        CinemachineHardLookAt lookatCam = CurrentCamera.GetComponent<CinemachineHardLookAt>();
+        lookatCam.LookAtOffset = new Vector3(0f, 0f, 0f);
+        Vector3 LookAtVec = new Vector3(0f, 0f, 0f);
+        CurrentCamera.Lens.FieldOfView = 30f;
+        followCam.FollowOffset = StartPoint;
+        // fov 30 => 90
+        // before 0, 2, 2
+        // after 2, 3.5, 2.5
+        while (curTime < 1f)
+        {
+            curTime += Time.deltaTime / 3.6f;
+            if (curTime > 1f) curTime = 1f;
+            // Vector = Result - (Result - Before) + (curTime * (R-B))
+            ChangePoint.x = (curTime * 2f);
+            ChangePoint.y = 3.5f - 1.5f + (curTime * 1.5f);
+            ChangePoint.z = 2.5f - 0.5f + (curTime * 0.5f);
+            CurrentCamera.Lens.FieldOfView = 90f - 30f + curTime * 30f;
+
+            LookAtVec.x = (curTime * 1f);
+            LookAtVec.y = (-curTime);
+            LookAtVec.z = -1f + 1.5f + (curTime * 1.5f);
 
             lookatCam.LookAtOffset = LookAtVec;
             followCam.FollowOffset = ChangePoint;

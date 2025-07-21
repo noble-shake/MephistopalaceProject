@@ -18,8 +18,7 @@ MonoBehaviour:
   isEquip: 1
   isConsume: 0
   Name: 6
-  Description: "\uC778\uBCA4\uD1A0\uB9AC \uC2DC\uC2A4\uD15C\uC774 \uC798 \uB3D9\uC791\uD558\uB294
-    \uC9C0 \uD655\uC778\uD558\uAE30 \uC704\uD55C \uC7A5\uBE44 \uC544\uC774\uD15C"
+  Description: "\uBD80\uCE20 \uC544\uC774\uD15C \uC2A4\uD53C\uB4DC\uB97C \uC62C\uB824\uC900\uB2E4."
   itemType: 5
   itemImage: {fileID: 21300000, guid: 9a657e8a1c272a44f86fe15845148a6b, type: 3}
   LEVEL: 0
@@ -28,6 +27,6 @@ MonoBehaviour:
   minATK: 0
   maxATK: 0
   CRT: 0
-  SPD: 0
+  SPD: 1
   DEF: 0
   EXP: 0

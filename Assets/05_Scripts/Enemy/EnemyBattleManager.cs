@@ -112,10 +112,10 @@ public class EnemyBattleManager : CharacterBattleManager
 
     public void MoveToTarget(BattlePhase target, IEnumerator ActionEffect)
     {
-        CameraManager.Instance.OnLiveCamera(CameraType.BattlePlayer);
+        CameraManager.Instance.OnLiveCamera(CameraType.BattleEnemy);
         CinemachineCamera cam = CameraManager.Instance.GetCamera();
         cam.Follow = transform;
-        CameraManager.Instance.PlayerAttackCameraAction();
+        CameraManager.Instance.EnemyAttackCameraAction();
         StartCoroutine(MoveToTargetAction(target, ActionEffect));
     }
 
@@ -141,7 +141,11 @@ public class EnemyBattleManager : CharacterBattleManager
             yield return null;
         }
 
-        target.CurrentPhase = PhaseType.Targetting;
+        foreach (BattlePhase TargetPhaser in enemyManager.battler.CurrentTargets)
+        {
+            TargetPhaser.CurrentPhase = PhaseType.Targetting;
+        }
+
 
         yield return StartCoroutine(ActionEffect);
 

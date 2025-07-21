@@ -17,13 +17,13 @@ MonoBehaviour:
     \uC18D\uB3C4\uB97C \uAC00\uC84C\uC9C0\uB9CC, \uB358\uC804\uC5D0 \uAC07\uD788\uACE0
     \uB9D0\uC558\uB2E4."
   Portrait: {fileID: 21300000, guid: 803e21ee8bdc6d34c9fec31daa5feaf0, type: 3}
-  CharacterPrefab: {fileID: 0}
+  CharacterPrefab: {fileID: 2022189951673996965, guid: cdfeaf5b78aa73947adb44d946f07e86, type: 3}
   CharacterDescription: {fileID: 0}
-  HP: 0
+  HP: 50
   AP: 0
-  MinATK: 0
-  MaxATK: 0
+  MinATK: 3
+  MaxATK: 5
   SPD: 0
   DEF: 0
-  CRT: 0
+  CRT: 5
   CharacterAbility: {fileID: 0}

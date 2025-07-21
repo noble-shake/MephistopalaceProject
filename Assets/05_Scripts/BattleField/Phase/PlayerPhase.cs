@@ -43,7 +43,8 @@ public class PlayerPhase : BattlePhase
 
         playerManager.animator.animator.SetBool("Engage", true);
         yield return null;
-        playerManager.encounter.Weapon.WeaponTrail.SetActive(true);
+        if(playerManager.encounter.LeftWeapon != null) playerManager.encounter.LeftWeapon.WeaponTrail.SetActive(true);
+        if (playerManager.encounter.RightWeapon != null) playerManager.encounter.RightWeapon.WeaponTrail.SetActive(true);
         CurrentPhase = PhaseType.Wait;
         
 
@@ -57,7 +58,8 @@ public class PlayerPhase : BattlePhase
 
     public void OnDisEngageActionDone()
     {
-        playerManager.encounter.Weapon.WeaponTrail.SetActive(false);
+        if (playerManager.encounter.LeftWeapon != null) playerManager.encounter.LeftWeapon.WeaponTrail.SetActive(false);
+        if (playerManager.encounter.RightWeapon != null) playerManager.encounter.RightWeapon.WeaponTrail.SetActive(false);
         playerManager.animator.animator.SetTrigger("DisEngage");
         isEngage = false;
     }
@@ -437,14 +439,31 @@ public class PlayerPhase : BattlePhase
     }
 
     public void OnWeaponVFX()
-    { 
-        playerManager.encounter.Weapon.VFXLight.SetActive(true);
-        playerManager.encounter.Weapon.CreateWeaponVFX();
+    {
+        if (playerManager.encounter.LeftWeapon != null)
+        {
+            playerManager.encounter.LeftWeapon.VFXLight.SetActive(true);
+            playerManager.encounter.LeftWeapon.CreateWeaponVFX();
+        }
+
+        if (playerManager.encounter.RightWeapon != null)
+        {
+            playerManager.encounter.RightWeapon.VFXLight.SetActive(true);
+            playerManager.encounter.RightWeapon.CreateWeaponVFX();
+        }
     }
 
     public void OffWeaponVFX()
     {
-        playerManager.encounter.Weapon.VFXLight.SetActive(false);
+        if (playerManager.encounter.LeftWeapon != null)
+        {
+            playerManager.encounter.LeftWeapon.VFXLight.SetActive(false);
+        }
+
+        if (playerManager.encounter.RightWeapon != null)
+        {
+            playerManager.encounter.RightWeapon.VFXLight.SetActive(false);
+        }
     }
 
     public void EvadeSuccess(bool isOn)

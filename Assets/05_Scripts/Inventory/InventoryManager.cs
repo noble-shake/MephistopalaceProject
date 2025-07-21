@@ -12,6 +12,23 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private List<SlotUI> Slots;
     [SerializeField] private List<ItemScriptableObject> Items;
 
+    // Status는 이미 적용되어 있으므로 해당 슬롯을 초기화 한 뒤에, 아이템 표시만 바꿔주면 된다.
+    // Input : Changed Character
+    // SlotObject Equip 함수는 디스플레이 관련으로만 적용되어 있는걸 잊지 말자.
+    public void EquipChange(Dictionary<ItemType, ItemScriptableObject> _Equips)
+    {
+        foreach (EquipSlot slot in Equips)
+        {
+            slot.UnEqup();
+
+            if (_Equips.ContainsKey(slot.GetEquipType) == false) continue;
+
+            ItemScriptableObject EquipItem = _Equips[slot.GetEquipType];
+            slot.itemInfo = EquipItem;
+            slot.Equip(); 
+        }
+    }
+
     public bool UseKeyItem(ItemScriptableObject _item)
     {
         foreach (SlotUI slot in Slots)

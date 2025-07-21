@@ -87,6 +87,21 @@ public class PlayerLocomotionManager : MonoBehaviour
 
     }
 
+    public void CharacterSwitchingCheck()
+    {
+        if (InputManager.Instance.PreviousInput)
+        {
+            InputManager.Instance.PreviousInput = false;
+            PlayerCharacterManager.Instance.CharacterSwitching(SwitchingDirection.Previous);
+        }
+
+        if (InputManager.Instance.NextInput)
+        {
+            InputManager.Instance.NextInput = false;
+            PlayerCharacterManager.Instance.CharacterSwitching(SwitchingDirection.Next);
+        }
+    }
+
 
     private void Update()
     {
@@ -98,5 +113,8 @@ public class PlayerLocomotionManager : MonoBehaviour
         GamePause();
         CharacterMove();
         CharacterLook();
+        CharacterSwitchingCheck();
+
+
     }
 }

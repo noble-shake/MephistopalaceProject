@@ -4,7 +4,8 @@ using UnityEngine;
 public class PlayerEncounterManager : MonoBehaviour
 {
     private PlayerManager playerManager;
-    [SerializeField] public WeaponTriggerJudge Weapon;
+    [SerializeField] public WeaponTriggerJudge LeftWeapon;
+    [SerializeField] public WeaponTriggerJudge RightWeapon;
     [HideInInspector] public ItemObject temporaryItem;
 
     private void Start()
@@ -15,14 +16,33 @@ public class PlayerEncounterManager : MonoBehaviour
     #region Encounter Animation Triggers
     public void OnEncounterAttackCollider()
     {
-        Weapon.WeaponTrail.SetActive(true);
-        Weapon.WeaponCollider.enabled = true;
+        if (LeftWeapon != null)
+        {
+            LeftWeapon.WeaponTrail.SetActive(true);
+            LeftWeapon.WeaponCollider.enabled = true;
+        }
+
+        if (RightWeapon != null)
+        {
+            RightWeapon.WeaponTrail.SetActive(true);
+            RightWeapon.WeaponCollider.enabled = true;
+        }
+
     }
 
     public void OffEncounterAttackCollider()
     {
-        Weapon.WeaponTrail.SetActive(false);
-        Weapon.WeaponCollider.enabled = false;
+        if (LeftWeapon != null)
+        {
+            LeftWeapon.WeaponTrail.SetActive(false);
+            LeftWeapon.WeaponCollider.enabled = false;
+        }
+
+        if (RightWeapon != null)
+        {
+            RightWeapon.WeaponTrail.SetActive(false);
+            RightWeapon.WeaponCollider.enabled = false;
+        }
     }
 
     public void OnEncounterAttackDone()
