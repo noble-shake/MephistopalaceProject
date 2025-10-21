@@ -26,6 +26,7 @@ public class PlayerPhase : BattlePhase
 
     IEnumerator EngageAction()
     {
+        playerManager.encounter.OffEncounterAttackCollider();
         yield return new WaitForSeconds(0.2f);
         if (!playerManager.locomotor.controller.enabled) playerManager.locomotor.controller.enabled = true;
         playerManager.animator.animator.Play("BattleEngage");

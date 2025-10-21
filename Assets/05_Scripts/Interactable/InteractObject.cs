@@ -78,6 +78,18 @@ public class InteractObject: MonoBehaviour
         }
     }
 
+    public virtual void InteractSpecificEvent()
+    {
+        InteractMessageQueue();
+        EventSubscribedRun(SubscribeType.Interact);
+        if (timelinePlayer != null)
+        {
+            if (timelinePlaying) return;
+            timelinePlayer.Play();
+            timelinePlaying = true;
+        }
+    }
+
     public virtual void ActivateEvent()
     {
         ActivateMessageQueue();

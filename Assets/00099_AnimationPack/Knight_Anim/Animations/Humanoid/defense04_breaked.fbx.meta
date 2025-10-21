@@ -88,7 +88,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ParrySuccess
+      name: Knight_ParrySuccess
       takeName: defense04_breaked
       internalID: 976026541570208656
       firstFrame: 0

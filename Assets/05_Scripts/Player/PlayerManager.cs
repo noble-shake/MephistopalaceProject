@@ -10,6 +10,7 @@ public class PlayerManager : CharacterManager
     public bool isPause;
     public bool isItemEarnAction;
     public bool isGravityOff;
+    public bool isJump;
 
     [Space]
     [Header("Encounter States")]

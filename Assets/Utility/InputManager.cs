@@ -67,7 +67,9 @@ public class InputManager : MonoBehaviour
         InputSystem.Player.Cancel.canceled += context => CrouchInput = false;
         InputSystem.Player.Jump.performed += context => JumpInput = true;
         InputSystem.Player.Next.performed += context => NextInput = true;
+        InputSystem.Player.Next.canceled += context => NextInput = false;
         InputSystem.Player.Previous.performed += context => PreviousInput = true;
+        InputSystem.Player.Previous.canceled += context => PreviousInput = false;
         InputSystem.Player.Sprint.performed += context => SprintInput = true;
 
         InputSystem.Player.Pause.started += context => EscapeInput = true;

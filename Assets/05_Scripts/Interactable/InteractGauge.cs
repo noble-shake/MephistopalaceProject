@@ -32,7 +32,7 @@ public class InteractGauge : MonoBehaviour
         if (interactionGauge.fillAmount >= 1f)
         {
             interactionGauge.fillAmount = 0f;
-            delay = 2f;
+            delay = 4f;
             interactObject = GetComponentInParent<InteractObject>();
             interactObject.InteractEvent();
         } 
@@ -41,5 +41,23 @@ public class InteractGauge : MonoBehaviour
     public void Cancel()
     {
         interactionGauge.fillAmount = 0f;
+    }
+
+    public void InteractSpecific(CharacterType characterType)
+    {
+        if (delay > 0f) return;
+
+        interactionGauge.fillAmount += Time.deltaTime / 1.25f;
+        if (interactionGauge.fillAmount >= 1f)
+        {
+            interactionGauge.fillAmount = 0f;
+            delay = 4f;
+            interactObject = GetComponentInParent<InteractObject>();
+            interactObject.InteractSpecificEvent();
+
+        }
+
+
+
     }
 }

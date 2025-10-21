@@ -9,6 +9,7 @@ public class ItemEarnZone : InteractZone
         if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))
         {
             player = other.gameObject.GetComponent<PlayerManager>();
+            if (player == null) return;
             player.encounter.temporaryItem = interactOwner.GetComponent<ItemObject>();
             interacted = true;
             interactGauge.gameObject.SetActive(true);
@@ -20,6 +21,7 @@ public class ItemEarnZone : InteractZone
         if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))
         {
             player = other.gameObject.GetComponent<PlayerManager>();
+            if (player == null) return;
             player.encounter.temporaryItem = null;
             interacted = false;
             interactGauge.gameObject.SetActive(false);
