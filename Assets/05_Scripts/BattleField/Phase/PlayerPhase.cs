@@ -59,8 +59,7 @@ public class PlayerPhase : BattlePhase
 
     public void OnDisEngageActionDone()
     {
-        if (playerManager.encounter.LeftWeapon != null) playerManager.encounter.LeftWeapon.WeaponTrail.SetActive(false);
-        if (playerManager.encounter.RightWeapon != null) playerManager.encounter.RightWeapon.WeaponTrail.SetActive(false);
+        playerManager.encounter.OffEncounterAttackCollider();
         playerManager.animator.animator.SetTrigger("DisEngage");
         isEngage = false;
     }
@@ -127,11 +126,12 @@ public class PlayerPhase : BattlePhase
 
     public void ActivatedOff()
     {
-        foreach (Transform t in BattleSystemManager.Instance.AllocatedPoints)
+        foreach (BattlePhase t in BattleSystemManager.Instance.TempActivateTargets)
         {
-            if (t.GetComponent<AllocatedTransform>().circleObject.gameObject.activeSelf)
+            GameObject TargetCircle = t.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject;
+            if (TargetCircle.activeSelf)
             {
-                t.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+                TargetCircle.SetActive(false);
             }
         }
     }

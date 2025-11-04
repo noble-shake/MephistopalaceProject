@@ -5,6 +5,7 @@ public class InteractGauge : MonoBehaviour
 {
     [SerializeField] Image interactionGauge;
     InteractObject interactObject;
+    [SerializeField] InteractZone interactZone;
     float delay;
 
     private void Start()
@@ -35,6 +36,7 @@ public class InteractGauge : MonoBehaviour
             delay = 4f;
             interactObject = GetComponentInParent<InteractObject>();
             interactObject.InteractEvent();
+            if (interactZone != null) interactZone.OffState();
         } 
     }
 

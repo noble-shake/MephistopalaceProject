@@ -59,4 +59,10 @@ public class InteractZone : MonoBehaviour
             interactGauge.gameObject.SetActive(false);
         }
     }
+
+    public void OffState()
+    {
+        interacted = false;
+        interactGauge.gameObject.SetActive(false);
+    }
 }

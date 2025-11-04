@@ -60,6 +60,23 @@ public class PlayerCharacterManager : MonoBehaviour
         player.status.playerStatUI.SetHPValue(player.status.HP, player.status.MaxHP);
     }
 
+    IEnumerator StatAdjust(PlayerManager player, StatContainer _container, PlayerCharacterScriptableObject _info)
+    {
+        yield return null;
+        foreach (var sUI in statUI)
+        {
+            if (!sUI.gameObject.activeSelf)
+            {
+                sUI.gameObject.SetActive(true);
+                player.status.playerStatUI = sUI;
+                sUI.SetPortrait(_info.Name, _info.Portrait);
+                break;
+            }
+        }
+        player.status.StatInitialize(_container);
+        player.status.playerStatUI.SetHPValue(player.status.HP, player.status.MaxHP);
+    }
+
     IEnumerator SpawnDelayActive(GameObject player)
     {
         yield return null;
@@ -94,11 +111,13 @@ public class PlayerCharacterManager : MonoBehaviour
         }
 
         Vector3 CurrentPosition = CurrentPlayer.transform.position;
+        Quaternion CurrentRotation = CurrentPlayer.transform.rotation;
         CurrentPlayer.gameObject.SetActive(false);
 
         CurrentPlayer = Playables[(CharacterType)currentCharacter];
         CurrentPlayer.gameObject.SetActive(true);
         CurrentPlayer.transform.position = CurrentPosition;
+        CurrentPlayer.transform.rotation = CurrentRotation;
         CurrentPlayer.GetComponent<KriptoFX_Teleportation>().enabled = true;
 
         // Camera Following
@@ -120,10 +139,11 @@ public class PlayerCharacterManager : MonoBehaviour
         var container = characterInfo.GetStatChange();
         Playables[_characterType] = player;
         
-        StartCoroutine(StatAdjust(player, container));
+        StartCoroutine(StatAdjust(player, container, characterInfo));
         StartCoroutine(SpawnDelayActive(player.gameObject));
     }
 
+    // Timeline에서 동작 가능하도록 Emitter용
     public void SpawnDualBlade()
     {
         SpawnNewCharacter(CharacterType.DualBlade);

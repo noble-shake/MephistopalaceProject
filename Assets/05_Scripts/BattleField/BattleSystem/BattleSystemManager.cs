@@ -562,12 +562,16 @@ public class BattleSystemManager : MonoBehaviour
                 TargetALL();
                 break;
             case ActivateTarget.TargettingEnemy:
-            case ActivateTarget.ALLEnemy:
                 TargetEnemy();
                 break;
+            case ActivateTarget.ALLEnemy:
+                TargetEnemyAll();
+                break;
             case ActivateTarget.ALLAlly:
-            case ActivateTarget.TargettingAlly:
                 TargetAlly();
+                break;
+            case ActivateTarget.TargettingAlly:
+                TargetAllyAll();
                 break;
         }
 
@@ -606,6 +610,23 @@ public class BattleSystemManager : MonoBehaviour
         TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
     }
 
+    public void TargetEnemyAll()
+    {
+        TempActivateTargets = new List<BattlePhase>();
+        foreach (BattlePhase phaser in BattlerEntries)
+        {
+            if (phaser.GetComponent<CharacterStatusManger>().isDead) continue;
+            if (phaser.GetComponent<EnemyPhase>() != null)
+            {
+                TempActivateTargets.Add(phaser);
+                phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+            }
+
+            
+        }
+        
+    }
+
     public void TargetAlly()
     {
         TempActivateTargets = new List<BattlePhase>();
@@ -618,7 +639,23 @@ public class BattleSystemManager : MonoBehaviour
                 phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
             }
         }
-        TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+        //TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+    }
+
+    public void TargetAllyAll()
+    {
+        TempActivateTargets = new List<BattlePhase>();
+        foreach (BattlePhase phaser in BattlerEntries)
+        {
+            if (phaser.GetComponent<CharacterStatusManger>().isDead) continue;
+            if (phaser.GetComponent<PlayerPhase>() != null)
+            {
+                TempActivateTargets.Add(phaser);
+                phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+            }
+
+        }
+
     }
 
     public void TargetDied()

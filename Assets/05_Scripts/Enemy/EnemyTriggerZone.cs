@@ -26,6 +26,7 @@ public class EnemyTriggerZone : MonoBehaviour
 
             other.GetComponentInParent<PlayerManager>().animator.animator.speed = 0f;
             other.GetComponentInParent<PlayerManager>().encounter.OffEncounterAttackCollider();
+            other.GetComponentInParent<PlayerManager>().encounter.OnEncounterAttackDone();
             enemy.animator.animator.speed = 0f;
             enemy.encounter.OnHitEncounter();
             // interactOwner.TriggerEvent();

@@ -872,7 +872,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7109084810470859209}
   - component: {fileID: 5462067665806002851}
-  - component: {fileID: -693737606152880791}
   m_Layer: 0
   m_Name: Show_DualBlade
   m_TagString: Untagged
@@ -908,7 +907,7 @@ Animator:
   m_GameObject: {fileID: 2022189951673996965}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: fb277d04fe85b8841aa054666395174c, type: 2}
-  m_Controller: {fileID: 9100000, guid: 716688d1e653f3745ba2bb1f76574cdc, type: 2}
+  m_Controller: {fileID: 9100000, guid: bca93dd0efb070c458bab7ed4296a8b7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -920,27 +919,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-693737606152880791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2022189951673996965}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8323cbc9734bcb44d80bfa5a18162051, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TeleportationState: 2
-  AppearTeleportationEffect: {fileID: 3238574416954557568, guid: 8ff19c8a4ef5ef5489638748290a0e83, type: 3}
-  DisappearTeleportationEffect: {fileID: 9023450872028357838, guid: 91f800e4ce0cc2b4187778acfd412e49, type: 3}
-  UseEffectLighting: 1
-  AppearTimeScale: 1
-  DisappearTimeScale: 1
-  UseAnimatorTriggers: 0
-  AppearAnimationTriggerName: 
-  DisappearAnimationTriggerName: 
 --- !u!1 &2022779933395135920
 GameObject:
   m_ObjectHideFlags: 0
@@ -4925,6 +4903,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerDualSword
       objectReference: {fileID: 0}
+    - target: {fileID: 8926884407517107829, guid: 9ef2e6809ff6097429d34307deb44f43, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9003756303306792227, guid: 9ef2e6809ff6097429d34307deb44f43, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.067
@@ -4965,7 +4947,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8926884407517107829, guid: 9ef2e6809ff6097429d34307deb44f43, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5027,7 +5010,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8926884407517107829, guid: 9ef2e6809ff6097429d34307deb44f43, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

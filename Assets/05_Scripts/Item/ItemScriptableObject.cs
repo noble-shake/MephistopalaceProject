@@ -41,4 +41,9 @@ public class ItemScriptableObject : ScriptableObject
     {
         return new StatContainer { HP = HP, AP = AP, minATK = minATK, maxATK = maxATK, CRT = CRT, SPD = SPD, DEF = DEF };
     }
+
+    public StatContainer UseConsumeItem()
+    {
+        return new StatContainer { HP = HP, AP = AP, minATK = minATK, maxATK = maxATK, CRT = CRT, SPD = SPD, DEF = DEF };
+    }
 }

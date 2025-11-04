@@ -102,6 +102,16 @@ public class PlayerStatusManager : CharacterStatusManger
         if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
     }
 
+    public void AdjustConsumeItem(ItemScriptableObject _consume)
+    {
+        StatContainer sc = _consume.UseConsumeItem();
+        HPChange(sc.HP);
+        GainAP(sc.AP);
+
+        if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
+        if (playerStatUI != null) playerStatUI.SetAPValue(AP);
+    }
+
     public void GrowUp()
     {
         MaxHPChange = (MaxHP * Level * 15);

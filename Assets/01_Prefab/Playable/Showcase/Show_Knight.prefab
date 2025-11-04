@@ -8499,7 +8499,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7347454425807754887}
   - component: {fileID: 224410977495977236}
-  - component: {fileID: 904619342426429159}
   m_Layer: 14
   m_Name: Show_Knight
   m_TagString: Untagged
@@ -8547,27 +8546,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &904619342426429159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7979453247902764093}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8323cbc9734bcb44d80bfa5a18162051, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TeleportationState: 2
-  AppearTeleportationEffect: {fileID: 274248696689370709, guid: 11afa27498e89dc4db3b60039f7498f1, type: 3}
-  DisappearTeleportationEffect: {fileID: 4267909079527446100, guid: 516fb40eed37e70449962bdd65c67cdd, type: 3}
-  UseEffectLighting: 1
-  AppearTimeScale: 1
-  DisappearTimeScale: 1
-  UseAnimatorTriggers: 0
-  AppearAnimationTriggerName: 
-  DisappearAnimationTriggerName: 
 --- !u!1 &8009935506802756972
 GameObject:
   m_ObjectHideFlags: 0

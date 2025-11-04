@@ -85,11 +85,37 @@ public class SlotUI : SlotObject
 
     public override void OnPointerDown(PointerEventData eventData)
     {
-        // Item Description.
-        if (!isItemExist) return;
-        InventoryUI.Instance.OnPanel(true);
-        InventoryUI.Instance.itemSprite = itemInfo.itemImage;
-        InventoryUI.Instance.itemDescription = itemInfo.Description;
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            // Item Description.
+            if (!isItemExist) return;
+            if (itemInfo == null) return;
+            InventoryUI.Instance.OnPanel(true);
+            InventoryUI.Instance.itemSprite = itemInfo.itemImage;
+            InventoryUI.Instance.itemDescription = itemInfo.Description;
+        }
+        else
+        {
+            if (!isItemExist) return;
+            if (itemInfo == null) return;
+            if (itemInfo.itemType != ItemType.Consume) return;
+
+            if (itemInfo.NumbOfItem <= 1) // 1개 남은걸 사용한다.
+            {
+                PlayerCharacterManager.Instance.CurrentPlayer.status.AdjustConsumeItem(itemInfo);
+                isItemExist = false;
+                UnEqup();
+            }
+            else
+            {
+                // 아이템 효과 적용.
+                itemInfo.NumbOfItem--;
+                PlayerCharacterManager.Instance.CurrentPlayer.status.AdjustConsumeItem(itemInfo);
+                OnItemNumberChanged();
+            }
+        }
+
+
 
     } 
 

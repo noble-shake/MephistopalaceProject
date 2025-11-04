@@ -38,6 +38,7 @@ public class InventoryManager : MonoBehaviour
             {
                 EventMessageManager.Instance.MessageQueueRegistry(new EventContainer { eventType = ContextType.Inform, Context = $"{_item.Name} 을/를 사용 했습니다." });
                 slot.UnEqup();
+                slot.isItemExist = false;
                 return true;
             }
         }

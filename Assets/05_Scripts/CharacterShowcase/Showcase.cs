@@ -7,34 +7,8 @@ public class Showcase : MonoBehaviour
     public Transform Head;
     public Transform Body;
 
-    public Unsacled_KriptoFX_Teleportation Effecter;
     public bool isDisappear;
 
-
-    private void Start()
-    {
-        Effecter = GetComponent<Unsacled_KriptoFX_Teleportation>();
-        Effecter.IsTeleportationFinished += () => TeleportationEffect(isDisappear);
-    }
-
-    private void OnEnable()
-    {
-        //TeleportationEffect(true);
-
-    }
-
-    public void TeleportationEffect(bool value)
-    {
-        if (value)
-        {
-            Effecter.enabled = true;
-        }
-        else
-        {
-            Effecter.enabled = false;
-            // Disappear();
-        }
-    }
 
     public void Disappear()
     {

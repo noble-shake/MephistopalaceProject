@@ -20,12 +20,8 @@ public class CharacterShowcaseManager : MonoBehaviour
 
     public void CharacterOn(CharacterType _type)
     {
-        if (CharacterPreview != null) CharacterPreview.Effecter.TeleportationState = TeleportFX.Unsacled_KriptoFX_Teleportation.TeleportationStateEnum.Disappear;
-
         CharacterPreview = Showcases[(int)_type];
         CharacterPreview.gameObject.SetActive(true);
-        CharacterPreview.Effecter.TeleportationState = TeleportFX.Unsacled_KriptoFX_Teleportation.TeleportationStateEnum.Appear;
-        CharacterPreview.TeleportationEffect(true);
     }
 
     public void ShowcaseOpen(int idx)
@@ -38,9 +34,8 @@ public class CharacterShowcaseManager : MonoBehaviour
             }
 
             if (shw.gameObject.activeSelf == false) continue;
-            shw.TeleportationEffect(false);
         }
-
+        CharacterPreview.gameObject.SetActive(false);
         CharacterOn((CharacterType)idx);
 
     }

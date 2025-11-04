@@ -9,16 +9,26 @@ using UnityEngine.Timeline;
 
 public class JumpPath : InteractObject
 {
-    public Transform Path1Transform;
-    public Transform Path2Transform;
+    public JumpPath Pass;
+    public BoxCollider collider;
 
     public override void InteractEvent()
     {
-        foreach (EventContainer e in InteractEventContainers)
+        if (PlayerCharacterManager.Instance.CurrentPlayer.characterType != CharacterType.DualBlade)
         {
-            EventMessageManager.Instance.MessageQueueRegistry(e);
+            foreach (EventContainer e in InteractEventContainers)
+            {
+                EventMessageManager.Instance.MessageQueueRegistry(e);
+            }
+            TryGetComponent<EventSubscribe>(out EventSubscribe subscriber);
+            if (subscriber != null) { subscriber.SubscribedInvoke(SubscribeType.Interact); }
+
         }
-        TryGetComponent<EventSubscribe>(out EventSubscribe subscriber);
-        if (subscriber != null) { subscriber.SubscribedInvoke(SubscribeType.Interact); }
+        else
+        {
+            PlayerCharacterManager.Instance.CurrentPlayer.locomotor.CharacterJump(this, Pass);
+        }
+
+
     }
 }

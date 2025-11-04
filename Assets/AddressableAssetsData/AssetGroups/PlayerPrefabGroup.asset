@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: PlayerPrefabGroup
   m_GUID: f27eff07316522b45a1be23b617759f5
   m_SerializeEntries:
+  - m_GUID: cdfeaf5b78aa73947adb44d946f07e86
+    m_Address: Assets/01_Prefab/Playable/Player_DualBlade.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fda63ca9d57569749b1516d8916d1b24
     m_Address: Assets/01_Prefab/Playable/Player_Knight.prefab
     m_ReadOnly: 0

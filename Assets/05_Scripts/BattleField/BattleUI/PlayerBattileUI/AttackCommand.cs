@@ -70,43 +70,51 @@ public class AttackCommand : BattleCommand
             EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "AP가 부족합니다!" });
         }
 
-        switch (CurrentIndex)
-        {
-            default:
-                break;
-            case 0:
+        playerManager.battler.SetSkillExecution(AllocatedScritableObject[CurrentIndex].ActionScript);
+        playerManager.phaser.CurrentPhase = PhaseType.Activate;
+        BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[CurrentIndex].ActionScript].activateTarget);
+        CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
+        CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
+        CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
+        Display(false);
+
+        //switch (CurrentIndex)
+        //{
+        //    default:
+        //        break;
+        //    case 0:
 
 
-                playerManager.battler.SetSkillExecution(AllocatedScritableObject[0].ActionScript);
-                playerManager.phaser.CurrentPhase = PhaseType.Activate;
-                BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[0].ActionScript].activateTarget);
-                CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
-                CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
-                CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
-                Display(false);
+        //        playerManager.battler.SetSkillExecution(AllocatedScritableObject[0].ActionScript);
+        //        playerManager.phaser.CurrentPhase = PhaseType.Activate;
+        //        BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[0].ActionScript].activateTarget);
+        //        CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
+        //        CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
+        //        CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
+        //        Display(false);
 
-                break;
-            case 1:
-                playerManager.battler.SetSkillExecution(AllocatedScritableObject[1].ActionScript);
-                playerManager.phaser.CurrentPhase = PhaseType.Activate;
-                BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[1].ActionScript].activateTarget);
-                CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
-                CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
-                CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
-                Display(false);
+        //        break;
+        //    case 1:
+        //        playerManager.battler.SetSkillExecution(AllocatedScritableObject[1].ActionScript);
+        //        playerManager.phaser.CurrentPhase = PhaseType.Activate;
+        //        BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[1].ActionScript].activateTarget);
+        //        CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
+        //        CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
+        //        CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
+        //        Display(false);
 
-                break;
-            case 2:
-                playerManager.battler.SetSkillExecution(AllocatedScritableObject[2].ActionScript);
-                playerManager.phaser.CurrentPhase = PhaseType.Activate;
-                BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[2].ActionScript].activateTarget);
-                CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
-                CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
-                CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
-                Display(false);
+        //        break;
+        //    case 2:
+        //        playerManager.battler.SetSkillExecution(AllocatedScritableObject[2].ActionScript);
+        //        playerManager.phaser.CurrentPhase = PhaseType.Activate;
+        //        BattleSystemManager.Instance.SelectTarget(playerManager.battler.SkillSet[AllocatedScritableObject[2].ActionScript].activateTarget);
+        //        CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
+        //        CameraManager.Instance.GetCamera().Follow = playerManager.phaser.AllocatedPoint;
+        //        CameraManager.Instance.GetCamera().GetComponent<CinemachineSplineDolly>().CameraPosition = 0.5f;
+        //        Display(false);
 
-                break;
-        }
+        //        break;
+        //}
 
         return;
     }
