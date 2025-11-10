@@ -31,6 +31,10 @@ public class EnemyScriptableObject : ScriptableObject
     public List<ItemScriptableObject> RewardList;
     public int EXP;
 
+    [Space]
+    [Header("Unique Check")]
+    public bool isUnique;
+
     public StatContainer GetEnemyStatChange()
     {
         return new StatContainer { HP = HP, AP = AP, minATK = MinATK, maxATK = MaxATK, CRT = CRT, SPD = SPD, DEF = DEF };

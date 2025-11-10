@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9c1926bd4c5ff949bf932fafebf54c0, type: 3}
   m_Name: SkeletonA
   m_EditorClassIdentifier: 
-  Name: "\uC2AC\uB77C\uC784"
+  Name: "\uC2A4\uCF08\uB808\uD1A4"
   Description: "\uC6A9\uC554\uC5D0\uC11C \uD0DC\uC5B4\uB09C \uC2AC\uB77C\uC784. \uBCF4\uAE30\uBCF4\uB2E4
     \uBB34\uC12D\uB2E4."
   Portrait: {fileID: 0}
   CharacterPrefab: {fileID: 1064298965650098, guid: 1c402ad2466b41d4ab4fbb6ae0e0fd8a, type: 3}
-  minPool: 0
-  maxPool: 4
+  minPool: 3
+  maxPool: 6
   CharacterDescription: {fileID: 0}
   MinLevel: 3
-  MaxLevel: 8
+  MaxLevel: 6
   HP: 45
   AP: 0
   MinATK: 5
-  MaxATK: 8
+  MaxATK: 6
   SPD: 1
   DEF: 3
   CRT: 0
@@ -35,4 +35,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f4a78d13dfa6ad94f9bdecd28eda95db, type: 2}
   - {fileID: 11400000, guid: d4eb54c2c5a78c1409242c95b4d1a122, type: 2}
   - {fileID: 11400000, guid: a082dfcc7bfb5234d9bedbac5146db58, type: 2}
-  EXP: 0
+  EXP: 15
+  isUnique: 0

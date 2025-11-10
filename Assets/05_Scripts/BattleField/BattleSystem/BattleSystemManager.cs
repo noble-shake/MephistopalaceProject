@@ -5,6 +5,7 @@ using TeleportFX;
 using Unity.Cinemachine;
 using System;
 using System.Linq;
+using static UnityEngine.EventSystems.EventTrigger;
 
 [System.Serializable]
 public enum BattleSystemPhase
@@ -50,7 +51,8 @@ public class BattleSystemManager : MonoBehaviour
     [SerializeField] public List<BattlePhase> TempActivateTargets;
 
     [Header("Encounter Record")]
-    [SerializeField] public Vector3 EncounterPos;
+    [SerializeField] public Vector3 EncounterPos; // 클리어 시, 전투가 일어난 장소
+    [SerializeField] public Vector3 CheckPointPos; // 패배 시, 부활 장소
 
     [Header("BattleField Transform")]
     [SerializeField] public List<Transform> CenterPoints;
@@ -157,19 +159,56 @@ public class BattleSystemManager : MonoBehaviour
 
         CameraManager.Instance.fadeCanvas.FadeOut(1f);
         yield return new WaitForSecondsRealtime(2f);
-        PlayerManager curPlayer = PlayerCharacterManager.Instance.CurrentPlayer;
-        curPlayer.locomotor.controller.enabled = false;
-        curPlayer.transform.position = EncounterPos;
 
+        foreach (CharacterType characterType in PlayerCharacterManager.Instance.Playables.Keys)
+        {
+            PlayerManager player = PlayerCharacterManager.Instance.Playables[characterType];
+            if (player.isDead)
+            {
+                PlayerPhase phaser = (PlayerPhase)player.phaser;
+                phaser.OnDisEngageActionDone();
+                player.status.HPChange((int)(player.status.aMaxHP * 0.1f));
+                player.isDead = false;
+                player.status.isDead = false;
+                player.animator.animator.SetBool("isDead", false);
+            }
+
+            if (isGameClear == false)
+            {
+                player.transform.position = CheckPointPos;
+            }
+            else
+            {
+                player.transform.position = EncounterPos;
+            }
+
+
+            if (characterType != PlayerCharacterManager.Instance.CurrentPlayer.characterType)
+            {
+                player.gameObject.SetActive(false);
+            }
+            else
+            {
+                player.gameObject.SetActive(true);
+                player.locomotor.controller.enabled = false;
+            }
+
+        }
         Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time = 0f;
         CameraManager.Instance.OnLiveCamera(CameraType.EncounterThird);
 
         CameraManager.Instance.fadeCanvas.FadeIn(2f);
         yield return new WaitForSecondsRealtime(1.5f);
-        curPlayer.locomotor.controller.enabled = true;
+        PlayerCharacterManager.Instance.CurrentPlayer.locomotor.controller.enabled = true;
         GameManager.Instance.GameContinue();
         Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time = 1.5f;
-        
+
+        if (isGameClear == false)
+        {
+            referenceEnemyObject.animator.animator.speed = 1f;
+            referenceEnemyObject.gameObject.SetActive(true);
+        }
+
     }
 
     public void OnEngageSequence()
@@ -337,6 +376,15 @@ public class BattleSystemManager : MonoBehaviour
     public void DisEngageTransition()
     {
         if (CurrentPhase != BattleSystemPhase.Result) return;
+
+        // 패배 처리
+        if (isGameClear == false) 
+        {
+            CurrentPhase = BattleSystemPhase.DisEngage;
+            StartCoroutine(DisEngageCommand());
+            return;
+        }
+
         if (BattlerEntries.Count != 0 && CurrentBattler != null)
         {
             bool engageRunning = false;
@@ -385,6 +433,15 @@ public class BattleSystemManager : MonoBehaviour
     // 전투 종료 후, 결과를 정산하고 Encounter로 돌아간다.
     public void OffBattleSequence()
     {
+
+        int count = BattlerEntries.Count;
+        for (int i = count -1; i > 0; i--)
+        {
+            BattlePhase b = BattlerEntries[i];
+            BattlerEntries.Remove(b);
+            if (b.identityType == Identifying.Enemy) Destroy(b.gameObject);
+        }
+
         GameManager.Instance.GameStop();
         GameManager.Instance.CurrentState = GameModeState.Encounter;
         StartCoroutine(BattleSequenceDisEngage());

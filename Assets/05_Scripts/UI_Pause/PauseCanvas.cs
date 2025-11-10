@@ -19,7 +19,8 @@ public class PauseCanvas : MonoBehaviour
     [SerializeField] public PanelType CurrentPanelType;
     [SerializeField] private List<MenuPanel> panels;
     [SerializeField] private TopPanelUI topPanel;
-    [SerializeField] private StatPanel statPanel;
+    [SerializeField] public StatPanel statPanel;
+    [SerializeField] private StatusPanel descriptionPanel;
     [SerializeField] public MenuPanel CurrentPanel;
     
 
@@ -78,6 +79,38 @@ public class PauseCanvas : MonoBehaviour
         {
             CurrentPanel.gameObject.SetActive(false);
         }
+
+        PlayerManager curPlayer = PlayerCharacterManager.Instance.CurrentPlayer;
+        var characterInfo = ResourceManager.Instance.PlayerResources[(int)curPlayer.characterType];
+
+        Sprite icon;
+        switch (curPlayer.characterType)
+        {
+            case CharacterType.Knight:
+                icon = ResourceManager.Instance.KnightIcon;
+                descriptionPanel.SetStatusPanel(icon, characterInfo.CharacterAbillityDescription, characterInfo.Description);
+                break;
+            case CharacterType.DualBlade:
+                icon = ResourceManager.Instance.DualBladeIcon;
+                descriptionPanel.SetStatusPanel(icon, characterInfo.CharacterAbillityDescription, characterInfo.Description);
+                break;
+            case CharacterType.Magician:
+                icon = ResourceManager.Instance.MagicianIcon;
+                descriptionPanel.SetStatusPanel(icon, characterInfo.CharacterAbillityDescription, characterInfo.Description);
+                break;
+        }
+        statPanel.SetLevel(curPlayer.status.Level);
+        statPanel.SetHP(curPlayer.status.HP);
+        statPanel.SetAP(curPlayer.status.AP);
+        statPanel.SetMaxHP(curPlayer.status.aMaxHP);
+        statPanel.SetMinATK(curPlayer.status.aMinATK);
+        statPanel.SetMaxATK(curPlayer.status.aMaxATK);
+        statPanel.SetSPD(curPlayer.status.aSpeedWeight);
+        statPanel.SetAP(curPlayer.status.AP);
+        statPanel.SetCRT(curPlayer.status.aCriticalWeight);
+        statPanel.SetDEF(curPlayer.status.aDefenceWeight);
+        statPanel.SetEXP(curPlayer.status.EXP);
+        statPanel.SetRequiredEXP(curPlayer.status.RequireEXP);
 
         if (_type == PanelType.STATUS || _type == PanelType.INVENTORY)
         {

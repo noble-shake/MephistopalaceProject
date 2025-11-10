@@ -128,6 +128,21 @@ public class CameraManager : MonoBehaviour
         CurrentCamera = GetCamera(_type);
     }
 
+    public void OnLiveCamera(int _type)
+    {
+        EncounterThirdCamera.Priority = 0;
+        // EncounterCinematicCamera.Priority = 0;
+        BattleCenterCamera.Priority = 0;
+        BattleEnemyCamera.Priority = 0;
+        BattlePlayerCamera.Priority = 0;
+        BattleCameraList[0].Priority = 0;
+        BattleCameraList[1].Priority = 0;
+        BattleCameraList[2].Priority = 0;
+
+        GetCamera((CameraType)_type).Priority = 1;
+        CurrentCamera = GetCamera((CameraType)_type);
+    }
+
     public void CenterCameraSlideAction(float time = 2.5f, bool LeftToRight = false)
     {
         if (LeftToRight)

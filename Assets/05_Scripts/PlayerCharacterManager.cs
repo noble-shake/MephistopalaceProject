@@ -28,10 +28,10 @@ public class PlayerCharacterManager : MonoBehaviour
     private void Start()
     {
         Playables = new Dictionary<CharacterType, PlayerManager>();
-        GameBegin();
+        // GameBegin();
     }
 
-    private void GameBegin()
+    public void GameBegin()
     {
         var characterInfo = ResourceManager.Instance.PlayerResources[(int)CharacterType.Knight];
         PlayerManager player = Instantiate(characterInfo.CharacterPrefab).GetComponent<PlayerManager>();
@@ -57,6 +57,7 @@ public class PlayerCharacterManager : MonoBehaviour
             }
         }
         player.status.StatInitialize(_container);
+        player.status.GrowUp();
         player.status.playerStatUI.SetHPValue(player.status.HP, player.status.MaxHP);
     }
 
@@ -74,6 +75,7 @@ public class PlayerCharacterManager : MonoBehaviour
             }
         }
         player.status.StatInitialize(_container);
+        player.status.GrowUp();
         player.status.playerStatUI.SetHPValue(player.status.HP, player.status.MaxHP);
     }
 

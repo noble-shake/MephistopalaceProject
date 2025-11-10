@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df08ff671a84b204a94af3c9010fb3b8, type: 3}
   m_Name: ItemTestknecklas
   m_EditorClassIdentifier: 
-  ItemID: 4
+  ItemID: 11
   NumbOfItem: 0
   isUnique: 1
   isEquip: 1
@@ -23,7 +23,7 @@ MonoBehaviour:
   itemType: 4
   itemImage: {fileID: 21300000, guid: 04efe350118aa614cacc1ce11ca36951, type: 3}
   LEVEL: 0
-  HP: 25
+  HP: 15
   AP: 0
   minATK: 0
   maxATK: 0

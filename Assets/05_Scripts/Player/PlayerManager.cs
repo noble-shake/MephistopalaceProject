@@ -11,6 +11,7 @@ public class PlayerManager : CharacterManager
     public bool isItemEarnAction;
     public bool isGravityOff;
     public bool isJump;
+    public bool isDead;
 
     [Space]
     [Header("Encounter States")]

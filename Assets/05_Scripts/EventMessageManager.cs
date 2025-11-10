@@ -88,7 +88,7 @@ public class EventMessageManager : MonoBehaviour
 
     IEnumerator delayBattleQueue(EventContainer data)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.45f);
         battleMessageUI.message.text = data.Context;
         battleMessageUI.Appear();
     }
@@ -124,7 +124,7 @@ public class EventMessageManager : MonoBehaviour
 
     IEnumerator delayGlobalQue(EventContainer data)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.45f);
         globalUI.message.text = data.Context;
         globalUI.Appear();
     }
@@ -141,7 +141,7 @@ public class EventMessageManager : MonoBehaviour
 
     IEnumerator delayInformQue(EventContainer data)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.45f);
         InformMessage informObject = Instantiate<InformMessage>(informPrefab, informUI.transform);
         informObject.Message.text = data.Context;
         isInformDone = true;

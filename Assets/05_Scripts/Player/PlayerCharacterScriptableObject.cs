@@ -23,6 +23,9 @@ public class PlayerCharacterScriptableObject : ScriptableObject
     [Header("Skills (TBD)")]
     public Sprite CharacterAbility;
 
+    [Header("Ability")]
+    [TextArea] public string CharacterAbillityDescription;
+
     public StatContainer GetStatChange()
     {
         return new StatContainer { HP = HP, AP = AP, minATK = MinATK, maxATK = MaxATK, CRT = CRT, SPD = SPD, DEF = DEF };

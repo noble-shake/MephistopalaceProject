@@ -59,7 +59,6 @@ Material:
   - _USE_DEPTH_FADE
   - _UV_MODE_SIMPLEUV
   m_InvalidKeywords:
-  - _ALPHATEST_ON
   - _BUILTIN_SURFACE_TYPE_TRANSPARENT
   - _DOUBLESIDED_ON
   - _ENABLE_FOG_ON_TRANSPARENT
@@ -70,7 +69,6 @@ Material:
   m_CustomRenderQueue: 3000
   stringTagMap:
     MotionVector: User
-    RenderType: Transparent
   disabledShaderPasses:
   - TransparentDepthPrepass
   - TransparentDepthPostpass
@@ -247,7 +245,7 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _AlphaMaskRemap: {r: 0.4, g: 200, b: 0, a: 0}
-    - _Color: {r: 0, g: 23.968626, b: 1.882778, a: 1}
+    - _Color: {r: 23.968628, g: 3.6492963, b: 0, a: 1}
     - _DistortScale: {r: 0.002, g: 0.003, b: 0, a: 0}
     - _DistortionOffsetSpeed: {r: 0.02, g: 0, b: 0, a: 0}
     - _DistortionSpeed: {r: 0, g: 0, b: 0, a: 0}

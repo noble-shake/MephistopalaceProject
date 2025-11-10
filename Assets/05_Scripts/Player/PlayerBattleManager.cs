@@ -145,7 +145,7 @@ public class PlayerBattleManager : CharacterBattleManager
             playerManager.locomotor.controller.Move(Quaternion.Euler(TargetAroundPos - PlayerPos) * (TargetAroundPos - PlayerPos).normalized * 5f * Time.deltaTime);
             yield return null;
         }
-
+        transform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, target.transform.position.z - PlayerPos.z));
         yield return StartCoroutine(ActionEffect);
 
     }
@@ -171,6 +171,7 @@ public class PlayerBattleManager : CharacterBattleManager
             yield return null;
         }
 
+        transform.rotation = Quaternion.LookRotation(new Vector3(0f, 0f, target.transform.position.z - PlayerPos.z));
         yield return StartCoroutine(ActionEffect);
 
     }
@@ -191,8 +192,14 @@ public class PlayerBattleManager : CharacterBattleManager
         CurrentTargetSkill.Process(_React);
     }
 
+    public void OnSkillAction(int _React)
+    {
+        CurrentTargetSkill.Process((ProcessType)_React);
+    }
+
     public void OnQTEAction()
     {
+        playerManager.animator.animator.SetBool("QTETrigger", true);
         CurrentTargetSkill.QTEAction();
     }
 

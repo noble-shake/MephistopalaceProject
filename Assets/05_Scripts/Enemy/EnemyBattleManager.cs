@@ -119,6 +119,15 @@ public class EnemyBattleManager : CharacterBattleManager
         StartCoroutine(MoveToTargetAction(target, ActionEffect));
     }
 
+    public void MoveToTarget(Transform target, IEnumerator ActionEffect)
+    {
+        CameraManager.Instance.OnLiveCamera(CameraType.BattleEnemy);
+        CinemachineCamera cam = CameraManager.Instance.GetCamera();
+        cam.Follow = transform;
+        CameraManager.Instance.EnemyAttackCameraAction();
+        StartCoroutine(MoveToTargetAction(target, ActionEffect));
+    }
+
     IEnumerator MoveToTargetAction(BattlePhase target, IEnumerator ActionEffect)
     {
 
@@ -134,7 +143,39 @@ public class EnemyBattleManager : CharacterBattleManager
 
         yield return null;
 
-        while (Vector3.Distance(TargetAroundPos, transform.position - new Vector3(0f, transform.position.y, 0f)) > 0.5f)
+        while (Vector3.Distance(TargetAroundPos, transform.position - new Vector3(0f, transform.position.y, 0f)) > 2.5f)
+        {
+            Debug.Log(Vector3.Distance(TargetAroundPos, PlayerPos));
+            enemyManager.locomotor.controller.Move(Quaternion.Euler(TargetAroundPos - PlayerPos) * (TargetAroundPos - PlayerPos).normalized * 5f * Time.deltaTime);
+            yield return null;
+        }
+
+        foreach (BattlePhase TargetPhaser in enemyManager.battler.CurrentTargets)
+        {
+            TargetPhaser.CurrentPhase = PhaseType.Targetting;
+        }
+
+
+        yield return StartCoroutine(ActionEffect);
+
+    }
+
+    IEnumerator MoveToTargetAction(Transform target, IEnumerator ActionEffect)
+    {
+
+        Vector3 TargetAroundPos = target.transform.position + target.transform.forward * 1.5f;
+        TargetAroundPos.y = 0f;
+
+        Vector3 PlayerPos = transform.position;
+        PlayerPos.y = 0f;
+
+        transform.rotation = Quaternion.LookRotation(TargetAroundPos - PlayerPos);
+
+        enemyManager.animator.animator.Play("RushToPoint");
+
+        yield return null;
+
+        while (Vector3.Distance(TargetAroundPos, transform.position - new Vector3(0f, transform.position.y, 0f)) > 2.5f)
         {
             Debug.Log(Vector3.Distance(TargetAroundPos, PlayerPos));
             enemyManager.locomotor.controller.Move(Quaternion.Euler(TargetAroundPos - PlayerPos) * (TargetAroundPos - PlayerPos).normalized * 5f * Time.deltaTime);
@@ -167,8 +208,14 @@ public class EnemyBattleManager : CharacterBattleManager
         CurrentTargetSkill.Process(_React);
     }
 
+    public void OnSkillAction(int _React)
+    {
+        CurrentTargetSkill.Process((ProcessType)_React);
+    }
+
     public void OnQTEAction()
     {
+        enemyManager.animator.animator.SetBool("QTETrigger", true);
         CurrentTargetSkill.QTEAction();
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -143,6 +144,7 @@ public class EnemyLocomotionManager : MonoBehaviour
         if(PlayerCharacterManager.Instance.CurrentPlayer == null) return INode.STATE.FAILED;
 
         agent.destination = PlayerCharacterManager.Instance.CurrentPlayer.transform.position;
+
         Vector3 mvVector = Time.deltaTime * new Vector3(1f, 0f, 1f);
         agent.Move(mvVector);
         var turnTowardNavSteeringTarget = agent.steeringTarget;

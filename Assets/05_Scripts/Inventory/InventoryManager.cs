@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
             if (_Equips.ContainsKey(slot.GetEquipType) == false) continue;
 
             ItemScriptableObject EquipItem = _Equips[slot.GetEquipType];
+            if (EquipItem == null) continue;
             slot.itemInfo = EquipItem;
             slot.Equip(); 
         }
@@ -121,6 +122,110 @@ public class InventoryManager : MonoBehaviour
 
         Debug.LogWarning($"EarnItem Function Cannot Be Matching Item Name :: {_itemName}");
         return false;
+    }
+
+    public bool ItemExist(SkillActions _action)
+    {
+        foreach (SlotUI slot in Slots)
+        {
+            if (!slot.isItemExist) continue;
+
+            switch (_action)
+            {
+                default:
+                    return false;
+                case SkillActions.SmallHPConsume:
+                    if (slot.itemInfo.Name == ItemNames.SmallHPPortion)
+                    {
+                        return true;
+                    }
+                    break;
+                case SkillActions.MiddleHPConsume:
+                    if (slot.itemInfo.Name == ItemNames.MiddleHPPortion)
+                    {
+                        return true;
+                    }
+                    break;
+                case SkillActions.BigHPConsume:
+                    if (slot.itemInfo.Name == ItemNames.BigHPPortion)
+                    {
+                        return true;
+                    }
+                    break;
+                case SkillActions.SmallAPConsume:
+                    if (slot.itemInfo.Name == ItemNames.SmallAPPortion)
+                    {
+                        return true;
+                    }
+                    break;
+                case SkillActions.MiddleAPConsume:
+                    if (slot.itemInfo.Name == ItemNames.MiddleAPPortion)
+                    {
+                        return true;
+                    }
+                    break;
+                case SkillActions.BigAPConsume:
+                    if (slot.itemInfo.Name == ItemNames.BigAPPortion)
+                    {
+                        return true;
+                    }
+                    break;
+            }
+
+        }
+
+        return false;
+    }
+
+    public void ItemUse(SkillActions _action, PlayerManager _target)
+    {
+        foreach (SlotUI slot in Slots)
+        {
+            if (!slot.isItemExist) continue;
+
+            switch (_action)
+            {
+                default:
+                    break;
+                case SkillActions.SmallHPConsume:
+                    if (slot.itemInfo.Name == ItemNames.SmallHPPortion)
+                    {
+                        slot.UseConsumeItem(_target);
+                    }
+                    break;
+                case SkillActions.MiddleHPConsume:
+                    if (slot.itemInfo.Name == ItemNames.MiddleHPPortion)
+                    {
+                        slot.UseConsumeItem(_target);
+                    }
+                    break;
+                case SkillActions.BigHPConsume:
+                    if (slot.itemInfo.Name == ItemNames.BigHPPortion)
+                    {
+                        slot.UseConsumeItem(_target);
+                    }
+                    break;
+                case SkillActions.SmallAPConsume:
+                    if (slot.itemInfo.Name == ItemNames.SmallAPPortion)
+                    {
+                        slot.UseConsumeItem(_target);
+                    }
+                    break;
+                case SkillActions.MiddleAPConsume:
+                    if (slot.itemInfo.Name == ItemNames.MiddleAPPortion)
+                    {
+                        slot.UseConsumeItem(_target);
+                    }
+                    break;
+                case SkillActions.BigAPConsume:
+                    if (slot.itemInfo.Name == ItemNames.BigAPPortion)
+                    {
+                        slot.UseConsumeItem(_target);
+                    }
+                    break;
+            }
+
+        }
     }
 
     private void Awake()

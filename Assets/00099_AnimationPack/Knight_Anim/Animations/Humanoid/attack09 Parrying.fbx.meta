@@ -55,22 +55,8 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.4367589
-        functionName: OpenDamageCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.5803635
-        functionName: CloseDamageCollider
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.58
-        functionName: DisableIsInvulnerable
+      - time: 0.5305193
+        functionName: OnCounterActionProcess
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0

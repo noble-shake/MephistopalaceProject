@@ -47,7 +47,7 @@ public class EnemyAnimationManager : MonoBehaviour
         yield return null;
         animator.Play("EncounterAttack");
 
-        yield return StartCoroutine(AttackForward());
+        // yield return StartCoroutine(AttackForward());
     }
 
     IEnumerator AttackForward()

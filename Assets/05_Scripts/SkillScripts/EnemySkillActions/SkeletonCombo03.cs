@@ -10,11 +10,11 @@ public class SkeletonCombo03 : ISkill
     int RequiredQTE;
     bool isSkillDone;
 
-    public SkeletonCombo03(EnemyManager enemyManager)
+    public SkeletonCombo03(EnemyManager enemyManager, int _qte)
     {
         this.enemyManager = enemyManager;
         isSkillDone = false;
-        RequiredQTE = enemyManager.battler.CurrentRequireQTE;
+        RequiredQTE = _qte;
     }
 
     public void Execute()
@@ -36,10 +36,10 @@ public class SkeletonCombo03 : ISkill
             {
                 enemyPhase.ParrySuccess(true);
                 QTECount++;
-                //if (RequiredQTE == QTECount)
-                //{
-                //    enemyPhase.OnCounterAttack(enemyManager);
-                //}
+                if (RequiredQTE == QTECount)
+                {
+                    target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
+                }
             }
             else if (enemyPhase.isEvading && Evadable)
             {
@@ -68,6 +68,7 @@ public class SkeletonCombo03 : ISkill
     public void Done()
     {
         BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        QTECount = 0;
     }
 
     IEnumerator EnemyComboProcess()

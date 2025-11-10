@@ -21,6 +21,9 @@ public enum VFXName
     PlayerCounterAttack,
     SlimbAttackEffect,
     SkeletonAttackEffect,
+    MagicianEncounterFireBall,
+    KnightEffectA,
+    KnightEffectB,
 }
 
 [CreateAssetMenu(fileName ="Effect 1", menuName = "Palace/Effect")]

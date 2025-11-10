@@ -101,6 +101,8 @@ namespace TeleportFX
                 InstanceMaterial.SetFloat(_TeleportThresholdID, thresholdCutout);
                 InstanceMaterial.SetFloat(_DissolveCutoutID, dissolveFade);
                 InstanceMaterial.SetFloat(_AlphaCutoffEnableID, 1);
+                if (MeshRenderer == null) return;
+                if (MeshRenderer.GetComponent<ParticleSystemRenderer>()) return;
                 MeshRenderer.sharedMaterial = InstanceMaterial;
             }
 
@@ -163,6 +165,7 @@ namespace TeleportFX
             var meshRenderers = this.GetComponentsInChildren<Renderer>(true);
             foreach (var rend in meshRenderers)
             {
+                if(rend.sharedMaterial == null) continue;
                 _meshRenderers.Add(new MeshRendererInfo(rend, _materialInstances));
             }
 

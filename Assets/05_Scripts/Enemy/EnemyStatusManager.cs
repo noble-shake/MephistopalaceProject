@@ -6,6 +6,8 @@ public class EnemyStatusManager : CharacterStatusManger
 
     public override void HPChange(int _value)
     {
+
+        ResourceManager.Instance.GetDamageUI(_value, transform.position + transform.forward * 1.5f + Vector3.up * 2f);
         HP += _value;
 
         if (HP >= MaxHP) HP = MaxHP;

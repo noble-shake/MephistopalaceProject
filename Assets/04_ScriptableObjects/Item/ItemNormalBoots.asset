@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df08ff671a84b204a94af3c9010fb3b8, type: 3}
   m_Name: ItemNormalBoots
   m_EditorClassIdentifier: 
-  ItemID: 4
+  ItemID: 9
   NumbOfItem: 0
   isUnique: 1
   isEquip: 1

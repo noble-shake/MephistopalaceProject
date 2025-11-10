@@ -43,14 +43,14 @@ public class CharacterMessageUI : MonoBehaviour
             yield return 0.33f;
         }
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         Disappear();
 
     }
 
     IEnumerator DisapeearMessage()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
         canvas.alpha = 1f;
         while (canvas.alpha > 0f)
         {

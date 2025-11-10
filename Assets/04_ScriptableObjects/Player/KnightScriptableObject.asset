@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66d506a06a57729479f6628c44f693de, type: 3}
   m_Name: KnightScriptableObject
   m_EditorClassIdentifier: 
-  Name: Knight
-  Description: "\uBCBD\uB3C4 \uBD80\uC220\uB9CC\uD55C \uAC15\uD55C \uD798\uC744 \uAC00\uC84C\uC9C0\uB9CC,
-    \uB358\uC804\uC5D0 \uAC07\uD614\uB2E4."
+  Name: "\uB098\uC774\uD2B8"
+  Description: "\uAC15\uB825\uD55C \uD314 \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294
+    \uC804\uC0AC.\n\uC6B0\uC5F0\uD788 \uB358\uC804\uC5D0 \uAC07\uD788\uACE0 \uB9D0\uC558\uB2E4.\n\uB3D9\uB8CC\uB97C
+    \uBAA8\uC544 \uB358\uC804\uC744 \uD0C8\uCD9C\uD558\uC790."
   Portrait: {fileID: 21300000, guid: c20b889acda661449a5c49cef052ddc4, type: 3}
   CharacterPrefab: {fileID: 7979453247902764093, guid: fda63ca9d57569749b1516d8916d1b24, type: 3}
   CharacterDescription: {fileID: 0}
-  HP: 60
+  HP: 85
   AP: 0
   MinATK: 5
   MaxATK: 7
@@ -26,3 +27,5 @@ MonoBehaviour:
   DEF: 0
   CRT: 0
   CharacterAbility: {fileID: 0}
+  CharacterAbillityDescription: "\uAC15\uB825\uD55C  \uD314 \uD798\uC73C\uB85C \uBB3C\uCCB4\uB098
+    \uBCBD\uC744 \uBD80\uC220 \uC218 \uC788\uB2E4."

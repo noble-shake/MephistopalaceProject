@@ -68,6 +68,7 @@ public class AttackCommand : BattleCommand
         if (playerManager.status.AP < AllocatedScritableObject[CurrentIndex].RequiredAP)
         {
             EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "AP가 부족합니다!" });
+            if (AllocatedScritableObject[CurrentIndex].APMustSatisfied) return;
         }
 
         playerManager.battler.SetSkillExecution(AllocatedScritableObject[CurrentIndex].ActionScript);

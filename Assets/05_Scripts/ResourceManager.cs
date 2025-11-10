@@ -10,6 +10,10 @@ public class ResourceManager : MonoBehaviour
     public Sprite DualBladePortrait;
     public Sprite MagicianPortrait;
 
+    public Sprite KnightIcon;
+    public Sprite DualBladeIcon;
+    public Sprite MagicianIcon;
+
     [Header("ScriptableObjects")]
     public List<ItemScriptableObject> KeyItemResources;
     public List<ItemScriptableObject> ItemResources;
@@ -27,6 +31,10 @@ public class ResourceManager : MonoBehaviour
 
     [Header("Item")]
     public ItemObject DropItemPrefab;
+
+    [Header("ETC")]
+    [SerializeField] DamageUI DamageUIPrefab;
+    public List<DamageUI> DamageUIPool;
 
     private void Awake()
     {
@@ -59,16 +67,23 @@ public class ResourceManager : MonoBehaviour
         {
             ItemDictionary[i.Name] = i;
         }
+
+        DamageUIPooling();
     }
 
     public List<EnemyManager> GetEnemies(EnemyScriptableObject refer, int numbEnemies)
     { 
         List<EnemyManager> entries = new List<EnemyManager>();
 
+        int level = Random.Range(refer.minPool, refer.maxPool + 1);
         var referEnemy = Instantiate(refer.CharacterPrefab).GetComponent<EnemyManager>();
         referEnemy.GetComponent<EnemyManager>().status.StatInitialize(refer.GetEnemyStatChange());
+        referEnemy.GetComponent<EnemyManager>().status.Level = level;
+        referEnemy.GetComponent<EnemyManager>().status.EnemyStatAdjust();
         referEnemy.phaser.identityType = Identifying.Enemy;
         entries.Add(referEnemy);
+
+        if (refer.isUnique) return entries;
 
         for (int idx = 0; idx < numbEnemies; idx++)
         {
@@ -77,6 +92,8 @@ public class ResourceManager : MonoBehaviour
             int target = Random.Range(0, enemies.Count);
             var enemy = Instantiate(enemies[target].CharacterPrefab);
             enemy.GetComponent<EnemyManager>().status.StatInitialize(enemies[target].GetEnemyStatChange());
+            enemy.GetComponent<EnemyManager>().status.Level = tier;
+            enemy.GetComponent<EnemyManager>().status.EnemyStatAdjust();
             entries.Add(enemy.GetComponent<EnemyManager>());
         }
 
@@ -111,5 +128,33 @@ public class ResourceManager : MonoBehaviour
         itemObject.transform.position = trs.position + Vector3.up;
         itemObject.GetItemInfo(_item, actionType);
         return;
+    }
+
+    //[SerializeField] DamageUI DamageUIPrefab;
+    //public List<DamageUI> DamageUIPool;
+    private void DamageUIPooling()
+    {
+        DamageUIPool = new List<DamageUI>();
+
+        for (int i = 0; i< 64; i++)
+        {
+            DamageUI damageUI = Instantiate(DamageUIPrefab, transform);
+            damageUI.gameObject.SetActive(false);
+            DamageUIPool.Add(damageUI);
+        }
+        
+    }
+
+    public void GetDamageUI(int _damage, Vector3 _Position)
+    {
+        for (int i = 0; i < 64; i++)
+        {
+            if (DamageUIPool[i].gameObject.activeSelf) continue;
+
+            DamageUIPool[i].gameObject.SetActive(true);
+            DamageUIPool[i].SetDamage = _damage;
+            DamageUIPool[i].transform.position= _Position;
+            return;
+        }
     }
 }

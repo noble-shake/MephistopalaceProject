@@ -7,7 +7,7 @@ public class PlayerPhase : BattlePhase
 
     [SerializeField] public bool isTurn;
     [SerializeField] public PlayerManager playerManager;
-    [SerializeField] private KriptoFX_Teleportation teleportation;
+    [SerializeField] public KriptoFX_Teleportation teleportation;
     [SerializeField] private BattleCommand AllocatedPanel;
 
     [HideInInspector] public int CurrentTargetIndex;
@@ -338,7 +338,7 @@ public class PlayerPhase : BattlePhase
 
     public override void OnQTEDone()
     {
-        playerManager.animator.animator.SetTrigger("QTETrigger");
+        playerManager.animator.animator.SetBool("QTETrigger", false);
     }
 
     [SerializeField] private float ParryCooltime;
@@ -398,11 +398,11 @@ public class PlayerPhase : BattlePhase
 
     public void OnCounterAttack(EnemyManager _Target)
     {
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "카운터 어택 !!" });
         CurrentPhase = PhaseType.Wait; // Block Additional Update.
         playerManager.animator.animator.Play("BattleCounterAttack");
         playerManager.battler.CurrentTargets = new();
         playerManager.battler.CurrentTargets.Add(_Target.phaser);
-
 
     }
 
@@ -415,10 +415,15 @@ public class PlayerPhase : BattlePhase
 
             GameObject VFX = ResourceManager.Instance.VFXResources[VFXName.KnightSlash].GetVFXInstance();
             VFX.transform.position = _Target.transform.forward + _Target.transform.position + Vector3.up;
-            int HitDamage = UnityEngine.Random.Range(playerManager.status.aMinATK, playerManager.status.aMaxATK + 1);
+            int HitDamage = (playerManager.status.aMaxATK + 1) * 2;
             _Target.status.HPChange(-HitDamage);
             _Target.animator.animator.Play("CounterHit");
         }
+
+        playerManager.status.GainAP(2);
+        BattleSystemManager.Instance.CheckTargetState(playerManager.battler.CurrentTargets);
+
+
     }
 
     

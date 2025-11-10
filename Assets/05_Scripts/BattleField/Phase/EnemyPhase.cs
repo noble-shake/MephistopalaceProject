@@ -39,9 +39,8 @@ public class EnemyPhase : BattlePhase
         Vector3 direction = (AllocatedPos - transform.position);
         Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
         transform.rotation = lookRotation;
-        while (Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), AllocatedPos) > 0.1f)
+        while (Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), AllocatedPos) > 0.35f)
         {
-
 
             enemyManager.locomotor.controller.Move(transform.forward * Time.deltaTime / 1.5f);
             yield return null;
@@ -224,8 +223,8 @@ public class EnemyPhase : BattlePhase
         List<BattlePhase> Targets = BattleSystemManager.Instance.TempActivateTargets;
         int TargetCount = Targets.Count;
 
-        // 15% È®·ü·Î ·£´ý Åä½Ì
-        float TossingLuck = 0.15f;
+        // 70% È®·ü·Î ·£´ý Åä½Ì
+        float TossingLuck = 0.7f;
         List<BattlePhase> Selected = new List<BattlePhase>();
         if (UnityEngine.Random.Range(0f, 1f) < TossingLuck)
         {

@@ -80,4 +80,19 @@ public class CharacterStatusManger : MonoBehaviour
         aCriticalWeight = CriticalWeight;
     }
 
+    public void EnemyStatAdjust()
+    {
+        MaxHPChange = (MaxHP + Level * 15);
+        HP = MaxHP;
+        aMaxHP = MaxHP;
+
+        MinATKChange = MinATK + Level;
+        MaxATKChange = MaxATK + Level;
+        aMinATK = MinATK;
+        aMaxATK = MaxATK;
+
+        DefenceChange = DefenceWeight * (int)Mathf.Floor(Level * 0.5f);
+        aDefenceWeight = DefenceWeight;
+    }
+
 }

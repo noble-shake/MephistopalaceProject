@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21a8d8ac269547a409a2abc683f69493, type: 3}
+  m_Name: Player_Magician_SkillCombo02
+  m_EditorClassIdentifier: 
+  skillGroup: 0
+  activateTarget: 4
+  Name: Meteor Impact
+  Description: "AP4\uB97C \uC18C\uBAA8\uD558\uC5EC \uC720\uC131\uB4E4\uC744 \uC18C\uD658\uD558\uC5EC
+    \uCDA9\uB3CC \uC2DC\uD0B5\uB2C8\uB2E4."
+  RequiredQTE: 4
+  SkillIcon: {fileID: 0}
+  DamageRatio: 1
+  ActionScript: 22
+  RequiredAP: 4
+  APMustSatisfied: 1

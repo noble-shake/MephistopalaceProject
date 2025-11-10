@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df08ff671a84b204a94af3c9010fb3b8, type: 3}
+  m_Name: ItemBWeapon
+  m_EditorClassIdentifier: 
+  ItemID: 14
+  NumbOfItem: 0
+  isUnique: 1
+  isEquip: 1
+  isConsume: 0
+  Name: 22
+  Description: "\uAC15\uB825\uD55C \uD798\uC774 \uB2F4\uAE34 \uAC80"
+  itemType: 3
+  itemImage: {fileID: 21300000, guid: 25a9b55f575b15c4781ac95e1bef1368, type: 3}
+  LEVEL: 0
+  HP: 0
+  AP: 0
+  minATK: 4
+  maxATK: 4
+  CRT: 0
+  SPD: 0
+  DEF: 0
+  EXP: 0

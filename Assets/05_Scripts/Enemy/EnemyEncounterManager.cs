@@ -141,7 +141,7 @@ public class EnemyEncounterManager : MonoBehaviour
 
     public void OnEncounterAttackExecute()
     {
-
+        enemyManager.locomotor.isAttack = false;
     }
 
     public void OnEncounterAttackJudge()

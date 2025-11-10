@@ -65,5 +65,24 @@ public class PlayerEncounterManager : MonoBehaviour
         playerManager.isItemEarnAction = false;
 
     }
+
+    [HideInInspector] private Transform FireTrs;
+    public void EncounterFirePlay(Transform _FireTrs)
+    {
+        FireTrs = _FireTrs;
+        playerManager.animator.animator.Play("EncounterFire");
+    }
+
+
+    public void OnEncounterFire()
+    {
+        if (playerManager.characterType != CharacterType.Magician) return;
+        GameObject Projectile = Instantiate(ResourceManager.Instance.VFXResources[VFXName.MagicianEncounterFireBall].VFXPrefab);
+        Projectile.transform.position = RightWeapon.WeaponVFXTransform.position;
+        Projectile.transform.LookAt(FireTrs);
+
+        FireTrs = null;
+
+    }
     #endregion
 }

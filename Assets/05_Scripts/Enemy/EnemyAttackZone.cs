@@ -25,12 +25,13 @@ public class EnemyAttackZone : MonoBehaviour
         if (curTime > 0f) return;
         if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))
         {
-            curTime = 3f;
+            curTime = 0.5f;
             Vector3 enemyPos = transform.position + Vector3.up;
             Vector3 playerPos = other.gameObject.transform.position + Vector3.up;
+            // Debug.DrawRay(enemyPos, playerPos, Color.yellow);
             if (Physics.Raycast(enemyPos, playerPos - enemyPos, out RaycastHit hit))
             {
-                Debug.DrawRay(enemyPos, playerPos, Color.red);
+
                 if (hit.collider.CompareTag("Player"))
                 {
                     enemyManager.locomotor.EnemyAttack();
@@ -49,9 +50,10 @@ public class EnemyAttackZone : MonoBehaviour
             curTime = 3f;
             Vector3 enemyPos = transform.position + Vector3.up;
             Vector3 playerPos = other.gameObject.transform.position + Vector3.up;
+            // Debug.DrawRay(enemyPos, playerPos, Color.red);
             if (Physics.Raycast(enemyPos, playerPos - enemyPos, out RaycastHit hit))
             {
-                Debug.DrawRay(enemyPos, playerPos, Color.red);
+
                 if (hit.collider.CompareTag("Player"))
                 {
                     enemyManager.locomotor.isAttack = false;

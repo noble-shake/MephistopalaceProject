@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9c1926bd4c5ff949bf932fafebf54c0, type: 3}
+  m_Name: DragonA
+  m_EditorClassIdentifier: 
+  Name: "\uB4DC\uB798\uACE4"
+  Description: "\uB358\uC804\uC758 \uC8FC\uC778\uC774\uC790 \uBAA8\uB4E0 \uAC83\uC744
+    \uBD88\uD0DC\uC6B0\uB294 \uC804\uC124\uC758 \uB4DC\uB798\uACE4"
+  Portrait: {fileID: 0}
+  CharacterPrefab: {fileID: 1365227888962271688, guid: d6c8926e5525c8e43b91f216f0861697, type: 3}
+  minPool: 10
+  maxPool: 10
+  CharacterDescription: {fileID: 0}
+  MinLevel: 10
+  MaxLevel: 10
+  HP: 200
+  AP: 0
+  MinATK: 2
+  MaxATK: 4
+  SPD: 1
+  DEF: 5
+  CRT: 0
+  RewardList:
+  - {fileID: 11400000, guid: 1442d37d3e1d26c47a37bd4493943938, type: 2}
+  - {fileID: 11400000, guid: 3fbff4b96d5a5d549b6dba0e006c0052, type: 2}
+  - {fileID: 11400000, guid: f4a78d13dfa6ad94f9bdecd28eda95db, type: 2}
+  - {fileID: 11400000, guid: 425fb829fb5a21047881f76c5ba0d422, type: 2}
+  - {fileID: 11400000, guid: 46c3fbdc229ccd84ca456ccfa027207e, type: 2}
+  EXP: 0
+  isUnique: 1

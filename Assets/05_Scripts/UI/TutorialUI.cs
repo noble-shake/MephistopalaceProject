@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class TutorialUI : MonoBehaviour
 {
-    [HideInInspector] public TutorialZone zone;
+    public TutorialZone zone;
     [SerializeField] Button ContinueButton;
 
     private void Start()
@@ -16,7 +16,7 @@ public class TutorialUI : MonoBehaviour
     {
         InputManager.Instance.PlayerInputBind();
         GameManager.Instance.GameContinue();
-        zone.ActivateEvent();
+        if(zone != null) zone.ActivateEvent();
         Destroy(gameObject);
         Destroy(zone);
     }

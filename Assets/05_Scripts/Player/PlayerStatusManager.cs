@@ -23,18 +23,23 @@ public class PlayerStatusManager : CharacterStatusManger
         AdjustInGameStat();
 
         if(playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
-        RequireEXP = 30;
+        RequireEXP = 10;
     }
 
     public override void HPChange(int _value)
     {
-        HP += _value;
+        //TODO: Status Àû¿ë
 
-        if (HP >= MaxHP) HP = aMaxHP;
+        ResourceManager.Instance.GetDamageUI(_value, transform.position + transform.forward * 1.5f + Vector3.up * 2f);
+        HP += _value;
+        
+        if (HP >= aMaxHP) HP = aMaxHP;
         if (HP <= 0)
         {
             HP = 0;
-            Debug.Log("Dead");
+            playerManager.isDead = true;
+            playerManager.animator.animator.SetBool("isDead", true);
+            playerManager.status.isDead = true;
         }
 
         if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
@@ -45,12 +50,14 @@ public class PlayerStatusManager : CharacterStatusManger
     public void GainEXP(int _value)
     {
         EXP += _value;
-        if (EXP > RequireEXP)
+        if (EXP >= RequireEXP)
         {
+            EXP -= RequireEXP;
             // LevelUp
-            EXP = EXP + _value - RequireEXP;
             Level++;
             playerStatUI.SetLevel(Level + 1);
+            GrowUp();
+
         }
     }
 
@@ -100,13 +107,28 @@ public class PlayerStatusManager : CharacterStatusManger
         }
 
         if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
+
+        PauseCanvas.Instance.statPanel.SetLevel(Level);
+        PauseCanvas.Instance.statPanel.SetHP(HP);
+        PauseCanvas.Instance.statPanel.SetMaxHP(aMaxHP);
+        PauseCanvas.Instance.statPanel.SetMinATK(aMinATK);
+        PauseCanvas.Instance.statPanel.SetMaxATK(aMaxATK);
+        PauseCanvas.Instance.statPanel.SetSPD(aSpeedWeight);
+        PauseCanvas.Instance.statPanel.SetAP(AP);
+        PauseCanvas.Instance.statPanel.SetCRT(aCriticalWeight);
+        PauseCanvas.Instance.statPanel.SetDEF(aDefenceWeight);
+        PauseCanvas.Instance.statPanel.SetEXP(EXP);
+        PauseCanvas.Instance.statPanel.SetRequiredEXP(RequireEXP);
     }
 
     public void AdjustConsumeItem(ItemScriptableObject _consume)
     {
         StatContainer sc = _consume.UseConsumeItem();
-        HPChange(sc.HP);
-        GainAP(sc.AP);
+        if(sc.HP > 0) HPChange(sc.HP);
+        if (sc.AP > 0) GainAP(sc.AP);
+
+        PauseCanvas.Instance.statPanel.SetHP(HP);
+        PauseCanvas.Instance.statPanel.SetAP(AP);
 
         if (playerStatUI != null) playerStatUI.SetHPValue((float)HP, (float)aMaxHP);
         if (playerStatUI != null) playerStatUI.SetAPValue(AP);
@@ -114,7 +136,7 @@ public class PlayerStatusManager : CharacterStatusManger
 
     public void GrowUp()
     {
-        MaxHPChange = (MaxHP * Level * 15);
+        MaxHPChange = (MaxHP + Level * 15);
         HP = MaxHP;
 
         MinATKChange = MinATK + Level;

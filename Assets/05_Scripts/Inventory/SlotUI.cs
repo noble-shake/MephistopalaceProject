@@ -114,10 +114,28 @@ public class SlotUI : SlotObject
                 OnItemNumberChanged();
             }
         }
+    }
 
+    public void UseConsumeItem(PlayerManager _target)
+    {
+        if (!isItemExist) return;
+        if (itemInfo == null) return;
+        if (itemInfo.itemType != ItemType.Consume) return;
 
-
-    } 
+        if (itemInfo.NumbOfItem <= 1) // 1개 남은걸 사용한다.
+        {
+            _target.status.AdjustConsumeItem(itemInfo);
+            isItemExist = false;
+            UnEqup();
+        }
+        else
+        {
+            // 아이템 효과 적용.
+            itemInfo.NumbOfItem--;
+            _target.status.AdjustConsumeItem(itemInfo);
+            OnItemNumberChanged();
+        }
+    }
 
     public override void OnDrop(PointerEventData eventData)
     {

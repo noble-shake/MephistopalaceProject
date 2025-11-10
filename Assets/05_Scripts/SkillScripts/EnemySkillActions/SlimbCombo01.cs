@@ -10,15 +10,16 @@ public class SlimbCombo01 : ISkill
     int RequiredQTE;
     bool isSkillDone;
 
-    public SlimbCombo01(EnemyManager enemyManager)
+    public SlimbCombo01(EnemyManager enemyManager, int _RequireQTE)
     {
         this.enemyManager = enemyManager;
         isSkillDone = false;
-        RequiredQTE = enemyManager.battler.CurrentRequireQTE;
+        RequiredQTE = _RequireQTE;
     }
 
     public void Execute()
     {
+        QTECount = 0;
         EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType=ContextType.Battle ,Context = "슬라임이 2연속 콤보을 사용합니다." });
         enemyManager.battler.MoveToTarget(enemyManager.battler.CurrentTargets[0], SlimbComboProcess());
         // BattleSystemManager.Instance.CoroutineRunner(DoubleSlashEffect());
@@ -37,6 +38,10 @@ public class SlimbCombo01 : ISkill
             {
                 enemyPhase.ParrySuccess(true);
                 QTECount++;
+                if (RequiredQTE == QTECount)
+                {
+                    target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
+                }
             }
             else if (enemyPhase.isEvading && Evadable)
             {
@@ -65,6 +70,7 @@ public class SlimbCombo01 : ISkill
     public void Done()
     {
         BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        QTECount = 0;
     }
 
     IEnumerator SlimbComboProcess()

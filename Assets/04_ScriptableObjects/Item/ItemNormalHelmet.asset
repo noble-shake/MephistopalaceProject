@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df08ff671a84b204a94af3c9010fb3b8, type: 3}
   m_Name: ItemNormalHelmet
   m_EditorClassIdentifier: 
-  ItemID: 4
+  ItemID: 8
   NumbOfItem: 0
   isUnique: 1
   isEquip: 1
@@ -20,14 +20,14 @@ MonoBehaviour:
   Name: 7
   Description: "\uBA38\uB9AC\uC5D0 \uAC04\uB2E8\uD788 \uC4F8 \uC218 \uC788\uB294
     \uD22C\uAD6C"
-  itemType: 4
-  itemImage: {fileID: 21300000, guid: aa08f3d97dc48234f90eef8e288f105a, type: 3}
+  itemType: 1
+  itemImage: {fileID: 21300000, guid: 88333200c9cb2b742aba3f42a34603d4, type: 3}
   LEVEL: 0
-  HP: 0
+  HP: 15
   AP: 0
-  minATK: 0
+  minATK: 1
   maxATK: 0
   CRT: 0
   SPD: 0
-  DEF: 5
+  DEF: 0
   EXP: 0

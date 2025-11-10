@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df08ff671a84b204a94af3c9010fb3b8, type: 3}
   m_Name: ItemPotionBigAP
   m_EditorClassIdentifier: 
-  ItemID: 2
+  ItemID: 6
   NumbOfItem: 3
   isUnique: 0
   isEquip: 0
