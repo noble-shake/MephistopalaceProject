@@ -101,7 +101,6 @@ public class PauseCanvas : MonoBehaviour
         }
         statPanel.SetLevel(curPlayer.status.Level);
         statPanel.SetHP(curPlayer.status.HP);
-        statPanel.SetAP(curPlayer.status.AP);
         statPanel.SetMaxHP(curPlayer.status.aMaxHP);
         statPanel.SetMinATK(curPlayer.status.aMinATK);
         statPanel.SetMaxATK(curPlayer.status.aMaxATK);

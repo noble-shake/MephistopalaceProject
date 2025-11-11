@@ -21,6 +21,7 @@ public class GameIntroCanvas : MonoBehaviour
 
     public void OnClickedStart()
     {
+        StartButton.GetComponent<AudioSource>().Play();
         GameIntroPlayer.Play();
     }
 
@@ -33,6 +34,7 @@ public class GameIntroCanvas : MonoBehaviour
 
     public void OnClickedExit()
     {
+        ExitButton.GetComponent<AudioSource>().Play();
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

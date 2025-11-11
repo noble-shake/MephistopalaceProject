@@ -17,12 +17,14 @@ public class BattleSystemCanvas03 : MonoBehaviour
 
     public void OnClickedPrevious()
     {
+        SoundManager.Instance.EquipSound();
         gameObject.SetActive(false);
         PreviousCanvas.gameObject.SetActive(true);
     }
 
     public void OnClickedContinue()
     {
+        SoundManager.Instance.EquipSound();
         gameObject.SetActive(false);
         GameManager.Instance.GameContinue();
         Cursor.lockState = CursorLockMode.Locked;

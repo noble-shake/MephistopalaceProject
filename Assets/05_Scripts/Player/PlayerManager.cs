@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerManager : CharacterManager
 {
     public CharacterType characterType;
+    public AudioSource audioSource;
 
     [Space]
     [Header("Encounter States")]
@@ -22,6 +23,7 @@ public class PlayerManager : CharacterManager
     [HideInInspector] public PlayerEncounterManager encounter;
     [HideInInspector] public PlayerLocomotionManager locomotor;
     [HideInInspector] public PlayerBattleManager battler;
+    [HideInInspector] public CharacterSoundManager speaker;
 
 
     private void Start()
@@ -31,5 +33,6 @@ public class PlayerManager : CharacterManager
         encounter = GetComponent<PlayerEncounterManager>();
         locomotor = GetComponent<PlayerLocomotionManager>();
         battler = GetComponent<PlayerBattleManager>();
+        speaker = GetComponent<CharacterSoundManager>();
     }
 }

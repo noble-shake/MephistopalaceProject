@@ -16,7 +16,8 @@ public class TutorialUI : MonoBehaviour
     {
         InputManager.Instance.PlayerInputBind();
         GameManager.Instance.GameContinue();
-        if(zone != null) zone.ActivateEvent();
+        SoundManager.Instance.EquipSound();
+        if (zone != null) zone.ActivateEvent();
         Destroy(gameObject);
         Destroy(zone);
     }

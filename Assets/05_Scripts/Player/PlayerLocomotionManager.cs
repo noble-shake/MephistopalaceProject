@@ -1,5 +1,5 @@
 using System.Collections;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.ShaderData;
 
@@ -17,9 +17,16 @@ public class PlayerLocomotionManager : MonoBehaviour
 
     [SerializeField] float SwitchingDelay;
 
+    [Header("SFX")]
+    [SerializeField] int FootStepCnt;
+    [SerializeField] List<AudioClip> FootStepSFX;
+    [SerializeField] AudioSource FootAudioSource;
+
+
+
     private void Start()
     {
-        
+        FootStepCnt = 0;
         controller = GetComponent<CharacterController>();
         rigid = GetComponent<Rigidbody>();
         playerManager = GetComponent<PlayerManager>();
@@ -72,7 +79,20 @@ public class PlayerLocomotionManager : MonoBehaviour
     {
         if (controller.enabled == false) return;
 
+
+
         Vector2 MoveVector = GetMoveVector();
+
+        if (MoveVector != Vector2.zero)
+        {
+            if (FootAudioSource.isPlaying == false)
+            {
+                if (FootStepCnt >= FootStepSFX.Count) FootStepCnt = 0;
+                FootAudioSource.PlayOneShot(FootStepSFX[FootStepCnt++]);
+            }
+        }
+
+
         Vector3 adjustRotate = transform.TransformDirection(new Vector3(MoveVector.x, 0f, MoveVector.y));
         controller.Move(adjustRotate * CharacterSpeed * Time.deltaTime);
 

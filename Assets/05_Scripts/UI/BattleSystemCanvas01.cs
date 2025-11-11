@@ -14,6 +14,7 @@ public class BattleSystemCanvas01: MonoBehaviour
 
     public void OnClickedContinue()
     {
+        SoundManager.Instance.EquipSound();
         gameObject.SetActive(false);
         NextCanvas.gameObject.SetActive(true);
     }

@@ -9,9 +9,15 @@ public class PlayerAnimationManager : MonoBehaviour
     [SerializeField] public float dampTime;
     [SerializeField] public bool dampSpeed;
 
+    [Header("SFX")]
+    [SerializeField] AudioClip WeaponSFX;
+    [SerializeField] AudioClip FireballSFX;
+    [SerializeField] AudioSource WeaponSoundSource;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        WeaponSoundSource.clip = WeaponSFX;
         playerManager = GetComponent<PlayerManager>();
         animator = GetComponent<Animator>();
     }
@@ -94,5 +100,15 @@ public class PlayerAnimationManager : MonoBehaviour
         if (playerManager.isItemEarnAction) return;
         MoveAnimation(GetMoveVector());
         AttackAnimation();
+    }
+
+    public void EncounterAttackSFX()
+    {
+        WeaponSoundSource.PlayOneShot(WeaponSFX);
+    }
+
+    public void EncounterFireSFX()
+    {
+        WeaponSoundSource.PlayOneShot(FireballSFX);
     }
 }

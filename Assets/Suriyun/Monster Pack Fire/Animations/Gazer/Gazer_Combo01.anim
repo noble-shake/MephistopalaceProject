@@ -1062,6 +1062,13 @@ AnimationClip:
     floatParameter: 0
     intParameter: 3
     messageOptions: 0
+  - time: 1.0666667
+    functionName: OnSFXShot
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 2
+    messageOptions: 0
   - time: 1.25
     functionName: OnSkillAction
     data: 
@@ -1071,6 +1078,13 @@ AnimationClip:
     messageOptions: 0
   - time: 2.8333333
     functionName: OnVFXTrigger
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 3
+    messageOptions: 0
+  - time: 2.9333334
+    functionName: OnSFXShot
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

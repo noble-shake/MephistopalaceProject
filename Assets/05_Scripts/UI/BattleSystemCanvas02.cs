@@ -17,12 +17,14 @@ public class BattleSystemCanvas02 : MonoBehaviour
 
     public void OnClickedPrevious()
     {
+        SoundManager.Instance.EquipSound();
         gameObject.SetActive(false);
         PreviousCanvas.gameObject.SetActive(true);
     }
 
     public void OnClickedContinue()
     {
+        SoundManager.Instance.EquipSound();
         gameObject.SetActive(false);
         NextCanvas.gameObject.SetActive(true);
     }

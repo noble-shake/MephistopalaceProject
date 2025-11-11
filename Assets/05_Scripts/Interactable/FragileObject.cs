@@ -9,6 +9,7 @@ public class FragileObject : InteractObject
     [SerializeField] private ItemScriptableObject hasItem;
     bool isActivate;
     [SerializeField] private EarnActionType EarnAction;
+    [SerializeField] private AudioClip FragileSFX;
 
     protected override void Start()
     {
@@ -36,6 +37,7 @@ public class FragileObject : InteractObject
 
     public override void TriggerEvent()
     {
+        GetComponent<AudioSource>().PlayOneShot(FragileSFX);
         HP--;
         ShakeEvent();
 

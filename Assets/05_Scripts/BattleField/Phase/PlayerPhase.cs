@@ -235,6 +235,7 @@ public class PlayerPhase : BattlePhase
 
         if (ExecuteInput)
         {
+            playerManager.speaker.OnSFXShot(1);
             Debug.Log("Execute Input");
             curDelay = 0.3f;
             ExecuteInput = false;
@@ -243,6 +244,7 @@ public class PlayerPhase : BattlePhase
 
         if (BackInput)
         {
+            playerManager.speaker.OnSFXShot(1);
             Debug.Log("Back Input");
             curDelay = 0.3f;
             BackInput = false;
