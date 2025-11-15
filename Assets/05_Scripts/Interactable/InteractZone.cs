@@ -51,6 +51,15 @@ public class InteractZone : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))
+        {
+            interacted = true;
+            interactGauge.gameObject.SetActive(true);
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))

@@ -31,6 +31,12 @@ public class PlayerCharacterManager : MonoBehaviour
         // GameBegin();
     }
 
+    private void Update()
+    {
+        SwitchingCool -= Time.deltaTime;
+        if (SwitchingCool < 0f) SwitchingCool = 0f;
+    }
+
     public void GameBegin()
     {
         var characterInfo = ResourceManager.Instance.PlayerResources[(int)CharacterType.Knight];
@@ -85,8 +91,15 @@ public class PlayerCharacterManager : MonoBehaviour
         player.SetActive(false);
     }
 
+    private float SwitchingCool;
     public void CharacterSwitching(SwitchingDirection _direction)
-    { 
+    {
+        // Global CoolTime
+        if(SwitchingCool > 0f) return;
+        SwitchingCool = 2f;
+
+
+
         int ownCharacters = Playables.Count;
         if (ownCharacters == 1) return;
         int currentCharacter = (int)CurrentPlayer.characterType;
@@ -114,12 +127,16 @@ public class PlayerCharacterManager : MonoBehaviour
 
         Vector3 CurrentPosition = CurrentPlayer.transform.position;
         Quaternion CurrentRotation = CurrentPlayer.transform.rotation;
+
+        CurrentPlayer.GetComponent<CharacterController>().enabled = false;
         CurrentPlayer.gameObject.SetActive(false);
 
         CurrentPlayer = Playables[(CharacterType)currentCharacter];
-        CurrentPlayer.gameObject.SetActive(true);
+        CurrentPlayer.GetComponent<CharacterController>().enabled = true;
         CurrentPlayer.transform.position = CurrentPosition;
         CurrentPlayer.transform.rotation = CurrentRotation;
+        CurrentPlayer.gameObject.SetActive(true);
+
         CurrentPlayer.GetComponent<KriptoFX_Teleportation>().enabled = true;
 
         // Camera Following

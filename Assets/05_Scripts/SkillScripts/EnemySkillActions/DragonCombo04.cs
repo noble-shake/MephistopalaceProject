@@ -67,7 +67,14 @@ public class DragonCombo04 : ISkill
 
     public void Done()
     {
-        BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        foreach (BattlePhase target in enemyManager.battler.CurrentTargets)
+        {
+            target.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+        }
+        //BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        QTECount = 0;
+        enemyManager.phaser.CurrentPhase = PhaseType.Wait;
+        BattleSystemManager.Instance.UpdateEntry();
     }
 
     IEnumerator EnemyComboProcess()

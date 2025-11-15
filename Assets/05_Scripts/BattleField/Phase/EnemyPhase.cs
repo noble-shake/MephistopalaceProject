@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
+using Unity.VisualScripting.Antlr3.Runtime;
 
 public class EnemyPhase : BattlePhase
 {
@@ -228,8 +228,11 @@ public class EnemyPhase : BattlePhase
         List<BattlePhase> Selected = new List<BattlePhase>();
         if (UnityEngine.Random.Range(0f, 1f) < TossingLuck)
         {
-            Selected.Add(Targets[UnityEngine.Random.Range(0, TargetCount)]);
+            BattlePhase battlePhase = Targets[UnityEngine.Random.Range(0, TargetCount)];
+            battlePhase.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+            Selected.Add(battlePhase);
             enemyManager.battler.CurrentTargets = Selected;
+            
             return;
         }
 

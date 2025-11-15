@@ -3026,8 +3026,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1759158787035473461}
   - component: {fileID: 2163051116442633942}
-  - component: {fileID: 7232917434501533346}
-  - component: {fileID: 9120498468377315834}
   m_Layer: 0
   m_Name: M_Knight_Greatsword
   m_TagString: Untagged
@@ -3125,41 +3123,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.7472986, y: 0.010519842, z: -0.38563886}
     m_Extent: {x: 0.9360882, y: 0.027927427, z: 0.1875082}
   m_DirtyAABB: 0
---- !u!114 &7232917434501533346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6813277033688280412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66bfb5e39f0bef949b5309c8c70246c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  owner: {fileID: 0}
-  EnemyAttackCollider: {fileID: 9120498468377315834}
---- !u!65 &9120498468377315834
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6813277033688280412}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 3}
-  m_Center: {x: 0.921098, y: 1.5616705, z: 1}
 --- !u!1 &6866451739025619621
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,9 +4079,9 @@ GameObject:
   - component: {fileID: 8026156928647967544}
   - component: {fileID: 3119901995607992326}
   - component: {fileID: -6451498953755444756}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Battle_Monster_Knight
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4180,6 +4143,7 @@ MonoBehaviour:
   Description: "\uB358\uC804\uC744 \uC9C0\uD0A4\uB294 \uC815\uC608 \uAE30\uC0AC.
     \uAC15\uB825\uD55C \uC0C1\uB300\uC774\uB2E4."
   phaser: {fileID: 9143903086171244779}
+  enemyType: 2
   status: {fileID: 0}
   animator: {fileID: 0}
   encounter: {fileID: 0}
@@ -4343,10 +4307,10 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -4364,10 +4328,10 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -4388,7 +4352,7 @@ AudioSource:
   m_GameObject: {fileID: 8352438780058212452}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93770353d5d22844abdc4dcb14b4e8be, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

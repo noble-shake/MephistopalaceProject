@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.ShaderData;
 
 public class PlayerLocomotionManager : MonoBehaviour
 {
@@ -106,7 +105,7 @@ public class PlayerLocomotionManager : MonoBehaviour
         Vector2 LookVector = GetLookVector();
         if (Mathf.Abs(LookVector.x) < RotationLimit) return;
 
-        Vector3 RotationTerm =  new Vector3(0f, LookVector.x * RotationSpeed * GameManager.Instance.Sensivity * Time.deltaTime, 0f);
+        Vector3 RotationTerm =  new Vector3(0f, LookVector.x * (RotationSpeed + GameManager.Instance.Sensivity) * Time.deltaTime, 0f);
         this.transform.Rotate(RotationTerm);
 
     }
@@ -143,8 +142,8 @@ public class PlayerLocomotionManager : MonoBehaviour
     public void CharacterJump(JumpPath From, JumpPath To)
     {
         if (playerManager.characterType != CharacterType.DualBlade) return;
-        if(From.collider != null) From.collider.enabled = false;
-        if(To.collider != null) To.collider.enabled = false;
+        if(From.GetComponent<Collider>() != null) From.GetComponent<Collider>().enabled = false;
+        if(To.GetComponent<Collider>() != null) To.GetComponent<Collider>().enabled = false;
         OnJump();
         StartCoroutine(JumpAction(From, To));
     }
@@ -195,8 +194,8 @@ public class PlayerLocomotionManager : MonoBehaviour
         yield return null;
         playerManager.locomotor.rigid.useGravity = true;
         playerManager.locomotor.controller.enabled = true;
-        if (FromTrs.collider != null) FromTrs.collider.enabled = true;
-        if (ToTrs.collider != null) ToTrs.collider.enabled = true;
+        if (FromTrs.GetComponent<Collider>() != null) FromTrs.GetComponent<Collider>().enabled = true;
+        if (ToTrs.GetComponent<Collider>() != null) ToTrs.GetComponent<Collider>().enabled = true;
         OnLanding();
     }
 

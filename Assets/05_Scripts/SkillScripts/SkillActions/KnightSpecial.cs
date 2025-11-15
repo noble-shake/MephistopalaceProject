@@ -56,7 +56,7 @@ public class KnightSpecial : ISkill
             int actualMinATK = playerManager.status.aMinATK + (int)(playerManager.status.aMinATK * (success / total));
             int actualMaxATK = playerManager.status.aMaxATK + (int)(playerManager.status.aMinATK * (success / total));
             int HitDamage = UnityEngine.Random.Range(actualMinATK, actualMaxATK + 1);
-            Debug.Log(HitDamage);
+            //Debug.Log(HitDamage);
             enemyPhase.enemyManager.status.HPChange(-HitDamage);
             enemyPhase.enemyManager.animator.animator.Play("Hit");
         }
@@ -69,7 +69,9 @@ public class KnightSpecial : ISkill
 
     public void Done()
     {
-        BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        //BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        BattleSystemManager.Instance.UpdateEntry();
+        playerManager.phaser.CurrentPhase = PhaseType.Wait;
     }
 
     IEnumerator DoubleSlashProcess()

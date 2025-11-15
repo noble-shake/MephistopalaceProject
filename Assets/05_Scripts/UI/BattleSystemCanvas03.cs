@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +23,7 @@ public class BattleSystemCanvas03 : MonoBehaviour
 
     public void OnClickedContinue()
     {
+        GameManager.Instance.OnStateChangeToEncounter();
         SoundManager.Instance.EquipSound();
         gameObject.SetActive(false);
         GameManager.Instance.GameContinue();

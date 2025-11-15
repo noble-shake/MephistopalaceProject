@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -95,6 +94,7 @@ public class PlayerAnimationManager : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.CurrentState == GameModeState.Battle) return;
+        if (GameManager.Instance.CurrentState == GameModeState.Cinematic) return;
         if (playerManager.isAttack) return;
         if (playerManager.isPause) return;
         if (playerManager.isItemEarnAction) return;

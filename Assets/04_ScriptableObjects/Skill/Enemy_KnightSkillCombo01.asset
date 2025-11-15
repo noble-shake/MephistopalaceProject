@@ -16,8 +16,10 @@ MonoBehaviour:
   activateTarget: 3
   Name: "\uC5F0\uC18D \uACF5\uACA9"
   Description: 
-  RequiredQTE: 3
+  RequiredQTE: 4
   SkillIcon: {fileID: 0}
   DamageRatio: 0
   ActionScript: 8
   RequiredAP: 0
+  APMustSatisfied: 0
+  isConsumeRequire: 0

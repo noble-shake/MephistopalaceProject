@@ -74,15 +74,36 @@ public class PlayerBattleManager : CharacterBattleManager
 
     #region Skill Animation
 
-    public void OnBackToPoint()
+    //public void OnBackToPoint()
+    //{
+    //    StartCoroutine(BackPointAction());
+    //}
+
+    public void OnBackToPoint(int _index)
     {
-        StartCoroutine(BackPointAction());
+        switch ((CharacterType)_index)
+        {
+            case CharacterType.Knight:
+                StartCoroutine(BackPointAction());
+                break;
+            case CharacterType.DualBlade:
+                StartCoroutine(BackPointAction());
+                break;
+            case CharacterType.Magician:
+                StartCoroutine(BackPointAction());
+                break;
+        }
+    }
+
+    public void DelegateRun(IEnumerator _Action)
+    {
+        StartCoroutine(_Action);
     }
 
     IEnumerator BackPointAction()
     {
         CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
-        yield return new WaitForSeconds(1.25f);
+        //yield return new WaitForSeconds(1.25f);
 
         Vector3 TargetAroundPos = playerManager.phaser.AllocatedPoint.position;
         TargetAroundPos.y = 0f;

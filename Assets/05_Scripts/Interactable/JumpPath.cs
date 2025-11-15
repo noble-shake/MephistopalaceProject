@@ -1,16 +1,9 @@
 using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEngine.Playables;
-using UnityEngine.Timeline;
 
 
 public class JumpPath : InteractObject
 {
     public JumpPath Pass;
-    public BoxCollider collider;
 
     public override void InteractEvent()
     {

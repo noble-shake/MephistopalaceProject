@@ -20,12 +20,12 @@ MonoBehaviour:
   minPool: 10
   maxPool: 10
   CharacterDescription: {fileID: 0}
-  MinLevel: 10
-  MaxLevel: 10
-  HP: 200
+  MinLevel: 30
+  MaxLevel: 30
+  HP: 500
   AP: 0
-  MinATK: 2
-  MaxATK: 4
+  MinATK: 8
+  MaxATK: 10
   SPD: 1
   DEF: 5
   CRT: 0

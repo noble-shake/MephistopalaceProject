@@ -57,6 +57,10 @@ public class SlimbCombo02 : ISkill
 
     public void Done()
     {
+        foreach (BattlePhase target in enemyManager.battler.CurrentTargets)
+        {
+            target.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+        }
         BattleSystemManager.Instance.CoroutineRunner(EndEffect());
     }
 

@@ -108,6 +108,8 @@ namespace TeleportFX
 
             public void SwapToDefaultMaterial()
             {
+                if (MeshRenderer == null) return;
+                if (MeshRenderer.GetComponent<ParticleSystemRenderer>()) return;
                 MeshRenderer.sharedMaterial = DefaultMaterial;
             }
 

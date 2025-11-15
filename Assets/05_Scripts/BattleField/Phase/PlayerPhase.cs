@@ -235,6 +235,8 @@ public class PlayerPhase : BattlePhase
 
         if (ExecuteInput)
         {
+            ExecuteInput = false;
+            BackInput = false;
             playerManager.speaker.OnSFXShot(1);
             Debug.Log("Execute Input");
             curDelay = 0.3f;
@@ -244,6 +246,8 @@ public class PlayerPhase : BattlePhase
 
         if (BackInput)
         {
+            ExecuteInput = false;
+            BackInput = false;
             playerManager.speaker.OnSFXShot(1);
             Debug.Log("Back Input");
             curDelay = 0.3f;
@@ -380,6 +384,7 @@ public class PlayerPhase : BattlePhase
         if (ExecuteInput)
         {
             ExecuteInput = false;
+            BackInput = false;
             CurrentCooltime = ParryCooltime;
             isParrying = true;
             playerManager.animator.animator.Play("BattleParry");
@@ -388,6 +393,7 @@ public class PlayerPhase : BattlePhase
 
         if (BackInput)
         {
+            ExecuteInput = false;
             BackInput = false;
             CurrentCooltime = EvadeCooltime;
             isEvading = true;
@@ -400,16 +406,25 @@ public class PlayerPhase : BattlePhase
 
     public void OnCounterAttack(EnemyManager _Target)
     {
+        _Target.phaser.CurrentPhase = PhaseType.Wait;
+        _Target.animator.animator.StopPlayback();
+        _Target.animator.animator.Play("Idle");
         EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "카운터 어택 !!" });
         CurrentPhase = PhaseType.Wait; // Block Additional Update.
         playerManager.animator.animator.Play("BattleCounterAttack");
         playerManager.battler.CurrentTargets = new();
         playerManager.battler.CurrentTargets.Add(_Target.phaser);
 
+        foreach (BattlePhase target in _Target.battler.CurrentTargets)
+        {
+            target.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+        }
+
     }
 
     public void OnCounterActionProcess()
     {
+        // 공격한 몬스터
         foreach (BattlePhase e in playerManager.battler.CurrentTargets)
         {
             EnemyPhase enemy = (EnemyPhase)e;
@@ -423,13 +438,22 @@ public class PlayerPhase : BattlePhase
         }
 
         playerManager.status.GainAP(2);
-        BattleSystemManager.Instance.CheckTargetState(playerManager.battler.CurrentTargets);
 
 
+
+        foreach (BattlePhase e in playerManager.battler.CurrentTargets)
+        {
+            EnemyPhase enemy = (EnemyPhase)e;
+            EnemyManager _Target = enemy.enemyManager;
+
+            if (_Target.status.isDead == true)
+            {
+                BattleSystemManager.Instance.CheckTargetState(playerManager.battler.CurrentTargets);
+                BattleSystemManager.Instance.SwitchingQueue();
+                return;
+            }
+        }
     }
-
-    
-
 
     public void ParrySuccess(bool isOn)
     {

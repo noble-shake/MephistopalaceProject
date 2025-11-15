@@ -25,6 +25,7 @@ public class JumpTutorial : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer(LayerEnum.Player.ToString()))
         {
+            GameManager.Instance.OnStateChangeToCinematic();
             _canvas.gameObject.SetActive(true);
             GameManager.Instance.GameStop();
             Cursor.lockState = CursorLockMode.None;

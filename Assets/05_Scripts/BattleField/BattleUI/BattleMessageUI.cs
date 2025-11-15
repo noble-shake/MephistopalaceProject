@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BattleMessageUI : MonoBehaviour
 {

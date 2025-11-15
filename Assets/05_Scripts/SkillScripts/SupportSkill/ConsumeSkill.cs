@@ -26,7 +26,7 @@ public class ConsumeSkill : ISkill
             playerManager.status.GainAP(1);
             VFX.transform.position = playerManager.transform.position + Vector3.up * 0.5f;
 
-            BattleSystemManager.Instance.CoroutineRunner(TurnOverEffect());
+            playerManager.battler.DelegateRun(TurnOverEffect());
         }
     }
 

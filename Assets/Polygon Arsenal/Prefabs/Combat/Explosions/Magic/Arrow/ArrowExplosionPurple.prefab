@@ -4916,6 +4916,7 @@ GameObject:
   - component: {fileID: 4680895031200803021}
   - component: {fileID: 4651682990178446585}
   - component: {fileID: 4889934632052585081}
+  - component: {fileID: -63429180406933086}
   m_Layer: 0
   m_Name: ArrowExplosionPurple
   m_TagString: Untagged
@@ -9835,3 +9836,16 @@ MonoBehaviour:
   destroyWhenDone: 1
   soundPrefabIsChild: 0
   pitchRandomMultiplier: 1.1
+--- !u!114 &-63429180406933086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4777761319089981677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6495a447e84918429c3a76b590b8b15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 4680895031200803021}

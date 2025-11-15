@@ -572,9 +572,9 @@ GameObject:
   - component: {fileID: 2171018064714374001}
   - component: {fileID: -890448808572040335}
   - component: {fileID: 7933245566178004389}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: BattleDragon
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -636,6 +636,7 @@ MonoBehaviour:
   Description: "\uB358\uC804\uC758 \uC8FC\uC778\uC774\uC790 \uC138\uC0C1\uC744 \uBD88\uD0DC\uC6B0\uB294
     \uB4DC\uB798\uACE4"
   phaser: {fileID: 7671817445337222325}
+  enemyType: 3
   status: {fileID: 0}
   animator: {fileID: 0}
   encounter: {fileID: 0}
@@ -803,10 +804,10 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
@@ -824,10 +825,10 @@ CharacterController:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -875,7 +876,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1365227888962271688}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: dfff1e4d675295c498db87242a835579, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: 99d8ee60a3bebd047b1e8c15bff71358, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -934,6 +935,13 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 4580ad5139eea9c4aa83192fb7d948c9, type: 2}
     - {fileID: 11400000, guid: 8e4b3da134d59ca4fb739a60737cce5c, type: 2}
     - {fileID: 11400000, guid: 913ef8f42594a604ca3bbba79abbca37, type: 2}
+    - {fileID: 11400000, guid: c2d5dd9fd83dd20408603bafcabb4cec, type: 2}
+    - {fileID: 11400000, guid: de95cede8c96b19498af59b6c37c7075, type: 2}
+    - {fileID: 11400000, guid: b2259b47f833d72499bf60b48eeaa957, type: 2}
+    - {fileID: 11400000, guid: 459a6ce15345a614595020c526e2ef15, type: 2}
+    - {fileID: 11400000, guid: 6f93f9996b856b6489f748e8131b9c4d, type: 2}
+    - {fileID: 11400000, guid: 006cdcc0b6082e04e8113d0007f52463, type: 2}
+    - {fileID: 11400000, guid: 9ad73e083bf067d42a651b20cf7275fa, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -967,12 +975,110 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 8285688914062325211}
           m_TargetAssemblyTypeName: EnemyBattleManager, Assembly-CSharp
-          m_MethodName: OnBackToPoint
+          m_MethodName: DragonBackToPoint
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 11
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 13
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 11
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7933245566178004389}
+          m_TargetAssemblyTypeName: CharacterSoundManager, Assembly-CSharp
+          m_MethodName: OnSFXShot
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 5
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -986,7 +1092,7 @@ AudioSource:
   m_GameObject: {fileID: 1365227888962271688}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93770353d5d22844abdc4dcb14b4e8be, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -1088,6 +1194,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioClips:
   - {fileID: 8300000, guid: 946ecc58759a3e045876a998bffe961d, type: 3}
+  - {fileID: 8300000, guid: 5a041ea5e96e9c74c90b1adb8527021b, type: 3}
+  - {fileID: 8300000, guid: 5b27817441690c74798e613bdbedba36, type: 3}
+  - {fileID: 8300000, guid: 84dc67a7cef29ba47956211827105207, type: 3}
+  - {fileID: 8300000, guid: ee182dea5a9eabc4a9010e1e47274d5a, type: 3}
+  - {fileID: 8300000, guid: 2747756e794230a46a61e85fcc47c603, type: 3}
+  - {fileID: 8300000, guid: 4c4e477144b0bad42817f77dbd1b9161, type: 3}
+  - {fileID: 8300000, guid: 4d6a2c8458dfad64eabbf6182e600eb0, type: 3}
+  - {fileID: 8300000, guid: dbffd469821be2d4b9da0ce7837b3de7, type: 3}
+  - {fileID: 8300000, guid: 7b58f9647e115b64382d21486b1c5cff, type: 3}
+  - {fileID: 8300000, guid: 6e80baa9a0a61ee4dac1dfac6b8e8e78, type: 3}
+  - {fileID: 8300000, guid: 44014b2b04816254c943ca48c0548527, type: 3}
+  - {fileID: 8300000, guid: b4121511c733ee6468c80edf48a7e676, type: 3}
+  - {fileID: 8300000, guid: 5f4f42c2e80411e44940c53b4d13e656, type: 3}
   audioSource: {fileID: -890448808572040335}
 --- !u!1 &1424302507718774787
 GameObject:

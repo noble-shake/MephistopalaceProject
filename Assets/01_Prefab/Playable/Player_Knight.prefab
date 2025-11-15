@@ -4035,7 +4035,7 @@ AudioSource:
   m_GameObject: {fileID: 6982761894113842109}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93770353d5d22844abdc4dcb14b4e8be, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -4571,7 +4571,12 @@ Animator:
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_AnimatePhysics: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed
+    by Humanoid clips.\n\tTransform 'R_thumbFinger_joint1'\n\tTransform 'R_thumbFinger_joint3'\n\tTransform
+    'L_midFinger_joint1'\n\tTransform 'L_wrist_joint'\n\tTransform 'pelvis_joint'\n\tTransform
+    'R_ankle_joint'\n\tTransform 'L_pinkyFinger_joint1'\n\tTransform 'L_midFinger_joint2'\n\tTransform
+    'L_thumbFinger_joint1'\n\tTransform 'head_joint'\n\tand more ..."
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
@@ -4921,7 +4926,7 @@ MonoBehaviour:
         - m_Target: {fileID: 4726492326824363720}
           m_TargetAssemblyTypeName: PlayerBattleManager, Assembly-CSharp
           m_MethodName: OnBackToPoint
-          m_Mode: 1
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4984,7 +4989,7 @@ AudioSource:
   m_GameObject: {fileID: 7979453247902764093}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93770353d5d22844abdc4dcb14b4e8be, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

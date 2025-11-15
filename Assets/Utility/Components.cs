@@ -65,3 +65,12 @@ public enum Identifying
     Player,
     Enemy,
 }
+
+[System.Serializable]
+public enum EnemyType
+{ 
+    Gazer,
+    Skeleton,
+    MonterKnight,
+    Dragon
+}

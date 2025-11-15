@@ -2406,7 +2406,7 @@ PlayableDirector:
   m_GameObject: {fileID: 1440773549373682157}
   m_Enabled: 1
   serializedVersion: 3
-  m_PlayableAsset: {fileID: 11400000, guid: 3e9cf8bc689524342a192999e2ebd6e9, type: 2}
+  m_PlayableAsset: {fileID: 11400000, guid: ac4956198f1829c438ff345ec30d6146, type: 2}
   m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
@@ -2522,11 +2522,11 @@ MonoBehaviour:
         - m_Target: {fileID: 8510882687834930529}
           m_TargetAssemblyTypeName: PlayerBattleManager, Assembly-CSharp
           m_MethodName: OnBackToPoint
-          m_Mode: 1
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -2669,7 +2669,7 @@ AudioSource:
   m_GameObject: {fileID: 1440773549373682157}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93770353d5d22844abdc4dcb14b4e8be, type: 2}
   m_audioClip: {fileID: 8300000, guid: d22f60c9e0f841246a50f4ed22a1a29b, type: 3}
   m_Resource: {fileID: 8300000, guid: d22f60c9e0f841246a50f4ed22a1a29b, type: 3}
   m_PlayOnAwake: 0
@@ -14116,7 +14116,7 @@ AudioSource:
   m_GameObject: {fileID: 7226734002900635052}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 93770353d5d22844abdc4dcb14b4e8be, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

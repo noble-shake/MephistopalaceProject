@@ -57,7 +57,9 @@ public class MagicianSpecial: ISkill
 
     public void Done()
     {
-        BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        //BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        BattleSystemManager.Instance.UpdateEntry();
+        playerManager.phaser.CurrentPhase = PhaseType.Wait;
     }
 
     IEnumerator DoubleSlashProcess()

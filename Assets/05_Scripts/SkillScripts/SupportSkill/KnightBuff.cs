@@ -18,7 +18,7 @@ public class KnightBuff : ISkill
 
     public void Execute()
     {
-        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "전투의 함성 [AP 회복]을 사용합니다." });
+        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "(나이트) 전투의 함성을 사용합니다." });
         GameObject VFX = ResourceManager.Instance.VFXResources[VFXName.BuffEffectA].GetVFXInstance();
 
         playerManager.animator.animator.Play("BuffExecute");
@@ -33,8 +33,7 @@ public class KnightBuff : ISkill
             PlayerPhase playerPhase = (PlayerPhase)target;
             playerPhase.playerManager.status.GainAP(3);
         }
-
-        BattleSystemManager.Instance.CoroutineRunner(TurnOverEffect());
+        playerManager.battler.DelegateRun(TurnOverEffect());
 
     }
 
@@ -45,7 +44,7 @@ public class KnightBuff : ISkill
     IEnumerator TurnOverEffect()
     {
         playerManager.phaser.CurrentPhase = PhaseType.Done;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         BattleSystemManager.Instance.UpdateEntry();
         playerManager.phaser.CurrentPhase = PhaseType.Wait;
     }

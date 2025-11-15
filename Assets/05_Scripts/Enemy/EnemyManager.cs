@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyManager : CharacterManager
 {
+    public EnemyType enemyType;
+
     [HideInInspector] public EnemyStatusManager status;
     [HideInInspector] public EnemyAnimationManager animator;
     [HideInInspector] public EnemyEncounterManager encounter;

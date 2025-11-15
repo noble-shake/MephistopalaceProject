@@ -70,6 +70,22 @@ public class SkillScriptableObject : ScriptableObject
                 return new MagicianSpecial(playerManager);
             case SkillActions.KnightBuff:
                 return new KnightBuff(playerManager);
+            case SkillActions.DualBladeBuff:
+                return new DualBladeBuff(playerManager);
+            case SkillActions.MagicianBuff:
+                return new MagicianBuff(playerManager);
+            case SkillActions.SmallHPConsume:
+                return new SmallHPSkill(playerManager);
+            case SkillActions.BigHPConsume:
+                return new BigHPSkill(playerManager);
+            case SkillActions.MiddleHPConsume:
+                return new MiddleHPSkill(playerManager);
+            case SkillActions.SmallAPConsume:
+                return new SmallAPSkill(playerManager);
+            case SkillActions.MiddleAPConsume:
+                return new SmallAPSkill(playerManager);
+            case SkillActions.BigAPConsume:
+                return new BigAPSkill(playerManager);
         }
 
     }

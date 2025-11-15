@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.UI;
@@ -13,9 +14,17 @@ public class GameIntroCanvas : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(CursorFind());
         _canvas = GetComponent<CanvasGroup>();
         StartButton.onClick.AddListener(OnClickedStart);
         ExitButton.onClick.AddListener(OnClickedExit);
+    }
+
+    IEnumerator CursorFind()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Cursor.lockState = CursorLockMode.None;
+
     }
 
 

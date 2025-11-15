@@ -34,7 +34,8 @@ public class TurnOver : ISkill
             playerManager.status.GainAP(1);
             VFX.transform.position = playerManager.transform.position + Vector3.up * 0.5f;
 
-            BattleSystemManager.Instance.CoroutineRunner(TurnOverEffect());
+            playerManager.battler.DelegateRun(TurnOverEffect());
+            
         }
         else
         {
@@ -42,7 +43,10 @@ public class TurnOver : ISkill
             VFX.transform.position = enemyManager.transform.position + Vector3.up * 0.5f;
             VFX.transform.localScale = Vector3.one * 3f;
 
-            BattleSystemManager.Instance.CoroutineRunner(TurnOverEnemyEffect());
+            BattleSystemManager.Instance.UpdateEntry();
+            enemyManager.phaser.CurrentPhase = PhaseType.Wait;
+
+            enemyManager.battler.DelegateRun(TurnOverEnemyEffect());
         }
 
     }

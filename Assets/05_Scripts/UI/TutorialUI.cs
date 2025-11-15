@@ -14,6 +14,7 @@ public class TutorialUI : MonoBehaviour
 
     public void OnContinueButton()
     {
+        GameManager.Instance.OnStateChangeToEncounter();
         InputManager.Instance.PlayerInputBind();
         GameManager.Instance.GameContinue();
         SoundManager.Instance.EquipSound();

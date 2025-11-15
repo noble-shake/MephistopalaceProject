@@ -34,7 +34,7 @@ public class SmallAPSkill : ISkill
             InventoryManager.Instance.ItemUse(SkillActions.SmallAPConsume, playerPhase.playerManager); // 여기까지 온 이상, 인벤토리 안에 해당 아이템이 없을 이유가 없다.
         }
 
-        BattleSystemManager.Instance.CoroutineRunner(TurnOverEffect());
+        playerManager.battler.DelegateRun(TurnOverEffect());
 
     }
 

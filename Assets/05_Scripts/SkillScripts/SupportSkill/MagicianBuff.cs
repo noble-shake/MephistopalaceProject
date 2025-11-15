@@ -27,15 +27,18 @@ public class MagicianBuff : ISkill
     public void Process(ProcessType _React)
     {
         playerManager.status.GainAP(2);
+        GameObject VFX = ResourceManager.Instance.VFXResources[VFXName.BuffEffectA].GetVFXInstance();
+        VFX.transform.position = playerManager.transform.forward + playerManager.transform.position + Vector3.up * 0.5f;
+
         foreach (BattlePhase target in playerManager.battler.CurrentTargets)
         {
-            GameObject VFX = ResourceManager.Instance.VFXResources[VFXName.BuffEffectA].GetVFXInstance();
-            VFX.transform.position = target.transform.forward + target.transform.position + Vector3.up * 0.5f;
+            GameObject VFX2 = ResourceManager.Instance.VFXResources[VFXName.BuffEffectA].GetVFXInstance();
+            VFX2.transform.position = target.transform.forward + target.transform.position + Vector3.up * 0.5f;
             PlayerPhase playerPhase = (PlayerPhase)target;
             playerPhase.playerManager.status.HPChange((int)(playerPhase.playerManager.status.aMaxHP * 0.3f));
         }
 
-        BattleSystemManager.Instance.CoroutineRunner(TurnOverEffect());
+        playerManager.battler.DelegateRun(TurnOverEffect());
 
     }
 
@@ -46,7 +49,7 @@ public class MagicianBuff : ISkill
     IEnumerator TurnOverEffect()
     {
         playerManager.phaser.CurrentPhase = PhaseType.Done;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         BattleSystemManager.Instance.UpdateEntry();
         playerManager.phaser.CurrentPhase = PhaseType.Wait;
     }

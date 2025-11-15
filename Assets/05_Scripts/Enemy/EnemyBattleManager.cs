@@ -52,6 +52,11 @@ public class EnemyBattleManager : CharacterBattleManager
 
     }
 
+    public void DelegateRun(IEnumerator _Action)
+    {
+        StartCoroutine(_Action);
+    }
+
     private void Update()
     {
         if (GameManager.Instance.CurrentState.Equals(GameModeState.Encounter)) return;
@@ -72,7 +77,31 @@ public class EnemyBattleManager : CharacterBattleManager
 
     #region Skill Animation
 
-    public void OnBackToPoint()
+    //public void OnBackToPoint()
+    //{
+    //    StartCoroutine(BackPointAction());
+    //}
+
+    public void OnBackToPointMonster(int _index)
+    {
+        switch ((EnemyType)_index)
+        {
+            case EnemyType.Gazer:
+                StartCoroutine(BackPointAction());
+                break;
+            case EnemyType.Skeleton:
+                StartCoroutine(BackPointAction());
+                break;
+            case EnemyType.MonterKnight:
+                StartCoroutine(BackPointAction());
+                break;
+            case EnemyType.Dragon:
+                StartCoroutine(BackPointAction());
+                break;
+        }
+    }
+
+    public void DragonBackToPoint()
     {
         StartCoroutine(BackPointAction());
     }
@@ -85,7 +114,7 @@ public class EnemyBattleManager : CharacterBattleManager
         }
 
         CameraManager.Instance.OnLiveCamera(CameraType.BattleCenter);
-        yield return new WaitForSeconds(1.25f);
+        //yield return new WaitForSeconds(1.25f);
 
         Vector3 TargetAroundPos = enemyManager.phaser.AllocatedPoint.position;
         TargetAroundPos.y = 0f;
@@ -145,7 +174,7 @@ public class EnemyBattleManager : CharacterBattleManager
 
         while (Vector3.Distance(TargetAroundPos, transform.position - new Vector3(0f, transform.position.y, 0f)) > 2.5f)
         {
-            Debug.Log(Vector3.Distance(TargetAroundPos, PlayerPos));
+            //Debug.Log(Vector3.Distance(TargetAroundPos, PlayerPos));
             enemyManager.locomotor.controller.Move(Quaternion.Euler(TargetAroundPos - PlayerPos) * (TargetAroundPos - PlayerPos).normalized * 5f * Time.deltaTime);
             yield return null;
         }

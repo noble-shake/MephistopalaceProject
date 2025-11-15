@@ -1130,6 +1130,7 @@ MonoBehaviour:
   encounter: {fileID: 0}
   locomotor: {fileID: 0}
   battler: {fileID: 0}
+  speaker: {fileID: 0}
   OriginPos: {x: 0, y: 0, z: 0}
 --- !u!114 &4836191500931044745
 MonoBehaviour:

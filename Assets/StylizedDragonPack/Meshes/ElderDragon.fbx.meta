@@ -124,11 +124,18 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.5617531
+        functionName: OnSFXShot
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 3
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 217.8
     - serializedVersion: 16
       name: Emote_Ground_Talk
       takeName: Emote_Ground_Talk
@@ -385,11 +392,18 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.250996
+        functionName: OnSFXShot
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 792.9
     - serializedVersion: 16
       name: Combat_Ground_Dodge
       takeName: Combat_Ground_Dodge
@@ -706,11 +720,11 @@ ModelImporter:
       curves: []
       events:
       - time: 0.8773937
-        functionName: OnBackToPoint
+        functionName: OnBackToPointMonster
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 3
         messageOptions: 0
       transformMask: []
       maskType: 3

@@ -8,6 +8,7 @@ TagManager:
   - Obstacles
   - DropableItem
   - Weapon
+  - Enemy
   layers:
   - Default
   - TransparentFX

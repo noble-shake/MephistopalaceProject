@@ -1,11 +1,9 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using TeleportFX;
 using Unity.Cinemachine;
 using System;
 using System.Linq;
-using static UnityEngine.EventSystems.EventTrigger;
 
 [System.Serializable]
 public enum BattleSystemPhase
@@ -36,7 +34,9 @@ public class BattleSystemManager : MonoBehaviour
     
     [SerializeField] public QTEManager qteManager;
     [SerializeField] public BattlePhase CurrentBattler;
-    [SerializeField] public BattleOrderQueue CurrentBattlerOrderQueue;
+    [SerializeField] public BattleOrderQueue CurrentBattlerOrderObject;
+
+    [SerializeField] public Queue<bool> EncounterBuffer;
 
     [Header("Battle Reference")]
     [SerializeField] private EnemyScriptableObject referenceEnemey;
@@ -46,7 +46,7 @@ public class BattleSystemManager : MonoBehaviour
     [SerializeField] public bool isAmbushed;
     [SerializeField] public List<BattlePhase> BattlerEntries;
     [SerializeField] public Queue<BattlePhase> QueueEntries;
-    [SerializeField] public Queue<BattleOrderQueue> BattlerOrderObjects;
+    [SerializeField] public Queue<BattleOrderQueue> BattlerOrderQueue;
 
     [SerializeField] public List<BattlePhase> TempActivateTargets;
 
@@ -72,6 +72,7 @@ public class BattleSystemManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) { Instance = this; } else { Destroy(gameObject); }
+        EncounterBuffer = new Queue<bool>();
     }
 
     private void Update()
@@ -143,6 +144,8 @@ public class BattleSystemManager : MonoBehaviour
         GameManager.Instance.GameContinue();
         Camera.main.GetComponent<CinemachineBrain>().DefaultBlend.Time = 1.5f;
         Instance.OnBattleSequence();
+
+        SoundManager.Instance.ChangeSong((int)ThemeList.Battle);
     }
 
     IEnumerator BattleSequenceDisEngage()
@@ -171,6 +174,7 @@ public class BattleSystemManager : MonoBehaviour
                 player.isDead = false;
                 player.status.isDead = false;
                 player.animator.animator.SetBool("isDead", false);
+                player.animator.animator.Play("BattleIdle");
             }
 
             if (isGameClear == false)
@@ -209,6 +213,7 @@ public class BattleSystemManager : MonoBehaviour
             referenceEnemyObject.gameObject.SetActive(true);
         }
 
+        SoundManager.Instance.ChangeSong((int)ThemeList.Encounter);
     }
 
     public void OnEngageSequence()
@@ -284,30 +289,53 @@ public class BattleSystemManager : MonoBehaviour
             }
         }
 
+        battleUI.OrderCanvas.gameObject.SetActive(true);
         // 엔트리가 모두 구성되었으므로, 엔트리 정보로 OrderQueue를 선택해야 한다.
         // 기습을 당했다면, 모든 공격 순서는 랜덤으로 뒤섞인다.
         // 기습을 당하지 않았다면, 플레이어가 먼저 행동한다.
         if (isAmbushed)
         {
+            isAmbushed = false;
+            int cnt = BattlerEntries.Count;
+            var random = new System.Random();
+
+            var randomized = BattlerEntries.OrderBy(x => random.Next());
+
+            QueueEntries = new Queue<BattlePhase>();
+            BattlerOrderQueue = new Queue<BattleOrderQueue>();
+
+            foreach (BattlePhase entry in randomized)
+            {
+                var entryOrder = battleUI.CreateOrderQueue(entry, entry.DisplayName, entry.identityType);
+                QueueEntries.Enqueue(entry);
+                entryOrder.transform.SetParent(battleUI.OrderQueTransform);
+                entryOrder.transform.SetAsLastSibling();
+                entryOrder.Entry();
+                BattlerOrderQueue.Enqueue(entryOrder);
+            }
+
+            CurrentBattler = QueueEntries.Dequeue();
+            CurrentBattlerOrderObject = BattlerOrderQueue.Dequeue();
+
 
         }
         else
         {
             QueueEntries = new Queue<BattlePhase>();
-            BattlerOrderObjects = new Queue<BattleOrderQueue>();
+            BattlerOrderQueue= new Queue<BattleOrderQueue>();
 
             foreach (BattlePhase entry in BattlerEntries)
             { 
-                var entryOrder = battleUI.CreateOrderQueue(entry.DisplayName, entry.identityType);
+                var entryOrder = battleUI.CreateOrderQueue(entry, entry.DisplayName, entry.identityType);
                 QueueEntries.Enqueue(entry);
                 entryOrder.transform.SetParent(battleUI.OrderQueTransform);
                 entryOrder.transform.SetAsLastSibling();
                 entryOrder.Entry();
-                BattlerOrderObjects.Enqueue(entryOrder);
+                BattlerOrderQueue.Enqueue(entryOrder);
             }
 
             CurrentBattler = QueueEntries.Dequeue();
-            CurrentBattlerOrderQueue = BattlerOrderObjects.Dequeue();
+            CurrentBattlerOrderObject = BattlerOrderQueue.Dequeue();
         }
 
         foreach (BattlePhase b in BattlerEntries)
@@ -385,7 +413,8 @@ public class BattleSystemManager : MonoBehaviour
             return;
         }
 
-        if (BattlerEntries.Count != 0 && CurrentBattler != null)
+        //if (BattlerEntries.Count != 0 && CurrentBattler != null)
+        if (BattlerEntries.Count != 0l)
         {
             bool engageRunning = false;
             foreach (BattlePhase b in BattlerEntries)
@@ -455,6 +484,7 @@ public class BattleSystemManager : MonoBehaviour
     // CheckTargetState가 먼저 동작한다.
     public void UpdateEntry()
     {
+        Debug.Log("Entry Changed");
         CheckTargetState(CurrentBattler.GetComponent<CharacterBattleManager>().CurrentTargets);
         CheckStateChange();
         SwitchingQueue();
@@ -478,11 +508,31 @@ public class BattleSystemManager : MonoBehaviour
 
         // 사망 체크
         List<BattlePhase> tempQueue = QueueEntries.ToList();
+        List<BattleOrderQueue> tempOrderQueue = BattlerOrderQueue.ToList(); // battler 정보 갖고 있음.
+        List<BattleOrderQueue> RemainedQueue = BattlerOrderQueue.ToList();
 
         foreach (BattlePhase b in bodies)
         {
             tempQueue.Remove(b);
         }
+
+        BattlerOrderQueue = new Queue<BattleOrderQueue>();
+        foreach (BattleOrderQueue b in tempOrderQueue)
+        {
+            if (tempQueue.Contains(b.battler) == false)
+            {
+                RemainedQueue.Remove(b);
+                Destroy(b.gameObject);
+                continue;
+            }
+        }
+
+        foreach (BattleOrderQueue b in RemainedQueue)
+        {
+            BattlerOrderQueue.Enqueue(b);
+        }
+        tempOrderQueue = null;
+        RemainedQueue = null;
 
         QueueEntries = new Queue<BattlePhase>();
         foreach (BattlePhase b in tempQueue) 
@@ -497,6 +547,7 @@ public class BattleSystemManager : MonoBehaviour
 
     }
 
+    // 여기서 지연을 주면, 여태까지 발생한 꼬임 문제 전부 해결.
     public void SwitchingQueue()
     {
         int enemyCount = 0;
@@ -530,12 +581,21 @@ public class BattleSystemManager : MonoBehaviour
 
         if (playerCount == 0)
         {
+
             Debug.Log("GAME OVER !!");
             resultUI.gameObject.SetActive(true);
             resultUI.ResultText.text = "패배";
 
+            Destroy(CurrentBattlerOrderObject.gameObject);
+            while (BattlerOrderQueue.Count > 0)
+            {
+                BattleOrderQueue b = BattlerOrderQueue.Dequeue();
+                Destroy(b.gameObject);
+            }
+
             isGameClear = false;
             CurrentPhase = BattleSystemPhase.Result;
+            battleUI.OrderCanvas.gameObject.SetActive(false);
             return;
         }
         else if (enemyCount == 0)
@@ -544,6 +604,14 @@ public class BattleSystemManager : MonoBehaviour
 
             resultUI.gameObject.SetActive(true);
             resultUI.ResultText.text = "승리";
+
+            Destroy(CurrentBattlerOrderObject.gameObject);
+            while (BattlerOrderQueue.Count > 0)
+            {
+                BattleOrderQueue b = BattlerOrderQueue.Dequeue();
+                Destroy(b.gameObject);
+            }
+
             for (int idx = BattlerEntries.Count -1; idx >= 0; idx--)
             {
                 BattlePhase b = BattlerEntries[idx];
@@ -575,13 +643,57 @@ public class BattleSystemManager : MonoBehaviour
 
             isGameClear = true;
             CurrentPhase = BattleSystemPhase.Result;
+            battleUI.OrderCanvas.gameObject.SetActive(false);
             return;
         }
 
-        QueueEntries.Enqueue(CurrentBattler);
-        CurrentBattler = QueueEntries.Dequeue();
-        EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
-        CurrentBattler.PhaseCommand();
+        if (CurrentBattler.identityType == Identifying.Enemy)
+        {
+            if (CurrentBattler.GetComponent<EnemyStatusManager>().isDead == true)
+            {
+                CurrentBattlerOrderObject.Pop();
+                CurrentBattler.CurrentPhase = PhaseType.Wait;
+                CurrentBattler = QueueEntries.Dequeue();
+                CurrentBattlerOrderObject = BattlerOrderQueue.Dequeue();
+
+                EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
+                CurrentBattler.PhaseCommand();
+            }
+            else
+            {
+                CurrentBattlerOrderObject.Pop();
+                var EntryObject = battleUI.CreateOrderQueue(CurrentBattler, CurrentBattler.DisplayName, Identifying.Enemy);
+                EntryObject.transform.SetParent(battleUI.OrderQueTransform);
+                EntryObject.transform.SetAsLastSibling();
+                EntryObject.Entry();
+                BattlerOrderQueue.Enqueue(EntryObject);
+
+                QueueEntries.Enqueue(CurrentBattler);
+
+                CurrentBattler = QueueEntries.Dequeue();
+                CurrentBattlerOrderObject = BattlerOrderQueue.Dequeue();
+                EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
+                CurrentBattler.PhaseCommand();
+            }
+        }
+        else
+        {
+            CurrentBattlerOrderObject.Pop();
+            var EntryObject = battleUI.CreateOrderQueue(CurrentBattler, CurrentBattler.DisplayName, Identifying.Player);
+            EntryObject.transform.SetParent(battleUI.OrderQueTransform);
+            EntryObject.transform.SetAsLastSibling();
+            EntryObject.Entry();
+            BattlerOrderQueue.Enqueue(EntryObject);
+
+            QueueEntries.Enqueue(CurrentBattler);
+
+            CurrentBattler = QueueEntries.Dequeue();
+            CurrentBattlerOrderObject = BattlerOrderQueue.Dequeue();
+            EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { Context = $"{CurrentBattler.DisplayName} 의 차례" });
+            CurrentBattler.PhaseCommand();
+        }
+
+
     }
 
     public void CoroutineRunner(IEnumerator _enumerator)
@@ -625,10 +737,10 @@ public class BattleSystemManager : MonoBehaviour
                 TargetEnemyAll();
                 break;
             case ActivateTarget.ALLAlly:
-                TargetAlly();
+                TargetAllyAll();
                 break;
             case ActivateTarget.TargettingAlly:
-                TargetAllyAll();
+                TargetAlly();
                 break;
         }
 
@@ -693,10 +805,15 @@ public class BattleSystemManager : MonoBehaviour
             if (phaser.GetComponent<PlayerPhase>() != null)
             {
                 TempActivateTargets.Add(phaser);
-                phaser.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+
             }
         }
-        //TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+
+        if (CurrentBattler.GetComponent<PlayerPhase>() != null)
+        {
+            TempActivateTargets[0].AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(true);
+        }
+
     }
 
     public void TargetAllyAll()

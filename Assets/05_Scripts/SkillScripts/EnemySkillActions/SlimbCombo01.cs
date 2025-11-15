@@ -40,6 +40,7 @@ public class SlimbCombo01 : ISkill
                 QTECount++;
                 if (RequiredQTE == QTECount)
                 {
+                    QTECount = 0;
                     target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
                 }
             }
@@ -69,6 +70,10 @@ public class SlimbCombo01 : ISkill
 
     public void Done()
     {
+        foreach (BattlePhase target in enemyManager.battler.CurrentTargets)
+        {
+            target.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+        }
         BattleSystemManager.Instance.CoroutineRunner(EndEffect());
         QTECount = 0;
     }

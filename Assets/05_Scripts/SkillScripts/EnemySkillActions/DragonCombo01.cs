@@ -9,6 +9,7 @@ public class DragonCombo01 : ISkill
     int QTECount;
     int RequiredQTE;
     bool isSkillDone;
+    bool OnCounter;
 
     public DragonCombo01(EnemyManager enemyManager, int _qte)
     {
@@ -35,11 +36,13 @@ public class DragonCombo01 : ISkill
             if (enemyPhase.isParrying && Parryable)
             {
                 enemyPhase.ParrySuccess(true);
-                QTECount++;
-                if (RequiredQTE == QTECount)
-                {
-                    target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
-                }
+                //QTECount++;
+                //if (RequiredQTE == QTECount)
+                //{
+                //    target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
+                //    QTECount = 0;
+
+                //}
             }
             else if (enemyPhase.isEvading && Evadable)
             {
@@ -67,8 +70,16 @@ public class DragonCombo01 : ISkill
 
     public void Done()
     {
-        BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        //BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        foreach (BattlePhase target in enemyManager.battler.CurrentTargets)
+        {
+            target.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+        }
+
         QTECount = 0;
+        enemyManager.phaser.CurrentPhase = PhaseType.Wait;
+        BattleSystemManager.Instance.UpdateEntry();
+
     }
 
     IEnumerator EnemyComboProcess()
@@ -79,7 +90,7 @@ public class DragonCombo01 : ISkill
 
     IEnumerator EndEffect()
     {
-
+        Debug.Log("EndEffect Executed");
         enemyManager.phaser.CurrentPhase = PhaseType.Done;
         yield return new WaitForSeconds(2f);
         enemyManager.phaser.CurrentPhase = PhaseType.Wait;

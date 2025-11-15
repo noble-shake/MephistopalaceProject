@@ -36,10 +36,12 @@ public class DragonCombo02 : ISkill
             {
                 enemyPhase.ParrySuccess(true);
                 QTECount++;
-                if (RequiredQTE == QTECount)
-                {
-                    target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
-                }
+                //if (RequiredQTE == QTECount)
+                //{
+                //    QTECount = 0;
+                //    enemyManager.phaser.CurrentPhase = PhaseType.Wait;
+                //    target.GetComponent<PlayerPhase>().OnCounterAttack(enemyManager);
+                //}
             }
             else if (enemyPhase.isEvading && Evadable)
             {
@@ -67,8 +69,14 @@ public class DragonCombo02 : ISkill
 
     public void Done()
     {
-        BattleSystemManager.Instance.CoroutineRunner(EndEffect());
+        foreach (BattlePhase target in enemyManager.battler.CurrentTargets)
+        {
+            target.AllocatedPoint.GetComponent<AllocatedTransform>().circleObject.gameObject.SetActive(false);
+        }
+        //BattleSystemManager.Instance.CoroutineRunner(EndEffect());
         QTECount = 0;
+        enemyManager.phaser.CurrentPhase = PhaseType.Wait;
+        BattleSystemManager.Instance.UpdateEntry();
     }
 
     IEnumerator EnemyComboProcess()

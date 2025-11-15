@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
-using System.Data;
 
 [System.Serializable]
 public enum CameraType

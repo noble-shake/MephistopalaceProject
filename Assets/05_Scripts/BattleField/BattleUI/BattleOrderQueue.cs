@@ -26,7 +26,7 @@ public class BattleOrderQueue : MonoBehaviour
     {
         canvas.alpha = 0f;
         float curTime = 0f;
-        while (curTime < 0f)
+        while (curTime < 1f)
         { 
             curTime += Time.deltaTime * 2f;
             if (curTime > 1f) curTime = 1f;
@@ -44,7 +44,7 @@ public class BattleOrderQueue : MonoBehaviour
     {
         canvas.alpha = 1f;
         float curTime = 0f;
-        while (curTime < 0f)
+        while (curTime < 1f)
         {
             curTime += Time.deltaTime * 2f;
             if (curTime > 1f) curTime = 1f;
