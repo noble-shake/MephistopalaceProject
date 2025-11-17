@@ -25,3 +25,6 @@ Animation 이벤트 및 Skill 시스템
 - 적 AI 로직
 
 Sound & Timelne Event
+
+
+영상 : [플레이 영상](https://youtu.be/riH7HTbKuA8)
