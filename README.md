@@ -8,23 +8,24 @@
 
 ## Implements
 
-Encounter System
+1. Encounter System
 - 캐릭터 조작
 - 적 유닛 정찰
 - 상호작용 오브젝트
 - 인벤토리 시스템
+- Battle System으로 전환
 
-Battle System
+2. Battle System
 - Phase 방식의 턴제 시스템
 - QTE 이벤트
 - Parry & Evade 시스템
 
-Animation 이벤트 및 Skill 시스템
+3. Animation 이벤트 및 Skill 시스템
 - 애니메이션 이벤트 함수기반의 대미지 적용 
 - 스킬 등록
 - 적 AI 로직
 
-Sound & Timelne Event
+4. Sound & Timelne Event
 
-
+## Reference
 영상 : [플레이 영상](https://youtu.be/riH7HTbKuA8)
