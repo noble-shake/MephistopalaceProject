@@ -26,28 +26,19 @@ public class OptionPanel : MenuPanel
         audioMixer.SetFloat("Volume", Mathf.Log10(Volume) * 20);
     }
 
-    public void SetAudioMute()
-    {
-        if (isMute == false)
-        {
-            isMute = true;
-            audioMixer.GetFloat("Volume", out float curVolume);
-            AudioVolume = curVolume;
-            SetAudioVolume(0.001f);
-
-
-        }
-        else
-        {
-            isMute = false;
-            SetAudioVolume(AudioVolume);
-        }
-    }
-
     public void OnToggledMute(bool isOn)
     {
         isMute = isOn;
-        SetAudioMute();
+        if (isMute) // false => true
+        {
+            audioMixer.GetFloat("Volume", out float curVolume);
+            AudioVolume = curVolume;
+            SetAudioVolume(0.001f);
+        }
+        else
+        {
+            SetAudioVolume(AudioVolume);
+        }
     }
 
     public void OnChangedVolume(float Volume)

@@ -41,8 +41,8 @@ public class MagicianSpecial: ISkill
             EnemyPhase enemyPhase = (EnemyPhase)target;
             int success = BattleSystemManager.Instance.SuccessQTE;
             int total = BattleSystemManager.Instance.TotalQTE;
-            int actualMinATK = (int)(playerManager.status.aMinATK * 0.3f) + (int)(playerManager.status.aMinATK * 0.3f * (success / total));
-            int actualMaxATK = (int)(playerManager.status.aMaxATK * 0.3f) + (int)(playerManager.status.aMinATK * 0.3f * (success / total));
+            int actualMinATK = (int)(playerManager.status.aMinATK * 0.7f) + (int)(playerManager.status.aMinATK * 0.7f * (success / total));
+            int actualMaxATK = (int)(playerManager.status.aMaxATK * 0.7f) + (int)(playerManager.status.aMinATK * 0.7f * (success / total));
             int HitDamage = UnityEngine.Random.Range(actualMinATK, actualMaxATK + 1);
             Debug.Log(HitDamage);
             enemyPhase.enemyManager.status.HPChange(-HitDamage);

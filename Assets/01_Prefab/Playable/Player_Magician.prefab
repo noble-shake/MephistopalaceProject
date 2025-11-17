@@ -2219,8 +2219,8 @@ MonoBehaviour:
   controller: {fileID: 0}
   rigid: {fileID: 0}
   CharacterSpeed: 5
-  RotationSpeed: 10
-  RotationLimit: 10
+  RotationSpeed: 5
+  RotationLimit: 5
   GravityVector: {x: 0, y: -9.81, z: 0}
   SwitchingDelay: 0
   FootStepCnt: 0

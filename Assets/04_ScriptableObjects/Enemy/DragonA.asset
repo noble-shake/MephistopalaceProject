@@ -22,10 +22,10 @@ MonoBehaviour:
   CharacterDescription: {fileID: 0}
   MinLevel: 30
   MaxLevel: 30
-  HP: 500
+  HP: 1200
   AP: 0
-  MinATK: 8
-  MaxATK: 10
+  MinATK: 15
+  MaxATK: 18
   SPD: 1
   DEF: 5
   CRT: 0

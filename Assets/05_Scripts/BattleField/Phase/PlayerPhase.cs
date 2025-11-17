@@ -370,6 +370,8 @@ public class PlayerPhase : BattlePhase
 
     public void ParryActionUpdate()
     {
+        if (playerManager.status.isDead) return;
+
         bool ExecuteInput = InputManager.Instance.AttackInput;
         bool BackInput = InputManager.Instance.CrouchInput;
 
