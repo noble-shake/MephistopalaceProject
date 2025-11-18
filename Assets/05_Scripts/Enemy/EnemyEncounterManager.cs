@@ -28,8 +28,6 @@ public class EnemyEncounterManager : MonoBehaviour
         4. TRACE : Trace Player.
         5. ATTACK : Attack Player and Encount Battle.
         6. GROGGY : Hit by Magician Attack.
-
-
      */
 
     private void Start()
@@ -51,15 +49,9 @@ public class EnemyEncounterManager : MonoBehaviour
             AttackSequenceBind();
             TraceSequenceBind();
             PatrolSequenceBind();
-
-
-            //GroggySequenceBind();
             RootNode.Add(AttackSequence);
             RootNode.Add(TraceSequence);
             RootNode.Add(PatrolSequence);
-
-
-            //RootNode.Add(GroggySequence);
         }
 
 
@@ -108,7 +100,6 @@ public class EnemyEncounterManager : MonoBehaviour
 
     #endregion
 
-
     #region Groggy Sequence
 
     private void GroggySequenceBind()
@@ -120,7 +111,6 @@ public class EnemyEncounterManager : MonoBehaviour
 
 
     #endregion
-
 
     #region SLEEP Sequence
 

@@ -390,7 +390,7 @@ public class PlayerPhase : BattlePhase
             CurrentCooltime = ParryCooltime;
             isParrying = true;
             playerManager.animator.animator.Play("BattleParry");
-            QTEduration = 0.6f;
+            QTEduration = 0.4f;
         }
 
         if (BackInput)
@@ -400,7 +400,7 @@ public class PlayerPhase : BattlePhase
             CurrentCooltime = EvadeCooltime;
             isEvading = true;
             playerManager.animator.animator.Play("BattleEvade");
-            QTEduration = 0.6f;
+            QTEduration = 0.2f;
         }
 
     }
@@ -440,8 +440,6 @@ public class PlayerPhase : BattlePhase
         }
 
         playerManager.status.GainAP(2);
-
-
 
         foreach (BattlePhase e in playerManager.battler.CurrentTargets)
         {

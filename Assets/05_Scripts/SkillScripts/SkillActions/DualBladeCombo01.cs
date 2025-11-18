@@ -21,12 +21,9 @@ public class DualBladeCombo01 : ISkill
 
     public void Execute()
     {
-
         if (isPlayer)
         {
-
             playerManager.status.GainAP(1);
-
         }
         EventMessageManager.Instance.MessageQueueRegistry(new EventContainer() { eventType = ContextType.Battle, Context = "마구 베기 스킬을 사용합니다." });
         playerManager.battler.MoveToTarget(playerManager.battler.CurrentTargets[0], DoubleSlashProcess());
